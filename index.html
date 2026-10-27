@@ -355,17 +355,18 @@
               <h4 class="h3 featured-title">SDET Automation Framework</h4>
 
               <p class="featured-text">
-                BDD UI and API test automation for a web storefront and a booking API, running on every change and
-                nightly in GitHub Actions. Each run publishes a release-readiness report with exit criteria, open
-                defects and a Go / No-go recommendation.
+                BDD UI and API test automation across a storefront, an online bank (ParaBank), two REST APIs and an
+                OWASP-aligned security suite, running on every change and nightly in GitHub Actions. Each run publishes
+                a release-readiness report with exit criteria, open defects and a Go / No-go recommendation.
               </p>
 
               <ul class="tag-list">
                 <li class="tag">pytest-bdd</li>
                 <li class="tag">Selenium</li>
                 <li class="tag">API &amp; JSON Schema</li>
+                <li class="tag">Security (SQLi / XSS)</li>
                 <li class="tag">GitHub Actions</li>
-                <li class="tag">4 defects found</li>
+                <li class="tag">6 findings</li>
               </ul>
 
               <div class="publication-actions">
@@ -806,15 +807,16 @@
 
               <div class="project-details" hidden>
                 <p class="project-meta">Personal open-source project &middot; Python &middot; GitHub Actions</p>
-                <p>A production-style automation framework for a web storefront and a REST API, built the way I
-                  build them for banking clients, with a published release-readiness report.</p>
+                <p>A production-style automation framework spanning a storefront, an online bank, two REST APIs and a
+                  security suite, built the way I build them for banking clients, with a published release-readiness
+                  report.</p>
                 <ul>
-                  <li>BDD scenarios (pytest-bdd) over Selenium page objects; API tests with JSON Schema contracts.
-                  </li>
-                  <li>Order totals verified to the cent; every API write attempted without authorisation.</li>
-                  <li>CI on every change and nightly across four parallel workers; screenshots kept as evidence.</li>
-                  <li>Readiness report with exit criteria and a Go / No-go recommendation.</li>
-                  <li>Found and logged 4 defects, including a price displayed as $59.980000000000004.</li>
+                  <li>BDD scenarios (pytest-bdd) over Selenium page objects; storefront and ParaBank banking (UI + REST).</li>
+                  <li>API breadth: restful-booker contracts (JSON Schema) and the YouTube Data API.</li>
+                  <li>OWASP-aligned security suite: SQL injection, XSS, broken access control and security headers,
+                    with OWASP Juice Shop as a known-vulnerable reference target.</li>
+                  <li>Order totals verified to the cent; CI on every change and nightly; screenshots kept as evidence.</li>
+                  <li>Readiness report with a security gate and a Go / No-go recommendation; 62 tests, 6 findings logged.</li>
                 </ul>
                 <div class="modal-actions">
                   <a href="https://artysficial.github.io/sdet-automation-framework/" class="btn-primary"
