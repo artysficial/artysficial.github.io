@@ -222,5 +222,30 @@ window.addEventListener("hashchange", function () { showPage(location.hash.slice
 
 
 
+// theme toggle (the initial theme is applied by an inline script in <head>)
+const themeBtn = document.querySelector("[data-theme-btn]");
+const systemLight = window.matchMedia("(prefers-color-scheme: light)");
+
+const setTheme = function (theme) { document.documentElement.setAttribute("data-theme", theme); }
+
+themeBtn.addEventListener("click", function () {
+
+  const theme = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+  setTheme(theme);
+  try { localStorage.setItem("theme", theme); } catch (error) { }
+
+});
+
+// follow the system setting until the visitor picks a theme
+systemLight.addEventListener("change", function (event) {
+
+  let saved = null;
+  try { saved = localStorage.getItem("theme"); } catch (error) { }
+  if (!saved) setTheme(event.matches ? "light" : "dark");
+
+});
+
+
+
 // footer year
 document.querySelector("[data-year]").textContent = new Date().getFullYear();

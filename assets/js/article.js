@@ -28,5 +28,18 @@ copyLinkBtn.addEventListener("click", async function () {
 
 
 
+// theme toggle (the initial theme is applied by an inline script in <head>)
+const themeBtn = document.querySelector("[data-theme-btn]");
+
+themeBtn.addEventListener("click", function () {
+
+  const theme = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", theme);
+  try { localStorage.setItem("theme", theme); } catch (error) { }
+
+});
+
+
+
 // footer year
 document.querySelector("[data-year]").textContent = new Date().getFullYear();

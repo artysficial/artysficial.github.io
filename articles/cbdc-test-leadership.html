@@ -7,20 +7,31 @@
   <title>Quality engineering for Central Bank Digital Currency | Rahmadani Tyas Ningrum</title>
   <meta name="description" content="What changes when the client is a central bank: risk-based test strategy, entry and exit criteria, device and card coverage, and reporting that supports a go/no-go call.">
   <meta name="author" content="Rahmadani Tyas Ningrum">
-  <link rel="canonical" href="https://www.artysficial.co.id/articles/cbdc-test-leadership.html">
+  <link rel="canonical" href="https://artysficial.github.io/articles/cbdc-test-leadership.html">
 
   <meta property="og:type" content="article">
   <meta property="og:title" content="Quality engineering for Central Bank Digital Currency">
   <meta property="og:description" content="What changes when the client is a central bank: risk-based test strategy, entry and exit criteria, device and card coverage, and reporting that supports a go/no-go call.">
-  <meta property="og:url" content="https://www.artysficial.co.id/articles/cbdc-test-leadership.html">
+  <meta property="og:url" content="https://artysficial.github.io/articles/cbdc-test-leadership.html">
   <meta property="article:published_time" content="2026-10-27">
 
-  <link rel="icon" href="../assets/images/avatar-memoji.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+
+  <script>
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem("theme"); } catch (error) { }
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
   <link rel="stylesheet" href="../assets/css/article.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -29,7 +40,7 @@
     "headline": "Quality engineering for Central Bank Digital Currency",
     "description": "What changes when the client is a central bank: risk-based test strategy, entry and exit criteria, device and card coverage, and reporting that supports a go/no-go call.",
     "datePublished": "2026-10-27",
-    "author": { "@type": "Person", "name": "Rahmadani Tyas Ningrum", "url": "https://www.artysficial.co.id/" }
+    "author": { "@type": "Person", "name": "Rahmadani Tyas Ningrum", "url": "https://artysficial.github.io/" }
   }
   </script>
 </head>
@@ -39,11 +50,18 @@
   <header class="topbar">
     <div class="topbar-inner">
       <a href="../index.html" class="brand">
-        <img src="../assets/images/avatar-memoji.svg" alt="" width="34" height="34">
+        <img src="../assets/images/avatar-memoji.png" alt="" width="34" height="34">
         <span>Rahmadani Tyas Ningrum</span>
       </a>
 
-      <a href="../index.html#insights" class="back-link">&larr; All insights</a>
+      <div class="topbar-actions">
+        <a href="../index.html#insights" class="back-link">&larr; All insights</a>
+
+        <button class="theme-btn" type="button" data-theme-btn aria-label="Switch between light and dark mode">
+          <ion-icon class="icon-moon" name="moon-outline"></ion-icon>
+          <ion-icon class="icon-sun" name="sunny-outline"></ion-icon>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -64,7 +82,7 @@
       <p class="lead">What changes when the client is a central bank: risk-based test strategy, entry and exit criteria, device and card coverage, and reporting that supports a go/no-go call.</p>
 
       <div class="byline">
-        <img src="../assets/images/avatar-memoji.svg" alt="" width="44" height="44">
+        <img src="../assets/images/avatar-memoji.png" alt="" width="44" height="44">
         <div>
           <strong>Rahmadani Tyas Ningrum</strong>
           <span>Test Lead &amp; Senior Automation SDET</span>
@@ -169,12 +187,12 @@
 
     <div class="share">
       <span>Found this useful?</span>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.artysficial.co.id/articles/cbdc-test-leadership.html" class="btn" target="_blank" rel="noopener" data-share-linkedin>Share on LinkedIn</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://artysficial.github.io/articles/cbdc-test-leadership.html" class="btn" target="_blank" rel="noopener" data-share-linkedin>Share on LinkedIn</a>
       <button class="btn" type="button" data-copy-link><span>Copy link</span></button>
     </div>
 
     <section class="author-card">
-      <img src="../assets/images/avatar-memoji.svg" alt="Memoji-style avatar of Rahmadani Tyas Ningrum" width="72" height="72">
+      <img src="../assets/images/avatar-memoji.png" alt="Memoji of Rahmadani Tyas Ningrum" width="72" height="72">
       <div>
         <h2>About the author</h2>
         <p>
@@ -207,6 +225,9 @@
   </footer>
 
   <script src="../assets/js/article.js"></script>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 

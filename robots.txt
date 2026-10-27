@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.artysficial.co.id/sitemap.xml
+Sitemap: https://artysficial.github.io/sitemap.xml

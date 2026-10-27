@@ -9,7 +9,7 @@
   <meta name="description"
     content="Rahmadani Tyas Ningrum: quality engineering consultant for mission-critical banking and payment security technology. Test Lead for CBDC, Senior Automation SDET for HSM, eUICC and smart card testing.">
   <meta name="author" content="Rahmadani Tyas Ningrum">
-  <link rel="canonical" href="https://www.artysficial.co.id/">
+  <link rel="canonical" href="https://artysficial.github.io/">
 
   <!--
     - open graph
@@ -18,13 +18,28 @@
   <meta property="og:title" content="Rahmadani Tyas Ningrum | Test Lead & Senior SDET">
   <meta property="og:description"
     content="Quality engineering for central banks, payment security and telecom: CBDC, HSM, eUICC and smart card testing.">
-  <meta property="og:url" content="https://www.artysficial.co.id/">
-  <meta property="og:image" content="https://www.artysficial.co.id/assets/images/avatar-memoji.svg">
+  <meta property="og:url" content="https://artysficial.github.io/">
+  <meta property="og:image" content="https://artysficial.github.io/assets/images/avatar-memoji.png">
 
   <!--
     - favicon
   -->
-  <link rel="icon" href="./assets/images/avatar-memoji.svg" type="image/svg+xml">
+  <link rel="icon" href="./assets/images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="./assets/images/avatar-memoji.png">
+
+  <!--
+    - apply the saved or system theme before first paint
+  -->
+  <script>
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem("theme"); } catch (error) { }
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
 
   <!--
     - custom css link
@@ -36,7 +51,7 @@
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -46,7 +61,7 @@
     "jobTitle": "Test Lead & Senior Automation SDET",
     "worksFor": { "@type": "Organization", "name": "IDEMIA Technologies Indonesia" },
     "email": "mailto:artysficial@gmail.com",
-    "url": "https://www.artysficial.co.id/",
+    "url": "https://artysficial.github.io/",
     "sameAs": ["https://www.linkedin.com/in/rahmadani-t-747a77186"],
     "address": { "@type": "PostalAddress", "addressLocality": "Jakarta", "addressCountry": "ID" }
   }
@@ -70,7 +85,7 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="./assets/images/avatar-memoji.svg" alt="Memoji-style avatar of Rahmadani Tyas Ningrum" width="80">
+          <img src="./assets/images/avatar-memoji.png" alt="Memoji of Rahmadani Tyas Ningrum" width="80">
         </figure>
 
         <div class="info-content">
@@ -227,6 +242,13 @@
 
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link="contact">Contact</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="theme-btn" data-theme-btn aria-label="Switch between light and dark mode">
+              <ion-icon class="icon-moon" name="moon-outline"></ion-icon>
+              <ion-icon class="icon-sun" name="sunny-outline"></ion-icon>
+            </button>
           </li>
 
         </ul>
@@ -711,7 +733,7 @@
             <li class="project-item  active" data-filter-item data-category="banking &amp; payments">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 192;">
+                <figure class="project-img cover" style="--hue: 22;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -745,7 +767,7 @@
             <li class="project-item  active" data-filter-item data-category="security &amp; telecom">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 215;">
+                <figure class="project-img cover" style="--hue: 345;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -778,7 +800,7 @@
             <li class="project-item  active" data-filter-item data-category="banking &amp; payments">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 168;">
+                <figure class="project-img cover" style="--hue: 34;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -809,7 +831,7 @@
             <li class="project-item  active" data-filter-item data-category="security &amp; telecom">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 262;">
+                <figure class="project-img cover" style="--hue: 12;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -840,7 +862,7 @@
             <li class="project-item  active" data-filter-item data-category="automation &amp; devops">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 140;">
+                <figure class="project-img cover" style="--hue: 28;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -870,7 +892,7 @@
             <li class="project-item  active" data-filter-item data-category="automation &amp; devops">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 32;">
+                <figure class="project-img cover" style="--hue: 0;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -900,7 +922,7 @@
             <li class="project-item  active" data-filter-item data-category="security &amp; telecom">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 350;">
+                <figure class="project-img cover" style="--hue: 16;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -929,7 +951,7 @@
             <li class="project-item  active" data-filter-item data-category="automation &amp; devops">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 48;">
+                <figure class="project-img cover" style="--hue: 38;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -959,7 +981,7 @@
             <li class="project-item  active" data-filter-item data-category="research">
               <button class="project-card" data-project-btn>
 
-                <figure class="project-img cover" style="--hue: 280;">
+                <figure class="project-img cover" style="--hue: 330;">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
@@ -1122,7 +1144,7 @@
             <li class="blog-post-item">
               <a href="./articles/euicc-5g-suci-testing.html">
 
-                <figure class="blog-banner-box cover" style="--hue: 262;">
+                <figure class="blog-banner-box cover" style="--hue: 12;">
                   <ion-icon class="cover-icon" name="cellular-outline"></ion-icon>
                 </figure>
 
@@ -1149,7 +1171,7 @@
             <li class="blog-post-item">
               <a href="./articles/hsm-testing.html">
 
-                <figure class="blog-banner-box cover" style="--hue: 215;">
+                <figure class="blog-banner-box cover" style="--hue: 345;">
                   <ion-icon class="cover-icon" name="lock-closed-outline"></ion-icon>
                 </figure>
 
@@ -1177,7 +1199,7 @@
             <li class="blog-post-item">
               <a href="./articles/cbdc-test-leadership.html">
 
-                <figure class="blog-banner-box cover" style="--hue: 192;">
+                <figure class="blog-banner-box cover" style="--hue: 22;">
                   <ion-icon class="cover-icon" name="cash-outline"></ion-icon>
                 </figure>
 
@@ -1204,7 +1226,7 @@
             <li class="blog-post-item">
               <a href="./articles/tdd-to-bdd-framework.html">
 
-                <figure class="blog-banner-box cover" style="--hue: 32;">
+                <figure class="blog-banner-box cover" style="--hue: 0;">
                   <ion-icon class="cover-icon" name="layers-outline"></ion-icon>
                 </figure>
 
@@ -1231,7 +1253,7 @@
             <li class="blog-post-item">
               <a href="./articles/jenkins-jira-traceability.html">
 
-                <figure class="blog-banner-box cover" style="--hue: 140;">
+                <figure class="blog-banner-box cover" style="--hue: 28;">
                   <ion-icon class="cover-icon" name="sync-outline"></ion-icon>
                 </figure>
 
@@ -1258,7 +1280,7 @@
             <li class="blog-post-item">
               <a href="./articles/release-readiness-reporting.html">
 
-                <figure class="blog-banner-box cover" style="--hue: 350;">
+                <figure class="blog-banner-box cover" style="--hue: 16;">
                   <ion-icon class="cover-icon" name="stats-chart-outline"></ion-icon>
                 </figure>
 
