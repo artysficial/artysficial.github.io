@@ -184,6 +184,13 @@
           </li>
 
           <li class="social-item">
+            <a href="https://github.com/artysficial" class="social-link" target="_blank" rel="noopener"
+              aria-label="GitHub">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
             <a href="mailto:artysficial@gmail.com" class="social-link" aria-label="Email">
               <ion-icon name="mail"></ion-icon>
             </a>
@@ -328,6 +335,55 @@
             </li>
 
           </ul>
+
+        </section>
+
+
+        <!--
+          - featured project
+        -->
+
+        <section class="featured">
+
+          <h3 class="h3 service-title">Featured project</h3>
+
+          <div class="featured-card">
+
+            <div class="featured-body">
+              <p class="featured-eyebrow">Open source &middot; Python &middot; CI/CD</p>
+
+              <h4 class="h3 featured-title">SDET Automation Framework</h4>
+
+              <p class="featured-text">
+                BDD UI and API test automation for a web storefront and a booking API, running on every change and
+                nightly in GitHub Actions. Each run publishes a release-readiness report with exit criteria, open
+                defects and a Go / No-go recommendation.
+              </p>
+
+              <ul class="tag-list">
+                <li class="tag">pytest-bdd</li>
+                <li class="tag">Selenium</li>
+                <li class="tag">API &amp; JSON Schema</li>
+                <li class="tag">GitHub Actions</li>
+                <li class="tag">4 defects found</li>
+              </ul>
+
+              <div class="publication-actions">
+                <a href="https://artysficial.github.io/sdet-automation-framework/" class="btn-primary" target="_blank"
+                  rel="noopener">
+                  <ion-icon name="stats-chart-outline"></ion-icon>
+                  <span>View live report</span>
+                </a>
+
+                <a href="https://github.com/artysficial/sdet-automation-framework" class="btn-outline"
+                  target="_blank" rel="noopener">
+                  <ion-icon name="logo-github"></ion-icon>
+                  <span>Source code</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
 
         </section>
 
@@ -729,6 +785,51 @@
           </div>
 
           <ul class="project-list">
+
+            <li class="project-item  active" data-filter-item data-category="automation &amp; devops">
+              <button class="project-card" data-project-btn>
+
+                <figure class="project-img cover" style="--hue: 18;">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <ion-icon class="cover-icon" name="logo-github"></ion-icon>
+                  <span class="cover-label">Open source &middot; Live report</span>
+                </figure>
+
+                <h3 class="project-title">SDET Automation Framework</h3>
+
+                <p class="project-category">Automation &amp; DevOps</p>
+
+              </button>
+
+              <div class="project-details" hidden>
+                <p class="project-meta">Personal open-source project &middot; Python &middot; GitHub Actions</p>
+                <p>A production-style automation framework for a web storefront and a REST API, built the way I
+                  build them for banking clients, with a published release-readiness report.</p>
+                <ul>
+                  <li>BDD scenarios (pytest-bdd) over Selenium page objects; API tests with JSON Schema contracts.
+                  </li>
+                  <li>Order totals verified to the cent; every API write attempted without authorisation.</li>
+                  <li>CI on every change and nightly across four parallel workers; screenshots kept as evidence.</li>
+                  <li>Readiness report with exit criteria and a Go / No-go recommendation.</li>
+                  <li>Found and logged 4 defects, including a price displayed as $59.980000000000004.</li>
+                </ul>
+                <div class="modal-actions">
+                  <a href="https://artysficial.github.io/sdet-automation-framework/" class="btn-primary"
+                    target="_blank" rel="noopener">
+                    <ion-icon name="stats-chart-outline"></ion-icon>
+                    <span>Live report</span>
+                  </a>
+                  <a href="https://github.com/artysficial/sdet-automation-framework" class="btn-outline"
+                    target="_blank" rel="noopener">
+                    <ion-icon name="logo-github"></ion-icon>
+                    <span>Source code</span>
+                  </a>
+                </div>
+              </div>
+            </li>
 
             <li class="project-item  active" data-filter-item data-category="banking &amp; payments">
               <button class="project-card" data-project-btn>

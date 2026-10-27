@@ -2152,6 +2152,60 @@ textarea.form-input::-webkit-resizer { display: none; }
 .domains { margin-bottom: 15px; }
 
 /**
+ * featured project
+ */
+
+.featured { margin-bottom: 35px; }
+
+.featured-card {
+  position: relative;
+  background: var(--gradient-border);
+  border-radius: 16px;
+  padding: 1px;
+  box-shadow: var(--shadow-2);
+}
+
+.featured-body {
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-glow), transparent 60%),
+    var(--gradient-card);
+  border-radius: 15px;
+  padding: 22px;
+}
+
+.featured-eyebrow {
+  color: var(--accent);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-500);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+
+.featured-title { margin-bottom: 10px; }
+
+.featured-text {
+  color: var(--text);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.featured .publication-actions { margin-top: 18px; }
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.project-modal .modal-actions a { color: var(--accent); }
+
+.project-modal .modal-actions .btn-primary { color: var(--on-accent); }
+
+/**
  * resume
  */
 
@@ -2291,6 +2345,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 .project-title { text-transform: none; }
 
 .project-modal {
+  display: block;
   max-width: 600px;
   width: calc(100% - 24px);
 }
