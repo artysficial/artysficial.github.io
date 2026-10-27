@@ -16,49 +16,53 @@ sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); }
 
 
 
-// testimonials variables
-const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
+// project modal variables
+const projectBtns = document.querySelectorAll("[data-project-btn]");
 const modalContainer = document.querySelector("[data-modal-container]");
 const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
 const overlay = document.querySelector("[data-overlay]");
-
-// modal variable
-const modalImg = document.querySelector("[data-modal-img]");
 const modalTitle = document.querySelector("[data-modal-title]");
 const modalText = document.querySelector("[data-modal-text]");
 
-// modal toggle function
-const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
+// modal open / close functions
+const openModal = function () {
+  modalContainer.classList.add("active");
+  overlay.classList.add("active");
+  modalCloseBtn.focus();
 }
 
-// add click event to all modal items
-for (let i = 0; i < testimonialsItem.length; i++) {
+const closeModal = function () {
+  modalContainer.classList.remove("active");
+  overlay.classList.remove("active");
+}
 
-  testimonialsItem[i].addEventListener("click", function () {
+// fill the modal from the project's hidden details and open it
+for (let i = 0; i < projectBtns.length; i++) {
 
-    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+  projectBtns[i].addEventListener("click", function () {
 
-    testimonialsModalFunc();
+    const item = this.closest("[data-filter-item]");
+    modalTitle.textContent = item.querySelector(".project-title").textContent;
+    modalText.innerHTML = item.querySelector(".project-details").innerHTML;
+
+    openModal();
 
   });
 
 }
 
-// add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
+modalCloseBtn.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") closeModal();
+});
 
 
 
 // custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
-const selectValue = document.querySelector("[data-selecct-value]");
+const selectValue = document.querySelector("[data-select-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
 select.addEventListener("click", function () { elementToggleFunc(this); });
@@ -115,6 +119,33 @@ for (let i = 0; i < filterBtn.length; i++) {
 
 
 
+// copy citation
+const copyCitationBtn = document.querySelector("[data-copy-citation]");
+const copyLabel = document.querySelector("[data-copy-label]");
+const citation = document.querySelector("[data-citation]");
+
+copyCitationBtn.addEventListener("click", async function () {
+
+  const text = citation.textContent.replace(/\s+/g, " ").trim();
+
+  try {
+    await navigator.clipboard.writeText(text);
+    copyLabel.textContent = "Copied";
+  } catch (error) {
+    // clipboard can be blocked (e.g. file:// or old browsers): select the text instead
+    const range = document.createRange();
+    range.selectNodeContents(citation);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    copyLabel.textContent = "Selected, press Ctrl+C";
+  }
+
+  setTimeout(function () { copyLabel.textContent = "Copy citation"; }, 2500);
+
+});
+
+
+
 // contact form variables
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
@@ -134,26 +165,62 @@ for (let i = 0; i < formInputs.length; i++) {
   });
 }
 
+// compose the message in the visitor's email app (static hosting has no backend)
+form.addEventListener("submit", function (event) {
+
+  event.preventDefault();
+
+  const data = new FormData(form);
+  const subject = data.get("subject").trim() || "Portfolio enquiry from " + data.get("fullname").trim();
+  const body = data.get("message").trim() + "\n\n" + data.get("fullname").trim() + "\n" + data.get("email").trim();
+
+  window.location.href = "mailto:artysficial@gmail.com"
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(body);
+
+});
+
 
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
+// show one page and highlight its nav link
+const showPage = function (pageName) {
+
+  let found = false;
+
+  for (let i = 0; i < pages.length; i++) {
+    const isActive = pages[i].dataset.page === pageName;
+    pages[i].classList.toggle("active", isActive);
+    if (isActive) found = true;
+  }
+
+  if (!found) return showPage("about");
+
+  for (let i = 0; i < navigationLinks.length; i++) {
+    navigationLinks[i].classList.toggle("active", navigationLinks[i].dataset.navLink === pageName);
+  }
+
+}
+
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
 
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
-    }
+    history.replaceState(null, "", "#" + this.dataset.navLink);
+    showPage(this.dataset.navLink);
+    window.scrollTo(0, 0);
 
   });
 }
+
+// open the page named in the URL hash, e.g. index.html#insights
+showPage(location.hash.slice(1) || "about");
+window.addEventListener("hashchange", function () { showPage(location.hash.slice(1)); });
+
+
+
+// footer year
+document.querySelector("[data-year]").textContent = new Date().getFullYear();

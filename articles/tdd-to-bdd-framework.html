@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From TDD to BDD: a test framework stakeholders can read | Rahmadani Tyas Ningrum</title>
+  <meta name="description" content="How we moved a Python test framework from developer-style tests to Gherkin scenarios that clients review, without throwing away what already worked.">
+  <meta name="author" content="Rahmadani Tyas Ningrum">
+  <link rel="canonical" href="https://www.artysficial.co.id/articles/tdd-to-bdd-framework.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="From TDD to BDD: a test framework stakeholders can read">
+  <meta property="og:description" content="How we moved a Python test framework from developer-style tests to Gherkin scenarios that clients review, without throwing away what already worked.">
+  <meta property="og:url" content="https://www.artysficial.co.id/articles/tdd-to-bdd-framework.html">
+  <meta property="article:published_time" content="2026-10-27">
+
+  <link rel="icon" href="../assets/images/avatar-memoji.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/article.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "From TDD to BDD: a test framework stakeholders can read",
+    "description": "How we moved a Python test framework from developer-style tests to Gherkin scenarios that clients review, without throwing away what already worked.",
+    "datePublished": "2026-10-27",
+    "author": { "@type": "Person", "name": "Rahmadani Tyas Ningrum", "url": "https://www.artysficial.co.id/" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="../index.html" class="brand">
+        <img src="../assets/images/avatar-memoji.svg" alt="" width="34" height="34">
+        <span>Rahmadani Tyas Ningrum</span>
+      </a>
+
+      <a href="../index.html#insights" class="back-link">&larr; All insights</a>
+    </div>
+  </header>
+
+  <main class="post">
+
+    <article>
+
+      <p class="eyebrow">
+        <span class="category">Test automation</span>
+        <span>&middot;</span>
+        <time datetime="2026-10-27">October 2026</time>
+        <span>&middot;</span>
+        <span>7 min read</span>
+      </p>
+
+      <h1>From TDD to BDD: a test framework stakeholders can read</h1>
+
+      <p class="lead">How we moved a Python test framework from developer-style tests to Gherkin scenarios that clients review, without throwing away what already worked.</p>
+
+      <div class="byline">
+        <img src="../assets/images/avatar-memoji.svg" alt="" width="44" height="44">
+        <div>
+          <strong>Rahmadani Tyas Ningrum</strong>
+          <span>Test Lead &amp; Senior Automation SDET</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h2>Where we started</h2>
+
+        <p>
+          Our first automation framework followed a classic test-driven style: Python test functions, fixtures for set-up, and
+          assertions written by engineers for engineers. It worked. Tests were fast, and coverage grew. But two problems kept
+          coming back.
+        </p>
+
+        <ul>
+          <li><strong>Clients could not review our tests.</strong> When a business stakeholder asked "do you test the case where a transfer exceeds the daily limit?", the honest answer involved opening a Python file.</li>
+          <li><strong>Knowledge sat in code.</strong> New QA engineers had to read implementation details to understand what a test was even checking.</li>
+        </ul>
+
+        <p>
+          Behaviour-Driven Development (BDD) addresses both by putting a readable specification on top of the automation. We
+          moved the framework from TDD to BDD step by step, without rewriting what already worked.
+        </p>
+
+        <h2>Keep the engine, change the interface</h2>
+
+        <p>
+          The key decision was to <strong>keep the existing driver and helper layers</strong> (API clients, device drivers,
+          data builders) and add Gherkin scenarios as a new layer above them. Step definitions became thin adapters that call
+          into the code we already trusted.
+        </p>
+
+        <pre><code>features/            # Gherkin: readable by clients and new joiners
+          transfer.feature
+        steps/               # thin step definitions, no business logic
+          transfer_steps.py
+        lib/                 # unchanged: API clients, drivers, data builders
+        conftest.py</code></pre>
+
+        <p>A scenario reads like an acceptance criterion:</p>
+
+        <pre><code>Feature: Wallet-to-wallet transfer
+
+          Scenario Outline: Transfers respect the tier limit
+            Given a verified wallet at tier "&lt;tier&gt;" with a balance of 500.00
+            When the holder transfers &lt;amount&gt; to another wallet
+            Then the transfer is "&lt;result&gt;"
+
+            Examples:
+              | tier  | amount | result   |
+              | basic | 100.00 | accepted |
+              | basic | 250.01 | rejected |
+              | full  | 250.01 | accepted |</code></pre>
+
+        <p>And the step definitions, here with <code>pytest-bdd</code>, stay short:</p>
+
+        <pre><code>from pytest_bdd import given, parsers, scenarios, then, when
+
+        scenarios("../features/transfer.feature")
+
+
+        @given(parsers.parse('a verified wallet at tier "{tier}" with a balance of {balance:f}'),
+               target_fixture="wallet")
+        def wallet(api, tier, balance):
+            return api.create_wallet(tier=tier, balance=balance)
+
+
+        @when(parsers.parse("the holder transfers {amount:f} to another wallet"), target_fixture="response")
+        def transfer(api, wallet, amount):
+            return api.transfer(source=wallet, target=api.create_wallet(), amount=amount)
+
+
+        @then(parsers.parse('the transfer is "{result}"'))
+        def check_result(response, result):
+            assert response.status == result</code></pre>
+
+        <h2>Rules that kept the scenarios useful</h2>
+
+        <ul>
+          <li><strong>Declarative, not imperative.</strong> "When the holder transfers 100.00" rather than "When I tap Send, type 100, tap Confirm". UI details belong in the step code, so scenarios survive a redesign.</li>
+          <li><strong>One behaviour per scenario.</strong> If a scenario needs "and then" five times, it is testing several things.</li>
+          <li><strong>A shared step vocabulary.</strong> We reviewed new steps before adding them, which prevented dozens of slightly different "Given a wallet" phrasings.</li>
+          <li><strong>Tags for selection.</strong> <code>@smoke</code>, <code>@regression</code> and feature tags drive which scenarios run in which pipeline.</li>
+          <li><strong>Not everything becomes BDD.</strong> Low-level technical checks (byte formats, cryptographic vectors) stayed as plain tests. BDD earns its place where behaviour matters to a stakeholder.</li>
+        </ul>
+
+        <h2>Migrating without stopping delivery</h2>
+
+        <ol>
+          <li>Pick one feature with active client interest and convert its tests first.</li>
+          <li>Review the feature file with the client or product owner and adjust the wording to their language.</li>
+          <li>Convert further features as they are touched, rather than in one big rewrite.</li>
+          <li>Retire old tests only when the new scenarios cover the same behaviour and have run green in CI.</li>
+        </ol>
+
+        <h2>What changed</h2>
+
+        <p>
+          Feature files became the document we walked through with clients when agreeing what "done" meant. Reuse across
+          regression suites improved, because steps were shared instead of copied. And onboarding got faster: new QA
+          engineers could read the feature files on day one, then learn the step and library layers as they went. That made
+          the framework a teaching tool as much as a testing tool.
+        </p>
+
+        <div class="callout">
+          <strong>If you take one thing away:</strong> BDD is a communication practice that happens to run as tests. Write
+          the scenarios for the people who need to read them, and let the code underneath do the heavy lifting.
+        </div>
+      </div>
+
+    </article>
+
+    <div class="share">
+      <span>Found this useful?</span>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.artysficial.co.id/articles/tdd-to-bdd-framework.html" class="btn" target="_blank" rel="noopener" data-share-linkedin>Share on LinkedIn</a>
+      <button class="btn" type="button" data-copy-link><span>Copy link</span></button>
+    </div>
+
+    <section class="author-card">
+      <img src="../assets/images/avatar-memoji.svg" alt="Memoji-style avatar of Rahmadani Tyas Ningrum" width="72" height="72">
+      <div>
+        <h2>About the author</h2>
+        <p>
+          Rahmadani Tyas Ningrum is a quality engineering professional assuring banking and payment security
+          technology for central banks and government clients. She is Test Lead for a CBDC client and Senior Automation
+          SDET for a Hardware Security Module product at IDEMIA.
+        </p>
+        <div class="author-actions">
+          <a href="mailto:artysficial@gmail.com?subject=Re:%20From%20TDD%20to%20BDD:%20a%20test%20framework%20stakeholders%20can%20read" class="btn btn-primary">Email me</a>
+          <a href="https://www.linkedin.com/in/rahmadani-t-747a77186" class="btn" target="_blank" rel="noopener">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <nav class="more" aria-label="More insights">
+      <h2>More insights</h2>
+      <ul>
+        <li><a href="./euicc-5g-suci-testing.html">Testing eUICC for 5G: validating SUCI subscriber privacy</a></li>
+        <li><a href="./hsm-testing.html">Testing Hardware Security Modules: a regression strategy for cryptographic products</a></li>
+        <li><a href="./cbdc-test-leadership.html">Quality engineering for Central Bank Digital Currency</a></li>
+        <li><a href="./jenkins-jira-traceability.html">Closing the loop: Jenkins results into Jira test executions</a></li>
+        <li><a href="./release-readiness-reporting.html">Release-readiness reporting clients can act on</a></li>
+      </ul>
+    </nav>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span data-year>2026</span> Rahmadani Tyas Ningrum &middot; <a href="../index.html">Portfolio</a></p>
+  </footer>
+
+  <script src="../assets/js/article.js"></script>
+
+</body>
+
+</html>

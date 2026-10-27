@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closing the loop: Jenkins results into Jira test executions | Rahmadani Tyas Ningrum</title>
+  <meta name="description" content="A practical pattern for pushing automated test results into Jira, so every run is traceable to a requirement and nobody copies pass/fail by hand again.">
+  <meta name="author" content="Rahmadani Tyas Ningrum">
+  <link rel="canonical" href="https://www.artysficial.co.id/articles/jenkins-jira-traceability.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Closing the loop: Jenkins results into Jira test executions">
+  <meta property="og:description" content="A practical pattern for pushing automated test results into Jira, so every run is traceable to a requirement and nobody copies pass/fail by hand again.">
+  <meta property="og:url" content="https://www.artysficial.co.id/articles/jenkins-jira-traceability.html">
+  <meta property="article:published_time" content="2026-10-27">
+
+  <link rel="icon" href="../assets/images/avatar-memoji.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/article.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Closing the loop: Jenkins results into Jira test executions",
+    "description": "A practical pattern for pushing automated test results into Jira, so every run is traceable to a requirement and nobody copies pass/fail by hand again.",
+    "datePublished": "2026-10-27",
+    "author": { "@type": "Person", "name": "Rahmadani Tyas Ningrum", "url": "https://www.artysficial.co.id/" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="../index.html" class="brand">
+        <img src="../assets/images/avatar-memoji.svg" alt="" width="34" height="34">
+        <span>Rahmadani Tyas Ningrum</span>
+      </a>
+
+      <a href="../index.html#insights" class="back-link">&larr; All insights</a>
+    </div>
+  </header>
+
+  <main class="post">
+
+    <article>
+
+      <p class="eyebrow">
+        <span class="category">CI/CD</span>
+        <span>&middot;</span>
+        <time datetime="2026-10-27">October 2026</time>
+        <span>&middot;</span>
+        <span>6 min read</span>
+      </p>
+
+      <h1>Closing the loop: Jenkins results into Jira test executions</h1>
+
+      <p class="lead">A practical pattern for pushing automated test results into Jira, so every run is traceable to a requirement and nobody copies pass/fail by hand again.</p>
+
+      <div class="byline">
+        <img src="../assets/images/avatar-memoji.svg" alt="" width="44" height="44">
+        <div>
+          <strong>Rahmadani Tyas Ningrum</strong>
+          <span>Test Lead &amp; Senior Automation SDET</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h2>The problem</h2>
+
+        <p>
+          Automated Android tests ran in Jenkins and produced JSON results. The client, and our own release process, needed
+          those results in Jira test execution tickets, where each test is linked to the requirement it covers. In between
+          sat a person copying pass and fail statuses by hand after every run.
+        </p>
+
+        <p>
+          Manual transfer was slow, but the bigger cost was trust: a status typed into the wrong row, or a run that never got
+          reported, breaks traceability exactly when someone needs it. Working with the DevOps team, we automated the import.
+          It cut manual reporting effort by 40% and made every execution traceable back to a build.
+        </p>
+
+        <h2>The pattern</h2>
+
+        <ol>
+          <li><strong>Tag each automated test with its Jira test key</strong>, so the mapping lives next to the code.</li>
+          <li><strong>Produce a machine-readable result file</strong> at the end of every run.</li>
+          <li><strong>Transform it</strong> into the import format of your test management add-on (Xray, for example, accepts its own JSON, JUnit XML and Cucumber JSON).</li>
+          <li><strong>Post it from the pipeline</strong> to create or update the test execution, with a link back to the build.</li>
+        </ol>
+
+        <h2>In the pipeline</h2>
+
+        <pre><code>pipeline {
+          agent { label 'android' }
+          stages {
+            stage('Test') {
+              steps { sh './gradlew connectedAndroidTest' }
+            }
+          }
+          post {
+            always {
+              withCredentials([usernamePassword(credentialsId: 'xray-api',
+                               usernameVariable: 'XRAY_ID', passwordVariable: 'XRAY_SECRET')]) {
+                sh 'python tools/push_results.py results/report.json --build-url "$BUILD_URL"'
+              }
+            }
+          }
+        }</code></pre>
+
+        <p>
+          Running the upload in <code>post { always { ... } }</code> matters: failed runs are the ones you most need in Jira.
+        </p>
+
+        <h2>The import script</h2>
+
+        <p>
+          A simplified version for Xray Cloud. The script authenticates, maps results to test keys and imports a test
+          execution:
+        </p>
+
+        <pre><code>import json, os, sys
+        import requests
+
+        XRAY = "https://xray.cloud.getxray.app/api/v2"
+
+
+        def token():
+            response = requests.post(f"{XRAY}/authenticate", timeout=30, json={
+                "client_id": os.environ["XRAY_ID"], "client_secret": os.environ["XRAY_SECRET"]})
+            response.raise_for_status()
+            return response.json()
+
+
+        def to_xray(results, build_url):
+            return {
+                "info": {"summary": "Android regression", "description": f"Jenkins build: {build_url}"},
+                "tests": [{"testKey": r["jira_key"],
+                           "status": "PASSED" if r["passed"] else "FAILED",
+                           "comment": r.get("message", "")} for r in results],
+            }
+
+
+        results = json.load(open(sys.argv[1]))
+        unmapped = [r["name"] for r in results if not r.get("jira_key")]
+        if unmapped:
+            sys.exit(f"Tests without a Jira key: {unmapped}")
+
+        response = requests.post(f"{XRAY}/import/execution", timeout=60,
+                                 headers={"Authorization": f"Bearer {token()}"},
+                                 json=to_xray(results, sys.argv[3]))
+        response.raise_for_status()
+        print("Imported:", response.json()["key"])</code></pre>
+
+        <h2>Design decisions that paid off</h2>
+
+        <ul>
+          <li><strong>Fail loudly on unmapped tests.</strong> A test without a Jira key is a traceability gap; the script refuses to hide it.</li>
+          <li><strong>Link the build.</strong> Every execution carries the Jenkins build URL, so anyone in Jira can reach logs and artefacts in one click.</li>
+          <li><strong>Do not let Jira break the build.</strong> If the API is down, retry, then mark the build unstable rather than failed: the tests themselves still ran.</li>
+          <li><strong>Keep secrets in Jenkins credentials</strong>, never in the repository or the job configuration.</li>
+          <li><strong>Make it re-runnable.</strong> Re-importing the same results should update, not duplicate, the execution.</li>
+        </ul>
+
+        <h2>Why it matters beyond saved hours</h2>
+
+        <p>
+          With results flowing automatically, the Jira dashboards reflect reality on every build. Release-readiness
+          discussions move from "is this up to date?" to "what does it tell us?", and the requirement-to-evidence chain that
+          regulated clients ask for is there by default rather than assembled the night before an audit.
+        </p>
+      </div>
+
+    </article>
+
+    <div class="share">
+      <span>Found this useful?</span>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.artysficial.co.id/articles/jenkins-jira-traceability.html" class="btn" target="_blank" rel="noopener" data-share-linkedin>Share on LinkedIn</a>
+      <button class="btn" type="button" data-copy-link><span>Copy link</span></button>
+    </div>
+
+    <section class="author-card">
+      <img src="../assets/images/avatar-memoji.svg" alt="Memoji-style avatar of Rahmadani Tyas Ningrum" width="72" height="72">
+      <div>
+        <h2>About the author</h2>
+        <p>
+          Rahmadani Tyas Ningrum is a quality engineering professional assuring banking and payment security
+          technology for central banks and government clients. She is Test Lead for a CBDC client and Senior Automation
+          SDET for a Hardware Security Module product at IDEMIA.
+        </p>
+        <div class="author-actions">
+          <a href="mailto:artysficial@gmail.com?subject=Re:%20Closing%20the%20loop:%20Jenkins%20results%20into%20Jira%20test%20executions" class="btn btn-primary">Email me</a>
+          <a href="https://www.linkedin.com/in/rahmadani-t-747a77186" class="btn" target="_blank" rel="noopener">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <nav class="more" aria-label="More insights">
+      <h2>More insights</h2>
+      <ul>
+        <li><a href="./euicc-5g-suci-testing.html">Testing eUICC for 5G: validating SUCI subscriber privacy</a></li>
+        <li><a href="./hsm-testing.html">Testing Hardware Security Modules: a regression strategy for cryptographic products</a></li>
+        <li><a href="./cbdc-test-leadership.html">Quality engineering for Central Bank Digital Currency</a></li>
+        <li><a href="./tdd-to-bdd-framework.html">From TDD to BDD: a test framework stakeholders can read</a></li>
+        <li><a href="./release-readiness-reporting.html">Release-readiness reporting clients can act on</a></li>
+      </ul>
+    </nav>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span data-year>2026</span> Rahmadani Tyas Ningrum &middot; <a href="../index.html">Portfolio</a></p>
+  </footer>
+
+  <script src="../assets/js/article.js"></script>
+
+</body>
+
+</html>
