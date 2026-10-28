@@ -2,6 +2,7 @@
 
 const crypto = require('node:crypto');
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const express = require('express');
 const helmet = require('helmet');
@@ -59,7 +60,9 @@ function createApp(options = {}) {
   const production = env.NODE_ENV === 'production';
   const contentDir = options.contentDir ?? path.join(ROOT, 'content');
   const publicDir = path.join(ROOT, 'public');
-  const dataDir = options.dataDir ?? env.DATA_DIR ?? path.join(ROOT, 'data');
+  // Vercel's file system is read-only apart from the temp dir (and that is wiped often: use MONGODB_URI there)
+  const dataDir = options.dataDir ?? env.DATA_DIR
+    ?? (env.VERCEL ? path.join(os.tmpdir(), 'portfolio-data') : path.join(ROOT, 'data'));
   const log = options.log ?? console;
 
   // in development, edits to content/ show up on refresh without a restart

@@ -90,6 +90,18 @@ Set these as environment variables on the host, or in `.env` locally (see `.env.
 | `DATA_DIR` | Where downloads and messages are stored without MongoDB; defaults to `./data` |
 | `PORT` | Set automatically by most hosts |
 
+## Deploy for free on Vercel (no credit card)
+
+Vercel's Hobby plan runs the Express app as a serverless function (`api/index.js`, routed by `vercel.json`) and
+serves `public/` from its CDN. It does not sleep. Its file system is temporary, so set `MONGODB_URI` (see the Atlas
+steps below) to keep CV downloads and messages.
+
+1. Sign up at [vercel.com](https://vercel.com/signup) with GitHub (Hobby plan).
+2. **Add New > Project**, import this repository, and leave the framework preset on **Other**.
+3. Under **Environment Variables**, add `NODE_ENV=production`, `SITE_URL`, `SMTP_USER`, `SMTP_PASS`, `MAIL_TO`,
+   `ADMIN_PASSWORD` and `MONGODB_URI`, then **Deploy**.
+4. In **Settings > Git**, set the production branch to the branch you deploy from.
+
 ## Deploy for free (Render + MongoDB Atlas)
 
 GitHub Pages only serves static files, so the Node server runs on Render's free plan. Render's free disk is wiped

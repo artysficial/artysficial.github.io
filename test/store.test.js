@@ -50,6 +50,13 @@ test('createStores uses files unless MONGODB_URI is set', () => {
   assert.equal(mongo.location, 'MongoDB database "site"');
 });
 
+test('the Vercel entry point is a request handler that serves the site', async () => {
+  const handler = require('../api/index');
+  assert.equal(typeof handler, 'function');
+  await request(handler).get('/healthz').expect(200);
+  await request(handler).get('/articles/hsm-testing').expect(200);
+});
+
 test('a storage failure after the email was sent still reports success to the visitor', async () => {
   const broken = { append: async () => { throw new Error('database unreachable'); }, all: async () => [] };
   const mailer = fakeMailer();
