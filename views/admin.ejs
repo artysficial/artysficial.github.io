@@ -24,6 +24,9 @@
 
     <h1>CV downloads &amp; messages</h1>
 
+<% if (storageError) { %>
+    <p class="admin-alert">Stored data could not be read from <code><%= storage %></code>: <%= storageError %></p>
+<% } %>
 <% if (!mailConfigured) { %>
     <p class="admin-alert">Email delivery is not configured (SMTP_USER / SMTP_PASS). Contact messages are only stored
       below.</p>

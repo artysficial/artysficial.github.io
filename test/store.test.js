@@ -75,3 +75,16 @@ test('a storage failure after the email was sent still reports success to the vi
   // the CV still downloads when tracking cannot be stored
   await request(app).get('/cv').expect(200).expect('Content-Type', /pdf/);
 });
+
+test('the admin page explains a storage failure instead of erroring', async () => {
+  const broken = { append: async () => {}, all: async () => { throw new Error('bad auth : authentication failed'); } };
+  const app = createApp({
+    env: { NODE_ENV: 'test', ADMIN_PASSWORD: 's3cret' },
+    stores: { downloads: broken, messages: broken, location: 'MongoDB database "portfolio"', persistent: true },
+    mailer: fakeMailer(),
+    log: { warn() {}, error() {} },
+  });
+
+  const res = await request(app).get('/admin').auth('admin', 's3cret').expect(200);
+  assert.match(res.text, /could not be read from <code>MongoDB database &#34;portfolio&#34;<\/code>: bad auth : authentication failed/);
+});

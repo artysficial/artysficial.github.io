@@ -193,10 +193,25 @@ function createApp(options = {}) {
       rateLimit({ windowMs: 15 * 60 * 1000, limit: options.adminLimit ?? 30, standardHeaders: 'draft-7', legacyHeaders: false }),
       basicAuth({ user: env.ADMIN_USER || 'admin', password: env.ADMIN_PASSWORD }),
       async (req, res) => {
-        const stats = summarise({ downloads: await downloads.all(), messages: await messages.all() });
+        // show a storage problem on the page itself; the admin is the one person who can fix it
+        let events = { downloads: [], messages: [] };
+        let storageError = null;
+        try {
+          const [downloadEvents, messageEvents] = await Promise.all([downloads.all(), messages.all()]);
+          events = { downloads: downloadEvents, messages: messageEvents };
+        } catch (error) {
+          storageError = error.message;
+          log.error('Admin: storage could not be read:', error);
+        }
+
         res.set('Cache-Control', 'no-store');
         res.render('admin', {
-          site, stats, mailConfigured: mailer.configured, storage: stores.location, persistent: stores.persistent,
+          site,
+          stats: summarise(events),
+          storageError,
+          mailConfigured: mailer.configured,
+          storage: stores.location,
+          persistent: stores.persistent,
         });
       },
     );
