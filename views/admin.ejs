@@ -9,64 +9,108 @@
   <link rel="stylesheet" href="<%= asset('/assets/css/admin.css') %>">
 </head>
 
+<%
+  const shortDay = (iso) => monthYear(iso, true).split(' ')[0] + ' ' + Number(iso.slice(8, 10));
+  const when = (iso) => `${shortDay(iso)}, ${iso.slice(11, 16)}`;
+  const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+  const breakdowns = [
+    ['Download button', 'Which button visitors used', stats.bySource],
+    ['Referrer', 'Where visitors came from', stats.byReferrer],
+    ['Device', 'Phone or computer', stats.byDevice],
+  ];
+%>
+
 <body>
 
   <header class="topbar">
-    <div class="topbar-inner">
+    <div class="topbar-inner admin-topbar">
       <a href="/" class="brand">
         <img src="<%= site.avatar %>" alt="" width="34" height="34">
         <span>Site admin</span>
       </a>
+
+      <div class="topbar-actions">
+        <a href="/admin" class="btn">Refresh</a>
+        <a href="/" class="btn">View site</a>
+      </div>
     </div>
   </header>
 
   <main class="admin">
 
-    <h1>CV downloads &amp; messages</h1>
+    <div class="admin-head">
+      <h1>Dashboard</h1>
+      <p class="admin-sub">Updated <%= when(new Date().toISOString()) %> UTC &middot; data in <%= storage %></p>
+    </div>
 
 <% if (storageError) { %>
-    <p class="admin-alert">Stored data could not be read from <code><%= storage %></code>: <%= storageError %></p>
+    <p class="admin-alert" role="alert"><strong>Stored data could not be read.</strong> <%= storageError %></p>
 <% } %>
 <% if (!mailConfigured) { %>
-    <p class="admin-alert">Email delivery is not configured (SMTP_USER / SMTP_PASS). Contact messages are only stored
-      below.</p>
+    <p class="admin-alert" role="alert"><strong>Email delivery is off.</strong> Set SMTP_USER and SMTP_PASS; until then
+      contact messages are only stored here.</p>
+<% } %>
+<% if (!persistent) { %>
+    <p class="admin-alert admin-alert-info"><strong>Temporary storage.</strong> On hosts that reset their disk, this
+      data is lost on restart. Set MONGODB_URI to keep it.</p>
 <% } %>
 
     <ul class="admin-stats">
-      <li><strong><%= stats.totals.downloads %></strong><span>CV downloads, all time</span></li>
-      <li><strong><%= stats.totals.last7 %></strong><span>last 7 days</span></li>
-      <li><strong><%= stats.totals.last30 %></strong><span>last 30 days</span></li>
-      <li><strong><%= stats.totals.messages %></strong><span>contact messages<%= stats.totals.undelivered ? ` (${stats.totals.undelivered} not emailed)` : '' %></span></li>
+      <li class="admin-card"><span class="stat-label">CV downloads</span><strong><%= stats.totals.downloads %></strong><span class="stat-note">all time</span></li>
+      <li class="admin-card"><span class="stat-label">Last 7 days</span><strong><%= stats.totals.last7 %></strong><span class="stat-note">downloads</span></li>
+      <li class="admin-card"><span class="stat-label">Last 30 days</span><strong><%= stats.totals.last30 %></strong><span class="stat-note">downloads</span></li>
+      <li class="admin-card"><span class="stat-label">Messages</span><strong><%= stats.totals.messages %></strong>
+        <span class="stat-note"><% if (stats.totals.undelivered) { %><span class="status status-warn">&#9888; <%= stats.totals.undelivered %> not emailed</span><% } else { %>all emailed<% } %></span></li>
     </ul>
 
-    <section>
-      <h2>Downloads per day, last 14 days</h2>
-      <table class="admin-table">
-        <thead><tr><th scope="col">Day</th><th scope="col">Downloads</th><th scope="col"><span class="visually-hidden">Bar</span></th></tr></thead>
-        <tbody>
-<% for (const row of stats.daily) { %>
-          <tr>
-            <td><%= row.day %></td>
-            <td class="num"><%= row.count %></td>
-            <td class="bar-cell"><span class="bar" style="width: <%= Math.round(row.count / stats.peak * 100) %>%"></span></td>
-          </tr>
-<% } %>
-        </tbody>
-      </table>
-    </section>
+    <section class="admin-card">
+      <div class="card-head">
+        <h2>CV downloads per day</h2>
+        <p>Last 14 days &middot; busiest day: <%= plural(Math.max(0, ...stats.daily.map((row) => row.count)), 'download') %></p>
+      </div>
 
-    <div class="admin-columns">
-<% for (const [heading, rows] of [['Download button', stats.bySource], ['Referrer', stats.byReferrer], ['Device', stats.byDevice]]) { %>
-      <section>
-        <h2><%= heading %></h2>
-<% if (rows.length) { %>
+      <div class="chart" aria-hidden="true">
+        <span class="chart-max"><%= stats.peak %></span>
+        <ol class="chart-cols">
+<% stats.daily.forEach((row, i) => { const showMonth = i === 0 || row.day.slice(8, 10) === '01'; %>
+          <li class="chart-col" data-tip="<%= shortDay(row.day) %>: <%= plural(row.count, 'download') %>">
+            <span class="chart-bar<%= row.count ? '' : ' is-empty' %>" style="height: <%= row.count ? Math.max(4, Math.round(row.count / stats.peak * 100)) : 0 %>%"></span>
+            <span class="chart-x"><%= showMonth ? shortDay(row.day) : Number(row.day.slice(8, 10)) %></span>
+          </li>
+<% }) %>
+        </ol>
+      </div>
+
+      <details class="chart-table">
+        <summary>Show as table</summary>
         <table class="admin-table">
+          <thead><tr><th scope="col">Day</th><th scope="col" class="num">Downloads</th></tr></thead>
           <tbody>
-<% for (const [label, count] of rows) { %>
-            <tr><td><%= label %></td><td class="num"><%= count %></td></tr>
+<% for (const row of stats.daily) { %>
+            <tr><td><%= shortDay(row.day) %></td><td class="num"><%= row.count %></td></tr>
 <% } %>
           </tbody>
         </table>
+      </details>
+    </section>
+
+    <div class="admin-grid">
+<% for (const [heading, hint, rows] of breakdowns) { const top = rows[0]?.[1] || 1; %>
+      <section class="admin-card">
+        <div class="card-head">
+          <h2><%= heading %></h2>
+          <p><%= hint %></p>
+        </div>
+<% if (rows.length) { %>
+        <ul class="share-list">
+<% for (const [label, count] of rows) { %>
+          <li>
+            <span class="share-label"><%= label %></span>
+            <span class="share-count"><%= count %></span>
+            <span class="share-track"><span class="share-bar" style="width: <%= Math.round(count / top * 100) %>%"></span></span>
+          </li>
+<% } %>
+        </ul>
 <% } else { %>
         <p class="admin-empty">No downloads yet.</p>
 <% } %>
@@ -75,49 +119,59 @@
     </div>
 
     <section>
-      <h2>Recent downloads</h2>
-<% if (stats.recentDownloads.length) { %>
-      <table class="admin-table">
-        <thead><tr><th scope="col">When (UTC)</th><th scope="col">Button</th><th scope="col">Referrer</th><th scope="col">Device</th></tr></thead>
-        <tbody>
-<% for (const event of stats.recentDownloads) { %>
-          <tr><td><%= event.at.replace('T', ' ').slice(0, 16) %></td><td><%= event.from %></td><td><%= event.referrer %></td><td><%= event.device %></td></tr>
-<% } %>
-        </tbody>
-      </table>
-<% } else { %>
-      <p class="admin-empty">No downloads yet.</p>
-<% } %>
-    </section>
-
-    <section>
-      <h2>Contact messages</h2>
+      <div class="section-head">
+        <h2>Messages</h2>
+        <p><%= stats.messages.length ? `${plural(stats.messages.length, 'message')}, newest first` : '' %></p>
+      </div>
 <% if (stats.messages.length) { %>
       <ul class="admin-messages">
 <% for (const message of stats.messages) { %>
-        <li>
-          <p class="admin-message-meta">
-            <strong><%= message.fullname %></strong>
-            &lt;<a href="mailto:<%= message.email %>?subject=<%= encodeURIComponent('Re: ' + (message.subject || 'your message')) %>"><%= message.email %></a>&gt;
-            &middot; <%= message.at.replace('T', ' ').slice(0, 16) %> UTC
-            &middot; <span class="<%= message.delivered ? 'ok' : 'warn' %>"><%= message.delivered ? 'emailed' : 'not emailed' %></span>
-          </p>
+        <li class="admin-card">
+          <div class="message-head">
+            <div>
+              <p class="message-from"><strong><%= message.fullname %></strong> <span><%= message.email %></span></p>
+              <p class="message-meta"><%= when(message.at) %> UTC
+                &middot; <span class="status <%= message.delivered ? 'status-ok' : 'status-warn' %>"><%= message.delivered ? '✓ emailed' : '⚠ not emailed' %></span></p>
+            </div>
+            <a class="btn btn-primary" href="mailto:<%= message.email %>?subject=<%= encodeURIComponent('Re: ' + (message.subject || 'your message')) %>">Reply</a>
+          </div>
 <% if (message.subject) { %>
-          <p class="admin-message-subject"><%= message.subject %></p>
+          <p class="message-subject"><%= message.subject %></p>
 <% } %>
-          <p class="admin-message-body"><%= message.message %></p>
+          <p class="message-body"><%= message.message %></p>
         </li>
 <% } %>
       </ul>
 <% } else { %>
-      <p class="admin-empty">No messages yet.</p>
+      <p class="admin-card admin-empty">No messages yet. They appear here as soon as someone uses the contact form.</p>
 <% } %>
     </section>
 
-    <p class="admin-note">Data is stored in <code><%= storage %></code>.<% if (!persistent) { %> On hosts with
-      temporary disks (such as Render's free plan) this resets on every restart: set MONGODB_URI to keep it.<% } %></p>
+    <section>
+      <div class="section-head">
+        <h2>Recent downloads</h2>
+        <p><%= stats.recentDownloads.length ? `Latest ${plural(stats.recentDownloads.length, 'download')}, newest first` : '' %></p>
+      </div>
+<% if (stats.recentDownloads.length) { %>
+      <div class="admin-card table-scroll">
+        <table class="admin-table">
+          <thead><tr><th scope="col">When (UTC)</th><th scope="col">Button</th><th scope="col">Referrer</th><th scope="col">Device</th></tr></thead>
+          <tbody>
+<% for (const event of stats.recentDownloads) { %>
+            <tr><td class="nowrap"><%= when(event.at) %></td><td><%= event.from %></td><td><%= event.referrer %></td><td><%= event.device %></td></tr>
+<% } %>
+          </tbody>
+        </table>
+      </div>
+<% } else { %>
+      <p class="admin-card admin-empty">No downloads yet.</p>
+<% } %>
+    </section>
 
   </main>
+
+  <div class="chart-tip" role="tooltip" hidden data-chart-tip></div>
+  <script src="<%= asset('/assets/js/admin.js') %>"></script>
 
 </body>
 

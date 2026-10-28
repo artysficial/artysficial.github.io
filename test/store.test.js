@@ -42,7 +42,7 @@ test('MongoEventStore stores events with a timestamp and returns them without _i
 test('createStores uses files unless MONGODB_URI is set', () => {
   const files = createStores({ env: {}, dataDir: '/tmp/portfolio-data' });
   assert.equal(files.persistent, false);
-  assert.equal(files.location, '/tmp/portfolio-data');
+  assert.equal(files.location, 'local files (portfolio-data/)');
 
   // the driver connects lazily, so this does not need a running database
   const mongo = createStores({ env: { MONGODB_URI: 'mongodb://127.0.0.1:1/x', MONGODB_DB: 'site' }, dataDir: '/unused' });
@@ -86,5 +86,5 @@ test('the admin page explains a storage failure instead of erroring', async () =
   });
 
   const res = await request(app).get('/admin').auth('admin', 's3cret').expect(200);
-  assert.match(res.text, /could not be read from <code>MongoDB database &#34;portfolio&#34;<\/code>: bad auth : authentication failed/);
+  assert.match(res.text, /Stored data could not be read\.<\/strong> bad auth : authentication failed/);
 });

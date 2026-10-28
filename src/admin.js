@@ -31,7 +31,12 @@ function tally(items, key) {
   return [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 }
 
-function summarise({ downloads, messages }, now = new Date()) {
+const byTime = (a, b) => a.at.localeCompare(b.at);
+
+function summarise(events, now = new Date()) {
+  // never trust storage order: "recent" must mean newest
+  const downloads = [...events.downloads].sort(byTime);
+  const messages = [...events.messages].sort(byTime);
   const within = (days) => downloads.filter((event) => now - new Date(event.at) < days * DAY_MS).length;
 
   // one row per day for the last 14 days, including days without downloads

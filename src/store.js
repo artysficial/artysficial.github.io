@@ -75,7 +75,7 @@ function createStores({ env, dataDir }) {
   return {
     downloads: new EventStore(path.join(dataDir, 'cv-downloads.jsonl')),
     messages: new EventStore(path.join(dataDir, 'messages.jsonl')),
-    location: dataDir,
+    location: `local files (${path.basename(dataDir)}/)`,
     persistent: false,
   };
 }

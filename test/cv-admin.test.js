@@ -66,7 +66,8 @@ test('the admin page shows downloads and messages', async () => {
   await request(app).post('/api/contact').send(validMessage({ subject: 'Hiring for QA lead' })).expect(200);
 
   const res = await request(app).get('/admin').set('Authorization', auth('admin', 's3cret')).expect(200);
-  assert.match(res.text, /<strong>1<\/strong><span>CV downloads, all time<\/span>/);
+  assert.match(res.text, /<span class="stat-label">CV downloads<\/span><strong>1<\/strong>/);
+  assert.match(res.text, /data-tip="[A-Z][a-z]{2} \d{1,2}: 1 download"/);
   assert.match(res.text, /www\.google\.com/);
   assert.match(res.text, /Hiring for QA lead/);
   assert.match(res.headers['cache-control'], /no-store/);
