@@ -1,0 +1,161 @@
+---
+title: "Testing eUICC for 5G: validating SUCI subscriber privacy"
+description: "5G hides the subscriber's permanent identity behind the SUCI. Here is how to build a test suite that proves an eUICC conceals it correctly, from protection schemes to the negative cases that catch real defects."
+lead: "5G hides the subscriber's permanent identity behind the SUCI. Here is how to build a test suite that proves an eUICC conceals it correctly, from protection schemes to the negative cases that catch real defects."
+category: "Telecom security"
+date: "2026-10-27"
+readTime: "9 min read"
+order: 1
+hue: 12
+icon: "cellular-outline"
+excerpt: "How to build a test suite for SUCI concealment on eUICC: null scheme, ECIES Profiles A and B, test vectors, APDU-level checks and the negative cases that catch real defects."
+---
+<h2>Why SUCI exists</h2>
+
+<p>
+  In 4G, a device could be asked to send its permanent subscriber identity, the IMSI, in clear text before any
+  security context was set up. That single weakness is what made IMSI catchers practical. 5G closes the gap. Under
+  3GPP TS 33.501, the permanent identity is now called the <strong>SUPI</strong>, and it is never sent over the air in
+  the clear. What travels instead is the <strong>SUCI</strong>, the Subscription Concealed Identifier: the
+  subscriber-specific part of the SUPI encrypted with the home network's public key, so that only the home network's
+  de-concealment function (SIDF) can recover it.
+</p>
+
+<p>
+  For anyone testing SIMs and eUICCs, this turns identity handling from a simple file read into a cryptographic
+  feature. If the card computes the SUCI incorrectly, the subscriber either cannot register or, worse, registers while
+  leaking the identity the feature was meant to protect.
+</p>
+
+<h2>Where the eUICC fits</h2>
+
+<p>
+  The SUCI can be calculated either by the USIM application on the card or by the mobile equipment, depending on what
+  the operator enables in the USIM service table. On an eUICC, the USIM lives inside an operator profile that is
+  downloaded from an SM-DP+ server, so the configuration that drives SUCI calculation arrives with the profile:
+</p>
+
+<ul>
+  <li><strong>Protection scheme list and priorities</strong>: which schemes the card may use, in order of preference.</li>
+  <li><strong>Home network public keys</strong>, each with a public key identifier the network uses to pick the matching private key.</li>
+  <li><strong>Routing indicator</strong>, which lets the network route the SUCI to the right authentication server.</li>
+</ul>
+
+<p>
+  When the card does the calculation itself, the device asks for it with the <code>GET IDENTITY</code> command defined
+  in 3GPP TS 31.102, and the card returns a fully formed SUCI.
+</p>
+
+<h2>The three protection schemes you must cover</h2>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Scheme</th><th>Curve</th><th>What the test must prove</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Null scheme (ID 0)</td><td>None</td><td>MSIN is returned unencrypted, and only when the null scheme is genuinely the configured choice.</td></tr>
+      <tr><td>Profile A (ID 1)</td><td>Curve25519 (X25519)</td><td>Output de-conceals to the correct MSIN with the home network private key; MAC tag verifies.</td></tr>
+      <tr><td>Profile B (ID 2)</td><td>secp256r1</td><td>Same as Profile A, plus the ephemeral public key is a correctly compressed point.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Both ECIES profiles share the same construction from TS 33.501 Annex C: an ECDH shared secret, the ANSI X9.63 KDF
+  with SHA-256 to derive an AES-128 key, an initial counter block and an HMAC key, AES-128 in CTR mode for the
+  ciphertext, and HMAC-SHA-256 truncated to 64 bits for the MAC tag.
+</p>
+
+<h2>Test your oracle before you test the card</h2>
+
+<p>
+  The card generates a fresh ephemeral key pair for every SUCI, so you cannot compare its output with a fixed expected
+  value. Instead, the test harness has to <strong>de-conceal</strong> what the card returns, playing the role of the
+  network. That makes the harness's decoder the oracle for the whole suite, and an untested oracle is a liability.
+</p>
+
+<p>
+  The fix is simple: validate the decoder first against the published test vectors in TS 33.501 Annex C.4. Only once
+  it reproduces those exactly do you point it at real cards. A minimal Profile A decoder in Python looks like this:
+</p>
+
+<pre><code>from cryptography.hazmat.primitives import hashes, hmac
+from cryptography.hazmat.primitives.asymmetric.x25519 import X25519PrivateKey, X25519PublicKey
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives.kdf.x963kdf import X963KDF
+
+
+def deconceal_profile_a(hn_private: X25519PrivateKey, eph_pub: bytes,
+                        cipher_text: bytes, mac_tag: bytes) -&gt; bytes:
+    shared = hn_private.exchange(X25519PublicKey.from_public_bytes(eph_pub))
+    keys = X963KDF(algorithm=hashes.SHA256(), length=64, sharedinfo=eph_pub).derive(shared)
+    enc_key, icb, mac_key = keys[:16], keys[16:32], keys[32:]
+
+    tag = hmac.HMAC(mac_key, hashes.SHA256())
+    tag.update(cipher_text)
+    if tag.finalize()[:8] != mac_tag:
+        raise AssertionError("SUCI MAC tag mismatch")
+
+    decryptor = Cipher(algorithms.AES(enc_key), modes.CTR(icb)).decryptor()
+    return decryptor.update(cipher_text) + decryptor.finalize()  # BCD-encoded MSIN</code></pre>
+
+<h2>A layered test model</h2>
+
+<h3>1. Configuration</h3>
+<p>
+  Before any cryptography, confirm the profile carries what the operator ordered: the SUCI-related files exist, their
+  access conditions are right, and their contents match the personalisation data, including key identifiers,
+  scheme priorities and the routing indicator.
+</p>
+
+<h3>2. Correctness</h3>
+<p>
+  For each configured scheme, request a SUCI, de-conceal it and compare the recovered MSIN with the expected
+  subscriber. Check the surrounding fields too: SUPI type, MCC and MNC encoding, routing indicator, scheme ID and home
+  network public key identifier.
+</p>
+
+<h3>3. Security properties</h3>
+<ul>
+  <li><strong>Freshness</strong>: two consecutive requests must produce different ephemeral keys and ciphertexts.</li>
+  <li><strong>Integrity</strong>: flip one bit of the ciphertext in the harness and confirm the MAC check rejects it, which proves the check itself works.</li>
+  <li><strong>No silent downgrade</strong>: the card must not fall back to the null scheme when a protection scheme is configured.</li>
+</ul>
+
+<h3>4. Negative and lifecycle cases</h3>
+<p>
+  This is where most real defects hide. Cover unsupported scheme identifiers, a missing or malformed public key, a
+  key identifier that does not match, and service flags switched off. On an eUICC, also test profile lifecycle:
+  enable a second profile and confirm that the SUCI now reflects <em>that</em> profile's configuration, then switch
+  back.
+</p>
+
+<h2>Automating it</h2>
+
+<p>
+  The suite I worked on was written in Python: APDUs sent to the card through a PC/SC reader, TLV parsing for the
+  responses, and de-concealment with the <code>cryptography</code> library. A few practices made the biggest
+  difference:
+</p>
+
+<ul>
+  <li><strong>Parametrise by scheme and profile</strong> so one test body covers every combination, and new combinations cost a line of data rather than a new test.</li>
+  <li><strong>Keep test keys out of the code</strong> and clearly separated from anything resembling production key material.</li>
+  <li><strong>Log every APDU exchange</strong> and attach it to failures. A defect report that includes the exact command and response gets fixed far faster.</li>
+  <li><strong>Run in CI</strong> against a reader farm, so regressions are caught on the build that introduced them.</li>
+</ul>
+
+<div class="callout">
+  <strong>In practice:</strong> structuring the suite this way, scheme by scheme and layer by layer, raised test
+  coverage and efficiency on our eUICC 5G SUCI work by 25%, mostly by making the negative and lifecycle cases cheap
+  enough to automate.
+</div>
+
+<h2>Key takeaways</h2>
+<ul>
+  <li>SUCI turns identity handling into a cryptographic feature, so test it like one.</li>
+  <li>Validate your de-concealment oracle against the 3GPP test vectors before trusting any card result.</li>
+  <li>Test properties (freshness, integrity, no downgrade), not just outputs.</li>
+  <li>On eUICC, profile switching is part of the feature, not an edge case.</li>
+</ul>

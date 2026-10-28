@@ -1,0 +1,157 @@
+{
+  "categories": ["Banking & Payments", "Security & Telecom", "Automation & DevOps", "Research"],
+  "projects": [
+    {
+      "title": "SDET Automation Framework",
+      "category": "Automation & DevOps",
+      "hue": 18,
+      "icon": "logo-github",
+      "cover": "Open source · Live report",
+      "meta": "Personal open-source project · Python · GitHub Actions",
+      "summary": "A production-style automation framework spanning a storefront, an online bank, two REST APIs and a security suite, built the way I build them for banking clients, with a published release-readiness report.",
+      "bullets": [
+        "BDD scenarios (pytest-bdd) over Selenium page objects; storefront and ParaBank banking (UI + REST).",
+        "API breadth: restful-booker contracts (JSON Schema) and the YouTube Data API.",
+        "OWASP-aligned security suite: SQL injection, XSS, broken access control and security headers, with OWASP Juice Shop as a known-vulnerable reference target.",
+        "Order totals verified to the cent; CI on every change and nightly; screenshots kept as evidence.",
+        "Readiness report with a security gate and a Go / No-go recommendation; 62 tests, 6 findings logged."
+      ],
+      "actions": [
+        { "label": "Live report", "icon": "stats-chart-outline", "href": "https://artysficial.github.io/sdet-automation-framework/", "primary": true },
+        { "label": "Source code", "icon": "logo-github", "href": "https://github.com/artysficial/sdet-automation-framework" }
+      ]
+    },
+    {
+      "title": "CBDC CSR Deployment, Malawi",
+      "category": "Banking & Payments",
+      "hue": 22,
+      "icon": "cash-outline",
+      "cover": "Test Lead",
+      "meta": "Test Lead · IDEMIA · June 2026 – Present",
+      "summary": "End-to-end test leadership for a Central Bank Digital Currency CSR deployment for a client in Malawi.",
+      "bullets": [
+        "Own test strategy, test plans, entry/exit criteria, execution and release sign-off.",
+        "Coordinate a team of mobile and web testers across the delivery.",
+        "Primary QA contact for client stakeholders.",
+        "Report quality status, defect trends and release-readiness risks to project management and the client to support go/no-go decisions."
+      ],
+      "article": { "slug": "cbdc-test-leadership", "label": "Read: Quality engineering for CBDC" }
+    },
+    {
+      "title": "HSM Regression Automation",
+      "category": "Security & Telecom",
+      "hue": 345,
+      "icon": "lock-closed-outline",
+      "cover": "86% automated",
+      "meta": "Senior Automation SDET · IDEMIA · August 2026 – Present",
+      "summary": "Regression and non-regression testing for a Hardware Security Module (HSM) product.",
+      "bullets": [
+        "Manage the majority of regression and non-regression cycles.",
+        "Design and create test cases directly from functional specifications.",
+        "Develop and maintain Python automation integrated into Jenkins CI.",
+        "86% of test cases automated."
+      ],
+      "article": { "slug": "hsm-testing", "label": "Read: Testing Hardware Security Modules" }
+    },
+    {
+      "title": "CBDC Mobile Banking for Central Banks",
+      "category": "Banking & Payments",
+      "hue": 34,
+      "icon": "phone-portrait-outline",
+      "cover": "iOS · Android · Web",
+      "meta": "SDET · IDEMIA · 2023 – 2026",
+      "summary": "Comprehensive testing of iOS, Android and web applications for a CBDC programme, working with international central banks including the Bank of Canada and Bank of Israel.",
+      "bullets": [
+        "Manual testing on iOS, automated testing on web, and manual Android testing for features that need physical interaction with smart cards.",
+        "Verified compliance with banking standards and user requirements.",
+        "Consistent functionality, usability and security across platforms."
+      ]
+    },
+    {
+      "title": "eUICC 5G SUCI Test Suite",
+      "category": "Security & Telecom",
+      "hue": 12,
+      "icon": "cellular-outline",
+      "cover": "+25% coverage",
+      "meta": "SDET · IDEMIA",
+      "summary": "Python test scripts for 5G subscriber identity concealment (SUCI) on eUICC, developed in PyCharm.",
+      "bullets": [
+        "Created and enhanced scripts covering SUCI calculation and protection scheme behaviour.",
+        "Increased test coverage and efficiency by 25%."
+      ],
+      "article": { "slug": "euicc-5g-suci-testing", "label": "Read: Testing eUICC for 5G" }
+    },
+    {
+      "title": "Jenkins → Jira Test Traceability",
+      "category": "Automation & DevOps",
+      "hue": 28,
+      "icon": "sync-outline",
+      "cover": "−40% manual effort",
+      "meta": "SDET · with the DevOps team · IDEMIA",
+      "summary": "Automated the import of Jenkins Android test JSON results into Jira test execution tickets.",
+      "bullets": [
+        "Reduced manual reporting effort by 40%.",
+        "Improved traceability from requirement to execution evidence."
+      ],
+      "article": { "slug": "jenkins-jira-traceability", "label": "Read: Closing the loop between Jenkins and Jira" }
+    },
+    {
+      "title": "Test Framework Design",
+      "category": "Automation & DevOps",
+      "hue": 0,
+      "icon": "layers-outline",
+      "cover": "TDD → BDD",
+      "meta": "Framework owner · IDEMIA",
+      "summary": "Built the test automation framework and evolved it from a TDD approach to BDD.",
+      "bullets": [
+        "Scenarios readable by business and client stakeholders.",
+        "Improved reuse across regression suites.",
+        "Used to onboard and mentor new QA engineers."
+      ],
+      "article": { "slug": "tdd-to-bdd-framework", "label": "Read: From TDD to BDD" }
+    },
+    {
+      "title": "Smart Card & PCOM Regression",
+      "category": "Security & Telecom",
+      "hue": 16,
+      "icon": "card-outline",
+      "cover": "−20% post-release defects",
+      "meta": "SDET · IDEMIA",
+      "summary": "Regression orchestration in PCOM and feature testing for smart cards.",
+      "bullets": [
+        "Reduced post-release defects by 20%.",
+        "Smart card feature testing improved feature integration and functionality by 15%.",
+        "Documented and prioritised defects to drive resolution across concurrent projects."
+      ]
+    },
+    {
+      "title": "Web & API Test Automation",
+      "category": "Automation & DevOps",
+      "hue": 38,
+      "icon": "globe-outline",
+      "cover": "−30% test time",
+      "meta": "Software Testing Engineer · PT Advotics · Dec 2022 – Jun 2023",
+      "summary": "Automated web, API and database testing for a supply-chain SaaS platform.",
+      "bullets": [
+        "Selenium and Postman automation, cutting testing time by 30%.",
+        "API testing in Postman and data integrity checks with MySQL.",
+        "Test cases, plans and reports maintained in Jira across Scrum sprints."
+      ]
+    },
+    {
+      "title": "Wanda FLP App, PT Cheger Motor",
+      "category": "Research",
+      "hue": 330,
+      "icon": "document-text-outline",
+      "cover": "Published 2024",
+      "meta": "Project lead · Politeknik STMI Jakarta",
+      "summary": "Led the development and testing of an information system that replaced ledger and WhatsApp-based tracking of motorcycle indent orders for an authorised Honda dealer.",
+      "bullets": [
+        "Prioritised the indent queue using the Graphic Rating Scale method.",
+        "Built with the Waterfall model, with reporting in Google Data Studio.",
+        "Published in Technomedia Journal, Vol. 9 No. 1 (2024)."
+      ],
+      "link": { "label": "View the publication", "href": "https://garuda.kemdiktisaintek.go.id/documents/detail/4552009" }
+    }
+  ]
+}

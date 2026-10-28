@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<%- include('partials/head', { title: `Page not found | ${site.name}`, description: 'This page does not exist.' }) %>
+  <meta name="robots" content="noindex">
+
+  <link rel="stylesheet" href="<%= asset('/assets/css/article.css') %>">
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="/" class="brand">
+        <img src="<%= site.avatar %>" alt="" width="34" height="34">
+        <span><%= site.name %></span>
+      </a>
+    </div>
+  </header>
+
+  <main class="post">
+
+    <article>
+      <p class="eyebrow"><span class="category">404</span></p>
+
+      <h1>This page does not exist</h1>
+
+      <p class="lead">The link may be old or mistyped. Everything on the site is one click away from the homepage.</p>
+
+      <div class="author-actions">
+        <a href="/" class="btn btn-primary">Go to the homepage</a>
+        <a href="/#insights" class="btn">Read the insights</a>
+      </div>
+    </article>
+
+  </main>
+
+</body>
+
+</html>

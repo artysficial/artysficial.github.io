@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<%- include('partials/head', { title: `Admin | ${site.name}`, description: 'Private site statistics.', canonical: `${siteUrl}/admin` }) %>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="stylesheet" href="<%= asset('/assets/css/article.css') %>">
+  <link rel="stylesheet" href="<%= asset('/assets/css/admin.css') %>">
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="/" class="brand">
+        <img src="<%= site.avatar %>" alt="" width="34" height="34">
+        <span>Site admin</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="admin">
+
+    <h1>CV downloads &amp; messages</h1>
+
+<% if (!mailConfigured) { %>
+    <p class="admin-alert">Email delivery is not configured (SMTP_USER / SMTP_PASS). Contact messages are only stored
+      below.</p>
+<% } %>
+
+    <ul class="admin-stats">
+      <li><strong><%= stats.totals.downloads %></strong><span>CV downloads, all time</span></li>
+      <li><strong><%= stats.totals.last7 %></strong><span>last 7 days</span></li>
+      <li><strong><%= stats.totals.last30 %></strong><span>last 30 days</span></li>
+      <li><strong><%= stats.totals.messages %></strong><span>contact messages<%= stats.totals.undelivered ? ` (${stats.totals.undelivered} not emailed)` : '' %></span></li>
+    </ul>
+
+    <section>
+      <h2>Downloads per day, last 14 days</h2>
+      <table class="admin-table">
+        <thead><tr><th scope="col">Day</th><th scope="col">Downloads</th><th scope="col"><span class="visually-hidden">Bar</span></th></tr></thead>
+        <tbody>
+<% for (const row of stats.daily) { %>
+          <tr>
+            <td><%= row.day %></td>
+            <td class="num"><%= row.count %></td>
+            <td class="bar-cell"><span class="bar" style="width: <%= Math.round(row.count / stats.peak * 100) %>%"></span></td>
+          </tr>
+<% } %>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="admin-columns">
+<% for (const [heading, rows] of [['Download button', stats.bySource], ['Referrer', stats.byReferrer], ['Device', stats.byDevice]]) { %>
+      <section>
+        <h2><%= heading %></h2>
+<% if (rows.length) { %>
+        <table class="admin-table">
+          <tbody>
+<% for (const [label, count] of rows) { %>
+            <tr><td><%= label %></td><td class="num"><%= count %></td></tr>
+<% } %>
+          </tbody>
+        </table>
+<% } else { %>
+        <p class="admin-empty">No downloads yet.</p>
+<% } %>
+      </section>
+<% } %>
+    </div>
+
+    <section>
+      <h2>Recent downloads</h2>
+<% if (stats.recentDownloads.length) { %>
+      <table class="admin-table">
+        <thead><tr><th scope="col">When (UTC)</th><th scope="col">Button</th><th scope="col">Referrer</th><th scope="col">Device</th></tr></thead>
+        <tbody>
+<% for (const event of stats.recentDownloads) { %>
+          <tr><td><%= event.at.replace('T', ' ').slice(0, 16) %></td><td><%= event.from %></td><td><%= event.referrer %></td><td><%= event.device %></td></tr>
+<% } %>
+        </tbody>
+      </table>
+<% } else { %>
+      <p class="admin-empty">No downloads yet.</p>
+<% } %>
+    </section>
+
+    <section>
+      <h2>Contact messages</h2>
+<% if (stats.messages.length) { %>
+      <ul class="admin-messages">
+<% for (const message of stats.messages) { %>
+        <li>
+          <p class="admin-message-meta">
+            <strong><%= message.fullname %></strong>
+            &lt;<a href="mailto:<%= message.email %>?subject=<%= encodeURIComponent('Re: ' + (message.subject || 'your message')) %>"><%= message.email %></a>&gt;
+            &middot; <%= message.at.replace('T', ' ').slice(0, 16) %> UTC
+            &middot; <span class="<%= message.delivered ? 'ok' : 'warn' %>"><%= message.delivered ? 'emailed' : 'not emailed' %></span>
+          </p>
+<% if (message.subject) { %>
+          <p class="admin-message-subject"><%= message.subject %></p>
+<% } %>
+          <p class="admin-message-body"><%= message.message %></p>
+        </li>
+<% } %>
+      </ul>
+<% } else { %>
+      <p class="admin-empty">No messages yet.</p>
+<% } %>
+    </section>
+
+    <p class="admin-note">Data is stored in <code><%= storage %></code>.<% if (!persistent) { %> On hosts with
+      temporary disks (such as Render's free plan) this resets on every restart: set MONGODB_URI to keep it.<% } %></p>
+
+  </main>
+
+</body>
+
+</html>

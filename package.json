@@ -1,0 +1,31 @@
+{
+  "name": "artysficial-portfolio",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Portfolio of Rahmadani Tyas Ningrum, Test Lead and Senior Automation SDET, served by Node.js and Express.",
+  "author": "Rahmadani Tyas Ningrum",
+  "license": "MIT",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --watch --env-file-if-exists=.env server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "compression": "^1.8.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "gray-matter": "^4.0.3",
+    "helmet": "^8.1.0",
+    "marked": "^15.0.0",
+    "mongodb": "^6.21.0",
+    "nodemailer": "^10.2.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.0"
+  }
+}

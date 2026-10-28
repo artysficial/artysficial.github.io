@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<%- include('partials/head', { title: site.meta.title, description: site.meta.description }) %>
+
+  <!--
+    - open graph
+  -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="<%= site.meta.title %>">
+  <meta property="og:description" content="<%= site.meta.ogDescription %>">
+  <meta property="og:url" content="<%= canonical %>">
+  <meta property="og:image" content="<%= siteUrl + site.avatar %>">
+
+  <link rel="stylesheet" href="<%= asset('/assets/css/style.css') %>">
+
+  <script type="application/ld+json" nonce="<%= nonce %>">
+  <%- JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.name,
+    jobTitle: site.jobTitle,
+    worksFor: { '@type': 'Organization', name: site.employer },
+    email: 'mailto:' + site.email,
+    url: siteUrl + '/',
+    sameAs: [site.linkedin, site.github],
+    address: { '@type': 'PostalAddress', addressLocality: site.location.city, addressCountry: site.location.countryCode }
+  }).replace(/</g, '\\u003c') %>
+  </script>
+</head>
+
+<body>
+
+  <!--
+    - #MAIN
+  -->
+
+  <main>
+
+    <!--
+      - #SIDEBAR
+    -->
+
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+
+        <figure class="avatar-box">
+          <img src="<%= site.avatar %>" alt="Memoji of <%= site.name %>" width="80">
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="<%= site.name %>"><%= site.name %></h1>
+
+          <p class="title"><%= site.title %></p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn aria-label="Show contacts">
+          <span>Show Contacts</span>
+
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="sidebar-info_more">
+
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+
+              <a href="mailto:<%= site.email %>" class="contact-link"><%= site.email %></a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">LinkedIn</p>
+
+              <a href="<%= site.linkedin %>" class="contact-link" target="_blank" rel="noopener"><%= site.linkedinHandle %></a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Current</p>
+
+              <p class="contact-text"><%= site.employerShort %></p>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+
+              <address><%= site.location.city %>, <%= site.location.country %></address>
+            </div>
+
+          </li>
+
+        </ul>
+
+        <div class="separator"></div>
+
+        <a href="/cv?from=sidebar" class="cv-btn" download>
+          <ion-icon name="download-outline"></ion-icon>
+          <span>Download CV</span>
+        </a>
+
+        <ul class="social-list">
+
+          <li class="social-item">
+            <a href="<%= site.linkedin %>" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="<%= site.github %>" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="mailto:<%= site.email %>" class="social-link" aria-label="Email">
+              <ion-icon name="mail"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="<%= site.journal %>" class="social-link" target="_blank" rel="noopener"
+              aria-label="Published journal on Garuda">
+              <ion-icon name="school"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </aside>
+
+
+
+
+
+    <!--
+      - #main-content
+    -->
+
+    <div class="main-content">
+
+      <!--
+        - #NAVBAR
+      -->
+
+      <nav class="navbar">
+
+        <ul class="navbar-list">
+
+<% for (const [page, label] of [['about', 'About'], ['resume', 'Resume'], ['portfolio', 'Portfolio'], ['publications', 'Publications'], ['insights', 'Insights'], ['contact', 'Contact']]) { %>
+          <li class="navbar-item">
+            <button class="navbar-link<%= page === 'about' ? '  active' : '' %>" data-nav-link="<%= page %>"><%= label %></button>
+          </li>
+
+<% } %>
+          <li class="navbar-item">
+            <button class="theme-btn" data-theme-btn aria-label="Switch between light and dark mode">
+              <ion-icon class="icon-moon" name="moon-outline"></ion-icon>
+              <ion-icon class="icon-sun" name="sunny-outline"></ion-icon>
+            </button>
+          </li>
+
+        </ul>
+
+      </nav>
+
+
+
+
+
+      <!--
+        - #ABOUT
+      -->
+
+      <article class="about  active" data-page="about">
+
+        <header>
+          <h2 class="h2 article-title">About me</h2>
+        </header>
+
+        <section class="about-text">
+<% for (const paragraph of site.aboutHtml) { %>
+          <p><%- paragraph %></p>
+<% } %>
+        </section>
+
+
+        <!--
+          - impact
+        -->
+
+        <section class="impact">
+
+          <h3 class="h3 service-title">Impact at a glance</h3>
+
+          <ul class="stats-list">
+<% for (const stat of site.stats) { %>
+
+            <li class="stat-item">
+              <data class="stat-value" value="<%= stat.value %>"><%= stat.display %></data>
+              <p class="stat-label"><%= stat.label %></p>
+            </li>
+<% } %>
+
+          </ul>
+
+        </section>
+
+
+        <!--
+          - featured project
+        -->
+
+        <section class="featured">
+
+          <h3 class="h3 service-title">Featured project</h3>
+
+          <div class="featured-card">
+
+            <div class="featured-body">
+              <p class="featured-eyebrow"><%= site.featured.eyebrow %></p>
+
+              <h4 class="h3 featured-title"><%= site.featured.title %></h4>
+
+              <p class="featured-text"><%= site.featured.text %></p>
+
+              <ul class="tag-list">
+<% for (const tag of site.featured.tags) { %>
+                <li class="tag"><%= tag %></li>
+<% } %>
+              </ul>
+
+              <div class="publication-actions">
+                <a href="<%= site.featured.report %>" class="btn-primary" target="_blank" rel="noopener">
+                  <ion-icon name="stats-chart-outline"></ion-icon>
+                  <span>View live report</span>
+                </a>
+
+                <a href="<%= site.featured.source %>" class="btn-outline" target="_blank" rel="noopener">
+                  <ion-icon name="logo-github"></ion-icon>
+                  <span>Source code</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!--
+          - service
+        -->
+
+        <section class="service">
+
+          <h3 class="h3 service-title">How I help clients</h3>
+
+          <ul class="service-list">
+<% for (const service of site.services) { %>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <ion-icon name="<%= service.icon %>"></ion-icon>
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title"><%= service.title %></h4>
+
+                <p class="service-item-text"><%= service.text %></p>
+              </div>
+
+            </li>
+<% } %>
+
+          </ul>
+
+        </section>
+
+
+        <!--
+          - domains
+        -->
+
+        <section class="domains">
+
+          <h3 class="h3 service-title">Domains &amp; engagements</h3>
+
+          <ul class="tag-list">
+<% for (const domain of site.domains) { %>
+            <li class="tag"><%= domain %></li>
+<% } %>
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #RESUME
+      -->
+
+      <article class="resume" data-page="resume">
+
+        <header class="article-header">
+          <h2 class="h2 article-title">Resume</h2>
+
+          <a href="/cv?from=resume" class="btn-outline" download>
+            <ion-icon name="download-outline"></ion-icon>
+            <span>Download PDF</span>
+          </a>
+        </header>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Experience</h3>
+          </div>
+
+          <ol class="timeline-list">
+<% for (const job of resume.experience) { %>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title"><%= job.title %> &middot; <%= job.company %></h4>
+
+              <span><%= job.dates %> &middot; <%= job.location %></span>
+<% for (const role of job.roles ?? []) { %>
+
+              <h5 class="timeline-subrole"><%= role.title %> <span><%= role.dates %></span></h5>
+
+              <ul class="timeline-bullets">
+<% for (const bullet of role.bullets) { %>
+                <li><%= bullet %></li>
+<% } %>
+              </ul>
+<% } %>
+<% if (job.bullets) { %>
+
+              <ul class="timeline-bullets">
+<% for (const bullet of job.bullets) { %>
+                <li><%= bullet %></li>
+<% } %>
+              </ul>
+<% } %>
+
+            </li>
+<% } %>
+
+          </ol>
+
+        </section>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="school-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Education</h3>
+          </div>
+
+          <ol class="timeline-list">
+<% for (const school of resume.education) { %>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title"><%= school.title %></h4>
+
+              <span><%= school.dates %></span>
+
+              <p class="timeline-text"><%= school.text %></p>
+
+            </li>
+<% } %>
+
+          </ol>
+
+        </section>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="ribbon-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Certifications</h3>
+          </div>
+
+          <ul class="cert-list">
+<% for (const cert of resume.certifications) { %>
+            <li class="cert-item"><span class="cert-issuer"><%= cert.issuer %></span> <%= cert.name %>
+              <time datetime="<%= cert.date %>"><%= monthYear(cert.date, true) %></time></li>
+<% } %>
+          </ul>
+
+        </section>
+
+        <section class="skill">
+
+          <h3 class="h3 skills-title">Capabilities</h3>
+
+          <div class="skill-groups">
+<% for (const group of resume.skills) { %>
+
+            <div class="skill-group content-card">
+              <h4 class="h5 skill-group-title"><%= group.title %></h4>
+              <ul class="tag-list">
+<% for (const item of group.items) { %>
+                <li class="tag"><%= item %></li>
+<% } %>
+              </ul>
+            </div>
+<% } %>
+
+          </div>
+
+          <p class="languages">
+            <strong>Languages:</strong> <%= resume.languages %>
+          </p>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #PORTFOLIO
+      -->
+
+      <article class="portfolio" data-page="portfolio">
+
+        <header>
+          <h2 class="h2 article-title">Portfolio</h2>
+        </header>
+
+        <section class="projects">
+
+          <ul class="filter-list">
+
+            <li class="filter-item">
+              <button class="active" data-filter-btn>All</button>
+            </li>
+<% for (const category of projects.categories) { %>
+
+            <li class="filter-item">
+              <button data-filter-btn><%= category %></button>
+            </li>
+<% } %>
+
+          </ul>
+
+          <div class="filter-select-box">
+
+            <button class="filter-select" data-select>
+
+              <div class="select-value" data-select-value>Select category</div>
+
+              <div class="select-icon">
+                <ion-icon name="chevron-down"></ion-icon>
+              </div>
+
+            </button>
+
+            <ul class="select-list">
+
+              <li class="select-item">
+                <button data-select-item>All</button>
+              </li>
+<% for (const category of projects.categories) { %>
+
+              <li class="select-item">
+                <button data-select-item><%= category %></button>
+              </li>
+<% } %>
+
+            </ul>
+
+          </div>
+
+          <ul class="project-list">
+<% for (const project of projects.projects) { %>
+
+            <li class="project-item  active" data-filter-item data-category="<%= project.category.toLowerCase() %>">
+              <button class="project-card" data-project-btn>
+
+                <figure class="project-img cover" style="--hue: <%= project.hue %>;">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <ion-icon class="cover-icon" name="<%= project.icon %>"></ion-icon>
+                  <span class="cover-label"><%= project.cover %></span>
+                </figure>
+
+                <h3 class="project-title"><%= project.title %></h3>
+
+                <p class="project-category"><%= project.category %></p>
+
+              </button>
+
+              <div class="project-details" hidden>
+                <p class="project-meta"><%= project.meta %></p>
+                <p><%= project.summary %></p>
+                <ul>
+<% for (const bullet of project.bullets) { %>
+                  <li><%= bullet %></li>
+<% } %>
+                </ul>
+<% if (project.actions) { %>
+                <div class="modal-actions">
+<% for (const action of project.actions) { %>
+                  <a href="<%= action.href %>" class="<%= action.primary ? 'btn-primary' : 'btn-outline' %>" target="_blank" rel="noopener">
+                    <ion-icon name="<%= action.icon %>"></ion-icon>
+                    <span><%= action.label %></span>
+                  </a>
+<% } %>
+                </div>
+<% } %>
+<% if (project.article) { %>
+                <a href="/articles/<%= project.article.slug %>" class="text-link"><%= project.article.label %> &rarr;</a>
+<% } %>
+<% if (project.link) { %>
+                <a href="<%= project.link.href %>" class="text-link" target="_blank" rel="noopener"><%= project.link.label %> &rarr;</a>
+<% } %>
+              </div>
+            </li>
+<% } %>
+
+          </ul>
+
+        </section>
+
+
+        <!--
+          - project modal
+        -->
+
+        <div class="modal-container" data-modal-container>
+
+          <div class="overlay" data-overlay></div>
+
+          <section class="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+            <button class="modal-close-btn" data-modal-close-btn aria-label="Close">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+            <h4 class="h3 modal-title" id="modal-title" data-modal-title></h4>
+
+            <div class="modal-content" data-modal-text></div>
+
+          </section>
+
+        </div>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #PUBLICATIONS
+      -->
+
+      <article class="publications" data-page="publications">
+
+        <header>
+          <h2 class="h2 article-title">Publications</h2>
+        </header>
+<% for (const publication of publications) { %>
+
+        <section class="publication-card content-card">
+
+          <div class="blog-meta">
+            <p class="blog-category"><%= publication.type %></p>
+            <span class="dot"></span>
+            <time datetime="<%= publication.date %>"><%= publication.dateLabel %></time>
+          </div>
+
+          <h3 class="h3 publication-title"><%= publication.title %></h3>
+<% if (publication.subtitle) { %>
+
+          <p class="publication-subtitle" lang="<%= publication.subtitleLang %>"><%= publication.subtitle %></p>
+<% } %>
+
+          <p class="publication-authors">
+            <% publication.authors.forEach((author, i) => { %><%= i ? ', ' : '' %><% if (author === site.name) { %><strong><%= author %></strong><% } else { %><%= author %><% } %><% }) %>
+          </p>
+
+          <p class="publication-venue">
+            <em><%= publication.venue %></em>, <%= publication.venueDetail %>
+          </p>
+
+          <p class="publication-abstract"><%= publication.abstract %></p>
+
+          <ul class="tag-list">
+<% for (const tag of publication.tags) { %>
+            <li class="tag"><%= tag %></li>
+<% } %>
+          </ul>
+
+          <div class="publication-actions">
+<% for (const link of publication.links) { %>
+            <a href="<%= link.href %>" class="<%= link.primary ? 'btn-primary' : 'btn-outline' %>" target="_blank" rel="noopener">
+              <ion-icon name="<%= link.icon %>"></ion-icon>
+              <span><%= link.label %></span>
+            </a>
+
+<% } %>
+            <button class="btn-outline" data-copy-citation>
+              <ion-icon name="copy-outline"></ion-icon>
+              <span data-copy-label>Copy citation</span>
+            </button>
+          </div>
+
+          <p class="citation" data-citation><%= publication.citation %></p>
+
+        </section>
+<% } %>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #INSIGHTS
+      -->
+
+      <article class="blog" data-page="insights">
+
+        <header>
+          <h2 class="h2 article-title">Insights</h2>
+        </header>
+
+        <p class="section-intro"><%= site.insightsIntro %></p>
+
+        <section class="blog-posts">
+
+          <ul class="blog-posts-list">
+<% for (const article of articles) { %>
+
+            <li class="blog-post-item">
+              <a href="/articles/<%= article.slug %>">
+
+                <figure class="blog-banner-box cover" style="--hue: <%= article.hue %>;">
+                  <ion-icon class="cover-icon" name="<%= article.icon %>"></ion-icon>
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category"><%= article.category %></p>
+                    <span class="dot"></span>
+                    <p class="blog-category"><%= article.readTime %></p>
+                  </div>
+
+                  <h3 class="h3 blog-item-title"><%= article.title %></h3>
+
+                  <p class="blog-text"><%= article.excerpt %></p>
+
+                </div>
+
+              </a>
+            </li>
+<% } %>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #CONTACT
+      -->
+
+      <article class="contact" data-page="contact">
+
+        <header>
+          <h2 class="h2 article-title">Contact</h2>
+        </header>
+
+        <p class="section-intro"><%= site.contactIntro %></p>
+
+        <section class="connect-list">
+
+          <a href="mailto:<%= site.email %>" class="connect-card">
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div>
+              <p class="contact-title">Email</p>
+              <p class="connect-value"><%= site.email %></p>
+            </div>
+
+            <ion-icon class="connect-arrow" name="arrow-forward-outline"></ion-icon>
+          </a>
+
+          <a href="<%= site.linkedin %>" class="connect-card" target="_blank" rel="noopener">
+            <div class="icon-box">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </div>
+
+            <div>
+              <p class="contact-title">LinkedIn</p>
+              <p class="connect-value"><%= site.name %></p>
+            </div>
+
+            <ion-icon class="connect-arrow" name="arrow-forward-outline"></ion-icon>
+          </a>
+
+        </section>
+
+        <section class="contact-form">
+
+          <h3 class="h3 form-title">Send a message</h3>
+
+          <form action="/api/contact" method="post" class="form" data-form novalidate>
+
+            <div class="input-wrapper">
+              <input type="text" name="fullname" class="form-input" placeholder="Full name" required maxlength="100"
+                autocomplete="name" aria-label="Full name" data-form-input>
+
+              <input type="email" name="email" class="form-input" placeholder="Email address" required maxlength="254"
+                autocomplete="email" aria-label="Email address" data-form-input>
+            </div>
+
+            <input type="text" name="subject" class="form-input form-subject" placeholder="Subject (optional)"
+              maxlength="150" aria-label="Subject" data-form-input>
+
+            <textarea name="message" class="form-input" placeholder="How can I help?" required minlength="10"
+              maxlength="5000" aria-label="Message" data-form-input></textarea>
+
+            <!-- spam traps: hidden from people, filled in by bots -->
+            <div class="form-trap" aria-hidden="true">
+              <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <input type="hidden" name="startedAt" value="<%= startedAt %>">
+
+            <p class="form-status<%= contactStatus ? ' ' + contactStatus : '' %>" role="status" aria-live="polite" data-form-status><%=
+              contactStatus === 'sent' ? 'Thanks, your message is on its way. I will reply by email.'
+              : contactStatus === 'invalid' ? 'Please fill in your name, a valid email and a message of at least 10 characters.'
+              : contactStatus === 'error' ? `Sorry, the message could not be sent. Please email me directly at ${site.email}.`
+              : '' %></p>
+
+            <p class="form-note">Your message goes straight to my inbox, and I will reply by email.</p>
+
+            <button class="form-btn" type="submit" data-form-btn>
+              <ion-icon name="paper-plane"></ion-icon>
+              <span data-form-btn-label>Send Message</span>
+            </button>
+
+          </form>
+
+        </section>
+
+      </article>
+
+      <footer class="site-footer">
+        <p>&copy; <span data-year><%= new Date().getFullYear() %></span> <%= site.name %> &middot; <%= site.location.city %>, <%= site.location.country %></p>
+      </footer>
+
+    </div>
+
+  </main>
+
+
+
+
+
+  <!--
+    - custom js link
+  -->
+  <script src="<%= asset('/assets/js/script.js') %>"></script>
+
+<%- include('partials/ionicons') %>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+[
+  {
+    "type": "Journal article",
+    "date": "2024-05-22",
+    "dateLabel": "Published 22 May 2024",
+    "title": "Implementation of the Graphic Rating Scale in Determining Motorcycle Indent Priorities at Motorcycle Dealers",
+    "subtitle": "Implementasi Graphic Rating Scale Dalam Menentukan Prioritas Indent Motor Pada Dealer Sepeda Motor",
+    "subtitleLang": "id",
+    "authors": ["Denny Riandhita Arief Permana", "Muhamad Fahrulrozi", "Ahlan Ismono", "Rahmadani Tyas Ningrum"],
+    "venue": "Technomedia Journal (TMJ)",
+    "venueDetail": "Vol. 9, No. 1, June 2024",
+    "abstract": "PT Cheger Motor, an authorised Honda motorcycle dealer in South Tangerang, handled indent (pre-order) sales through manual ledgers and WhatsApp, leading to booking delays, lost records and redundant data. This research develops an integrated information system that stores and manages indent orders and calculates a priority value for each transaction using the Graphic Rating Scale method, so the dealer can rank the queue against defined criteria.",
+    "tags": ["Indent", "Waterfall", "Graphic Rating Scale", "Google Data Studio"],
+    "links": [
+      { "label": "View on Garuda", "icon": "library-outline", "href": "https://garuda.kemdiktisaintek.go.id/documents/detail/4552009", "primary": true },
+      { "label": "Read full text", "icon": "document-text-outline", "href": "https://ijc.ilearning.co/index.php/TMJ/article/view/2217/816" }
+    ],
+    "citation": "Permana, D. R. A., Fahrulrozi, M., Ismono, A., & Ningrum, R. T. (2024). Implementasi Graphic Rating Scale dalam menentukan prioritas indent motor pada dealer sepeda motor. Technomedia Journal, 9(1)."
+  }
+]

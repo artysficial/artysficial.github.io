@@ -1,0 +1,66 @@
+{
+  "url": "https://artysficial.github.io",
+  "name": "Rahmadani Tyas Ningrum",
+  "title": "Test Lead · Senior SDET",
+  "jobTitle": "Test Lead & Senior Automation SDET",
+  "employer": "IDEMIA Technologies Indonesia",
+  "employerShort": "IDEMIA Technologies",
+  "location": { "city": "Jakarta", "country": "Indonesia", "countryCode": "ID" },
+  "email": "artysficial@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/rahmadani-t-747a77186",
+  "linkedinHandle": "in/rahmadani-t",
+  "github": "https://github.com/artysficial",
+  "journal": "https://garuda.kemdiktisaintek.go.id/documents/detail/4552009",
+  "cv": "assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf",
+  "avatar": "/assets/images/avatar-memoji.png",
+
+  "meta": {
+    "title": "Rahmadani Tyas Ningrum | Test Lead & Senior SDET",
+    "description": "Rahmadani Tyas Ningrum: quality engineering consultant for mission-critical banking and payment security technology. Test Lead for CBDC, Senior Automation SDET for HSM, eUICC and smart card testing.",
+    "ogDescription": "Quality engineering for central banks, payment security and telecom: CBDC, HSM, eUICC and smart card testing."
+  },
+
+  "aboutHtml": [
+    "I am a quality engineering professional with nearly four years of experience assuring <strong>mission-critical banking and payment security technology</strong> for central banks and government clients across four continents. I currently serve as <strong>Test Lead</strong> for a Central Bank Digital Currency (CBDC) client in Malawi and as <strong>Senior Automation SDET</strong> for a Hardware Security Module (HSM) product at IDEMIA.",
+    "My work sits where business risk meets engineering detail: owning test strategy, entry and exit criteria, regression and non-regression cycles, and the release-readiness reporting that clients rely on for go/no-go decisions. I am hands-on in Python, Selenium and Jenkins CI/CD, built our test framework from TDD to BDD, and mentor new QA engineers so teams can deliver independently."
+  ],
+
+  "stats": [
+    { "value": 86, "display": "86%", "label": "of HSM test cases automated" },
+    { "value": 40, "display": "40%", "label": "less manual reporting via Jenkins → Jira" },
+    { "value": 30, "display": "30%", "label": "shorter test cycles with Selenium & Postman" },
+    { "value": 25, "display": "25%", "label": "higher coverage on eUICC 5G SUCI" },
+    { "value": 20, "display": "20%", "label": "fewer post-release defects" },
+    { "value": 4, "display": "4", "label": "continents of central bank & government clients" }
+  ],
+
+  "featured": {
+    "eyebrow": "Open source · Python · CI/CD",
+    "title": "SDET Automation Framework",
+    "text": "BDD UI and API test automation across a storefront, an online bank (ParaBank), two REST APIs and an OWASP-aligned security suite, running on every change and nightly in GitHub Actions. Each run publishes a release-readiness report with exit criteria, open defects and a Go / No-go recommendation.",
+    "tags": ["pytest-bdd", "Selenium", "API & JSON Schema", "Security (SQLi / XSS)", "GitHub Actions", "6 findings"],
+    "report": "https://artysficial.github.io/sdet-automation-framework/",
+    "source": "https://github.com/artysficial/sdet-automation-framework"
+  },
+
+  "services": [
+    { "icon": "compass-outline", "title": "Test strategy & leadership", "text": "Test strategy, plans and entry/exit criteria, team coordination, and release-readiness reporting that supports clear go/no-go decisions." },
+    { "icon": "code-slash-outline", "title": "Test automation & frameworks", "text": "Python and Selenium automation, BDD frameworks business stakeholders can read, and regression suites that scale with the product." },
+    { "icon": "shield-checkmark-outline", "title": "Payment security & telecom QA", "text": "Domain depth in CBDC, Hardware Security Modules, smart cards and eUICC / 5G SUCI, where correctness is a compliance requirement." },
+    { "icon": "git-network-outline", "title": "CI/CD & quality engineering", "text": "Jenkins pipelines, Git branching strategy and Jira traceability, with AI-assisted test design to speed up delivery." }
+  ],
+
+  "domains": [
+    "Central Bank Digital Currency (CBDC)",
+    "Hardware Security Modules (HSM)",
+    "eUICC & 5G SUCI",
+    "Smart cards",
+    "Mobile & web banking",
+    "Central banks & government",
+    "Agile / Scrum delivery"
+  ],
+
+  "insightsIntro": "Field notes on testing payment security, telecom and central bank technology, written from hands-on delivery work.",
+  "contactIntro": "Open to conversations about quality engineering for banking, payment security and telecom programmes, test leadership engagements, and speaking or writing on testing.",
+  "authorBio": "Rahmadani Tyas Ningrum is a quality engineering professional assuring banking and payment security technology for central banks and government clients. She is Test Lead for a CBDC client and Senior Automation SDET for a Hardware Security Module product at IDEMIA."
+}

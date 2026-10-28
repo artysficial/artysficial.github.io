@@ -1,0 +1,103 @@
+---
+title: "Quality engineering for Central Bank Digital Currency"
+description: "What changes when the client is a central bank: risk-based test strategy, entry and exit criteria, device and card coverage, and reporting that supports a go/no-go call."
+lead: "What changes when the client is a central bank: risk-based test strategy, entry and exit criteria, device and card coverage, and reporting that supports a go/no-go call."
+category: "Central banking"
+date: "2026-10-27"
+readTime: "8 min read"
+order: 3
+hue: 22
+icon: "cash-outline"
+excerpt: "What changes when the client is a central bank: risk-based strategy, entry and exit criteria, device and card coverage, and reporting that supports a go/no-go call."
+---
+<h2>When the client is a central bank</h2>
+
+<p>
+  A Central Bank Digital Currency is money issued directly by a central bank in digital form. Testing it is not like
+  testing an ordinary fintech app. The issuer is the institution responsible for the stability of the currency itself,
+  the users include people who may never have held a bank account, and a defect can undermine public trust in money,
+  not just in a product.
+</p>
+
+<p>
+  I have tested CBDC solutions alongside international central banks, including the Bank of Canada and the Bank of
+  Israel, and now lead testing for a CBDC deployment for a client in Malawi. These are the principles that have held
+  up across all of them.
+</p>
+
+<h2>Start from risk, not from screens</h2>
+
+<p>
+  A CBDC platform typically spans an issuance and ledger core, mobile and web wallets, back-office portals for
+  operators and support staff, and often smart cards for offline or low-connectivity payments. It is tempting to plan
+  testing screen by screen. A stronger strategy starts from the risks the central bank cares about most:
+</p>
+
+<ul>
+  <li><strong>Monetary integrity</strong>: money is never created, destroyed or duplicated outside authorised issuance and redemption, and every ledger movement reconciles.</li>
+  <li><strong>Limits and tiers</strong>: holding and transaction limits by KYC tier are enforced everywhere, including edge cases at exactly the limit.</li>
+  <li><strong>Offline payments</strong>: card-based and offline transactions cannot be double-spent and reconcile correctly once back online.</li>
+  <li><strong>Inclusion</strong>: the experience works on low-end devices, on poor networks and for first-time users.</li>
+  <li><strong>Operational control</strong>: operator and support actions are authorised, auditable and reversible where policy allows.</li>
+</ul>
+
+<p>
+  Each risk maps to test scenarios, and the depth of testing follows the size of the risk. That mapping is also what I
+  walk the client through, because it shows them where effort is going and why.
+</p>
+
+<h2>Entry and exit criteria everyone signs up to</h2>
+
+<p>
+  Clear criteria remove arguments at the end of a cycle by settling them at the start. A representative set:
+</p>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Gate</th><th>Criteria</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Entry</td><td>Build deployed to the test environment with release notes; smoke suite passing; test data and devices ready; requirements for the scope baselined.</td></tr>
+      <tr><td>Exit</td><td>All planned tests executed; no open critical or high defects without an agreed workaround; reconciliation checks clean; regression suite passing; residual risks documented and accepted by the client.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Covering mobile, web and cards</h2>
+
+<p>
+  Wallet features have to behave the same on iOS, Android and web, but the right testing approach differs by
+  platform. In my work, web flows are automated, iOS and parts of Android are tested manually, and anything that
+  needs a physical smart card tapped against a phone is tested by hand on real devices. Pretending those card
+  interactions can be fully simulated hides exactly the defects that matter in the field.
+</p>
+
+<p>
+  A small, deliberate device matrix (recent and older OS versions, a low-memory Android device, a range of screen
+  sizes) catches far more than a long list of near-identical phones.
+</p>
+
+<h2>Leading the test team</h2>
+
+<ul>
+  <li><strong>One plan, shared ownership.</strong> Mobile and web testers work from the same test plan and defect conventions, so results are comparable.</li>
+  <li><strong>Daily triage.</strong> Short, regular defect triage with development keeps severity honest and stops the backlog from surprising anyone.</li>
+  <li><strong>Traceability.</strong> Every test links back to a requirement, so coverage gaps are visible before the client finds them.</li>
+  <li><strong>Mentoring.</strong> Newer testers pair on exploratory sessions in the riskiest areas; that is where judgement is learnt.</li>
+</ul>
+
+<h2>Speaking the client's language</h2>
+
+<p>
+  Central bank stakeholders do not need pass rates; they need to know whether the system is safe to put in front of
+  the public, and what remains uncertain. As the primary QA contact, I report quality in terms of the risks above:
+  which are covered, which defects affect them, and what is still open. The detail is in the appendix for anyone who
+  wants it.
+</p>
+
+<div class="callout">
+  <strong>The test lead's job</strong> is to give the client an honest, evidence-based basis for a go/no-go
+  decision. The structure I use for that report is in
+  <a href="./release-readiness-reporting.html">Release-readiness reporting clients can act on</a>.
+</div>

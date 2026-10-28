@@ -1,0 +1,93 @@
+---
+title: "Release-readiness reporting clients can act on"
+description: "Turning pass rates and defect counts into a clear go/no-go recommendation: the structure I use for client-facing quality reports."
+lead: "Turning pass rates and defect counts into a clear go/no-go recommendation: the structure I use for client-facing quality reports."
+category: "Test leadership"
+date: "2026-10-27"
+readTime: "6 min read"
+order: 6
+hue: 16
+icon: "stats-chart-outline"
+excerpt: "Turning pass rates and defect counts into a clear go/no-go recommendation: the structure I use for client-facing quality reports."
+---
+<h2>A report is a decision tool</h2>
+
+<p>
+  At the end of a test cycle, a client does not want a spreadsheet of 1,200 test results. They want to know one
+  thing: <strong>can we release, and what are we accepting if we do?</strong> A release-readiness report exists to
+  answer that, with enough evidence that the answer can be trusted.
+</p>
+
+<p>
+  As a test lead, I report quality status to project management and directly to clients. This is the structure I
+  use, and the principles behind it.
+</p>
+
+<h2>The structure</h2>
+
+<h3>1. Recommendation first</h3>
+<p>
+  The first line is the recommendation: <strong>Go</strong>, <strong>Go with conditions</strong> or
+  <strong>No-go</strong>, with one or two sentences of rationale. Everything after it is supporting evidence. Busy
+  stakeholders should be able to stop reading after the first paragraph and still act correctly.
+</p>
+
+<h3>2. Scope and build</h3>
+<p>
+  Exactly what was tested: build or version, environment, platforms, and the features in scope. Most
+  misunderstandings about quality are really misunderstandings about scope.
+</p>
+
+<h3>3. Exit criteria status</h3>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Criterion</th><th>Target</th><th>Actual</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Planned tests executed</td><td>100%</td><td>98%</td><td>Met with exception (2 blocked, see risks)</td></tr>
+      <tr><td>Open critical defects</td><td>0</td><td>0</td><td>Met</td></tr>
+      <tr><td>Open high defects</td><td>0 without workaround</td><td>1 with agreed workaround</td><td>Met</td></tr>
+      <tr><td>Regression suite</td><td>Passing</td><td>Passing</td><td>Met</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  The criteria are the ones agreed at the start of the cycle. Reporting against them, rather than against new
+  standards invented at the end, keeps the conversation objective.
+</p>
+
+<h3>4. Open defects, in business terms</h3>
+<p>
+  For each open defect that matters: what a user or operator would experience, how likely it is, and the workaround.
+  "Balance screen shows a stale value for up to 30 seconds after a transfer; the ledger is correct" is useful.
+  "BUG-482 (Major)" is not.
+</p>
+
+<h3>5. Risks and what was not tested</h3>
+<p>
+  Be explicit about gaps: blocked tests, untested device types, features verified only in a simulated environment.
+  An honest list of known unknowns is what makes the rest of the report credible.
+</p>
+
+<h3>6. Trends</h3>
+<p>
+  A short view of defects found and fixed over the cycle. A falling discovery rate supports a "go"; a late spike in
+  one area is a warning even if every count is currently zero.
+</p>
+
+<h2>Principles</h2>
+
+<ul>
+  <li><strong>No surprises.</strong> If the final report is the first time a stakeholder hears about a risk, the reporting process has failed. Raise significant risks the day they appear.</li>
+  <li><strong>Consistent cadence and format.</strong> The same structure every cycle lets stakeholders compare releases at a glance.</li>
+  <li><strong>Recommend, then let the client decide.</strong> The test lead provides evidence and a recommendation; the release decision and the acceptance of residual risk belong to the business.</li>
+  <li><strong>Traceable evidence.</strong> Every number should link to its source, whether a test execution, a defect filter or a build, so anyone can check it.</li>
+</ul>
+
+<div class="callout">
+  <strong>A useful test for any quality report:</strong> could a stakeholder who reads only the first paragraph
+  make the same decision as one who reads all of it? If yes, the report is doing its job.
+</div>

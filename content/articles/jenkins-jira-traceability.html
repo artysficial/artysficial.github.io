@@ -1,0 +1,115 @@
+---
+title: "Closing the loop: Jenkins results into Jira test executions"
+description: "A practical pattern for pushing automated test results into Jira, so every run is traceable to a requirement and nobody copies pass/fail by hand again."
+lead: "A practical pattern for pushing automated test results into Jira, so every run is traceable to a requirement and nobody copies pass/fail by hand again."
+category: "CI/CD"
+date: "2026-10-27"
+readTime: "6 min read"
+order: 5
+hue: 28
+icon: "sync-outline"
+excerpt: "A practical pattern for pushing automated results into Jira so every run is traceable to a requirement, and nobody copies pass/fail by hand again."
+---
+<h2>The problem</h2>
+
+<p>
+  Automated Android tests ran in Jenkins and produced JSON results. The client, and our own release process, needed
+  those results in Jira test execution tickets, where each test is linked to the requirement it covers. In between
+  sat a person copying pass and fail statuses by hand after every run.
+</p>
+
+<p>
+  Manual transfer was slow, but the bigger cost was trust: a status typed into the wrong row, or a run that never got
+  reported, breaks traceability exactly when someone needs it. Working with the DevOps team, we automated the import.
+  It cut manual reporting effort by 40% and made every execution traceable back to a build.
+</p>
+
+<h2>The pattern</h2>
+
+<ol>
+  <li><strong>Tag each automated test with its Jira test key</strong>, so the mapping lives next to the code.</li>
+  <li><strong>Produce a machine-readable result file</strong> at the end of every run.</li>
+  <li><strong>Transform it</strong> into the import format of your test management add-on (Xray, for example, accepts its own JSON, JUnit XML and Cucumber JSON).</li>
+  <li><strong>Post it from the pipeline</strong> to create or update the test execution, with a link back to the build.</li>
+</ol>
+
+<h2>In the pipeline</h2>
+
+<pre><code>pipeline {
+  agent { label 'android' }
+  stages {
+    stage('Test') {
+      steps { sh './gradlew connectedAndroidTest' }
+    }
+  }
+  post {
+    always {
+      withCredentials([usernamePassword(credentialsId: 'xray-api',
+                       usernameVariable: 'XRAY_ID', passwordVariable: 'XRAY_SECRET')]) {
+        sh 'python tools/push_results.py results/report.json --build-url "$BUILD_URL"'
+      }
+    }
+  }
+}</code></pre>
+
+<p>
+  Running the upload in <code>post { always { ... } }</code> matters: failed runs are the ones you most need in Jira.
+</p>
+
+<h2>The import script</h2>
+
+<p>
+  A simplified version for Xray Cloud. The script authenticates, maps results to test keys and imports a test
+  execution:
+</p>
+
+<pre><code>import json, os, sys
+import requests
+
+XRAY = "https://xray.cloud.getxray.app/api/v2"
+
+
+def token():
+    response = requests.post(f"{XRAY}/authenticate", timeout=30, json={
+        "client_id": os.environ["XRAY_ID"], "client_secret": os.environ["XRAY_SECRET"]})
+    response.raise_for_status()
+    return response.json()
+
+
+def to_xray(results, build_url):
+    return {
+        "info": {"summary": "Android regression", "description": f"Jenkins build: {build_url}"},
+        "tests": [{"testKey": r["jira_key"],
+                   "status": "PASSED" if r["passed"] else "FAILED",
+                   "comment": r.get("message", "")} for r in results],
+    }
+
+
+results = json.load(open(sys.argv[1]))
+unmapped = [r["name"] for r in results if not r.get("jira_key")]
+if unmapped:
+    sys.exit(f"Tests without a Jira key: {unmapped}")
+
+response = requests.post(f"{XRAY}/import/execution", timeout=60,
+                         headers={"Authorization": f"Bearer {token()}"},
+                         json=to_xray(results, sys.argv[3]))
+response.raise_for_status()
+print("Imported:", response.json()["key"])</code></pre>
+
+<h2>Design decisions that paid off</h2>
+
+<ul>
+  <li><strong>Fail loudly on unmapped tests.</strong> A test without a Jira key is a traceability gap; the script refuses to hide it.</li>
+  <li><strong>Link the build.</strong> Every execution carries the Jenkins build URL, so anyone in Jira can reach logs and artefacts in one click.</li>
+  <li><strong>Do not let Jira break the build.</strong> If the API is down, retry, then mark the build unstable rather than failed: the tests themselves still ran.</li>
+  <li><strong>Keep secrets in Jenkins credentials</strong>, never in the repository or the job configuration.</li>
+  <li><strong>Make it re-runnable.</strong> Re-importing the same results should update, not duplicate, the execution.</li>
+</ul>
+
+<h2>Why it matters beyond saved hours</h2>
+
+<p>
+  With results flowing automatically, the Jira dashboards reflect reality on every build. Release-readiness
+  discussions move from "is this up to date?" to "what does it tell us?", and the requirement-to-evidence chain that
+  regulated clients ask for is there by default rather than assembled the night before an audit.
+</p>

@@ -1,69 +1,122 @@
 # Rahmadani Tyas Ningrum: Portfolio
 
-Personal portfolio for Rahmadani Tyas Ningrum, Test Lead and Senior Automation SDET. It is a static site (HTML, CSS and
-JavaScript, no build step), based on the open-source [vCard template](https://github.com/codewithsadee/vcard-personal-portfolio) (MIT).
+Personal portfolio for Rahmadani Tyas Ningrum, Test Lead and Senior Automation SDET. It is a Node.js app (Express and
+EJS templates) based on the open-source [vCard template](https://github.com/codewithsadee/vcard-personal-portfolio) (MIT).
+
+What the server adds over a static site:
+
+- **Contact form that emails you.** Messages are validated, checked for spam (hidden honeypot field, time check, rate
+  limit), sent to your inbox over SMTP, and also stored so nothing is lost if email delivery fails.
+- **Content from data files.** Resume, projects, publications and articles live in `content/`, not in HTML.
+- **CV download tracking.** Every download is counted with the button used, the referring site and the device type,
+  on a private, password-protected `/admin` page. Crawlers are not counted and no IP addresses are stored.
+- **SEO and operations.** Generated `sitemap.xml` and `robots.txt`, security headers (CSP with per-request nonces),
+  compression, cache-busted assets, a `/healthz` endpoint, and 301 redirects from the old `.html` URLs.
+
+## Run it locally
+
+Requires Node.js 22 or newer.
+
+```bash
+npm install
+cp .env.example .env     # then fill in SMTP_PASS and ADMIN_PASSWORD
+npm run dev              # restarts on code changes; http://localhost:3000
+npm test                 # pages, contact form, CV tracking, admin, storage, SEO, security
+```
+
+In development, edits to `content/` show up on refresh. Without SMTP settings, contact messages are stored and logged
+instead of emailed.
 
 ## Structure
 
 ```
-index.html                  About, Resume, Portfolio, Publications, Insights, Contact
-articles/*.html             Insight articles (eUICC, HSM, CBDC, BDD, Jenkins/Jira, release readiness)
-assets/css/style.css        Main site styles (colour tokens at the top)
-assets/css/article.css      Article page styles
-assets/js/script.js         Navigation, portfolio filter and modal, citation copy, contact form
-assets/js/article.js        Share and copy-link on article pages
-assets/images/avatar-memoji.png   Memoji avatar (favicon.png is the small version)
-assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf   Downloadable CV
-sitemap.xml, robots.txt, .nojekyll
+server.js                   Starts the app
+src/app.js                  Routes, security headers, caching, CV download, sitemap, robots, health check
+src/content.js              Loads content/*.json and the articles
+src/contact.js              Contact form validation, spam checks and delivery
+src/mailer.js               SMTP sending (nodemailer)
+src/admin.js                Basic auth and download/message statistics
+src/store.js                Storage: MongoDB when MONGODB_URI is set, otherwise JSON Lines files in data/
+content/site.json           Profile, contacts, about text, stats, featured project, services
+content/resume.json         Experience, education, certifications, skills
+content/projects.json       Portfolio items and filter categories
+content/publications.json   Publications
+content/articles/*.html     Insight articles (front matter + HTML body); *.md works too
+views/                      EJS templates (index, article, admin, 404)
+public/assets/              CSS, browser JS, images and the CV PDF
+test/                       node:test + supertest
 ```
-
-Sections can be linked directly, e.g. `index.html#insights` or `index.html#contact`.
 
 ## Common edits
 
-- **Change the avatar:** replace `assets/images/avatar-memoji.png` (square, transparent background works best) and
-  `assets/images/favicon.png` (64 x 64).
-- **Colours and light/dark mode:** all colours are tokens at the top of `assets/css/style.css` (dark theme in `:root`,
-  light theme in the `[data-theme="light"]` block). `assets/css/article.css` mirrors them for the article pages.
-- **Update the CV:** overwrite `assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf` (keep the file name).
-- **Add a portfolio item:** copy one `<li class="project-item">` block in `index.html`. The `data-category` value must
-  match a filter button's text in lower case.
-- **Contact form:** it opens the visitor's email app with the message pre-filled, so it needs no server. To receive
-  messages without an email app, sign up at a free form service such as Formspree and change the form's `action`.
+- **Update the CV:** overwrite `public/assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf` (keep the file name).
+- **Change a job, skill or certificate:** edit `content/resume.json`.
+- **Add a portfolio item:** add an object to `content/projects.json`. Its `category` must be one of `categories`.
+- **Write a new article:** add `content/articles/my-topic.md` (or `.html`) starting with front matter:
 
-## Live site
+  ```markdown
+  ---
+  title: "My article title"
+  description: "One or two sentences for search results and the card."
+  category: "Test automation"
+  date: "2026-11-15"
+  readTime: "5 min read"
+  hue: 20
+  icon: "document-text-outline"
+  ---
+  ## First heading
 
-Published with GitHub Pages at **https://artysficial.github.io/** from the `artysficial/artysficial.github.io`
-repository. Every push to `main` redeploys the site within a minute or two.
+  Article text in Markdown...
+  ```
 
-## Free hosting on GitHub Pages
+  It appears in Insights, under "More insights" on every article, and in the sitemap. Articles without `order` are
+  listed newest first after the ordered ones. Add `draft: true` to hide one. `icon` is any
+  [Ionicons 5](https://ionic.io/ionicons) name.
+- **Colours and light/dark mode:** tokens at the top of `public/assets/css/style.css` and `article.css`.
 
-1. Create a GitHub account if you do not have one, then create a **public** repository, for example `portfolio`.
-2. In this folder, point git at your repository and push:
-   ```bash
-   git config user.name "Rahmadani Tyas Ningrum"
-   git config user.email "artysficial@gmail.com"
-   git remote set-url origin https://github.com/<your-username>/portfolio.git
-   git add -A
-   git commit -m "Personal portfolio"
-   git push -u origin master
-   ```
-3. On GitHub, open **Settings → Pages**, set **Source** to *Deploy from a branch*, choose `master` and `/ (root)`, then save.
-4. After a minute the site is live at `https://<your-username>.github.io/portfolio/`.
+## Configuration
 
-Netlify and Cloudflare Pages are free alternatives: drag and drop this folder, or connect the repository.
+Set these as environment variables on the host, or in `.env` locally (see `.env.example`):
 
-## Custom domain (www.artysficial.co.id)
+| Variable | Purpose |
+|---|---|
+| `SITE_URL` | Public address, used for canonical links, the sitemap and social previews |
+| `SMTP_USER`, `SMTP_PASS` | Mailbox that sends contact messages. For Gmail, `SMTP_PASS` must be an [app password](https://myaccount.google.com/apppasswords), not your normal password |
+| `SMTP_HOST`, `SMTP_PORT` | Defaults to `smtp.gmail.com` and `465` |
+| `MAIL_TO` | Where messages are delivered; defaults to the email in `content/site.json` |
+| `ADMIN_USER`, `ADMIN_PASSWORD` | Login for `/admin`; the page is disabled while `ADMIN_PASSWORD` is empty |
+| `MONGODB_URI` | Optional. Stores downloads and messages in MongoDB (e.g. a free Atlas cluster) instead of files |
+| `MONGODB_DB` | Database name when `MONGODB_URI` is set; defaults to `portfolio` |
+| `DATA_DIR` | Where downloads and messages are stored without MongoDB; defaults to `./data` |
+| `PORT` | Set automatically by most hosts |
 
-Hosting is free, but the domain itself must be registered with a PANDI-accredited registrar, which is a paid yearly
-fee. Note that **`.co.id` is reserved for registered businesses** and requires company documents. For an individual,
-`artysficial.my.id` (personal, needs a KTP) or `artysficial.id` are the usual choices.
+## Deploy for free (Render + MongoDB Atlas)
 
-Once you own the domain:
+GitHub Pages only serves static files, so the Node server runs on Render's free plan. Render's free disk is wiped
+whenever the service restarts, so CV downloads and messages go to a free MongoDB Atlas database instead.
 
-1. At your registrar's DNS settings, add a `CNAME` record: `www` → `<your-username>.github.io`.
-   For the bare domain, add `A` records pointing to `185.199.108.153`, `185.199.109.153`, `185.199.110.153` and `185.199.111.153`.
-2. In **Settings → Pages → Custom domain**, enter `www.artysficial.co.id` (or your chosen domain), save, and tick
-   **Enforce HTTPS** once it becomes available.
-3. Find and replace `https://artysficial.github.io` with your new address in `index.html`, `articles/*.html`,
-   `sitemap.xml` and `robots.txt`.
+**1. Free database (MongoDB Atlas)**
+
+1. Sign up at [mongodb.com/atlas](https://www.mongodb.com/cloud/atlas/register) and create a free **M0** cluster.
+2. Under **Database Access**, add a user with a password.
+3. Under **Network Access**, allow `0.0.0.0/0` (Render's free plan has no fixed IP address).
+4. Under **Connect > Drivers**, copy the connection string and put your password in it. That is `MONGODB_URI`.
+
+**2. Free hosting (Render)**
+
+1. Push this repository to GitHub.
+2. On [render.com](https://render.com), sign in with GitHub, choose **New > Blueprint** and pick the repository.
+   `render.yaml` configures the plan, build, start command, health check and environment variables.
+3. When asked, enter `SITE_URL` (for example `https://artysficial-portfolio.onrender.com`), `SMTP_USER`,
+   `SMTP_PASS`, `ADMIN_PASSWORD` and `MONGODB_URI`.
+4. Every push to the deployed branch redeploys the site.
+
+The free plan sleeps after 15 minutes without visitors, so the first visit afterwards takes up to a minute. For an
+always-on site, switch `render.yaml` to `plan: starter` (paid).
+
+## Moving from GitHub Pages
+
+The previous static version was published from this repository at https://artysficial.github.io/. Old links such as
+`/index.html`, `/articles/hsm-testing.html` and `/assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf` keep working on the new
+server. Once the Node version is live, either point a custom domain at Render, or replace the GitHub Pages site with a
+small page that redirects to the new address, and update the links on LinkedIn and in the CV.

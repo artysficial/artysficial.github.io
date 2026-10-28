@@ -1,0 +1,86 @@
+{
+  "experience": [
+    {
+      "title": "Test Lead & Senior Automation SDET",
+      "company": "IDEMIA Technologies Indonesia",
+      "dates": "September 2023 — Present",
+      "location": "Jakarta",
+      "roles": [
+        {
+          "title": "Test Lead, CBDC CSR Malawi",
+          "dates": "June 2026 — Present",
+          "bullets": [
+            "Own test strategy, test plans, entry/exit criteria, execution and release sign-off for the CBDC CSR deployment.",
+            "Coordinate a team of mobile and web testers and act as the primary QA contact for client stakeholders.",
+            "Report quality status, defect trends and release-readiness risks to support go/no-go decisions."
+          ]
+        },
+        {
+          "title": "Senior Automation SDET, HSM",
+          "dates": "August 2026 — Present",
+          "bullets": [
+            "Manage the majority of regression and non-regression testing for a Hardware Security Module product, designing test cases from functional specifications.",
+            "Maintain Python automation integrated into Jenkins CI, automating 86% of test cases."
+          ]
+        },
+        {
+          "title": "Software Development Engineer in Test",
+          "dates": "September 2023 — June 2026",
+          "bullets": [
+            "Built the test automation framework and evolved it from TDD to BDD, making scenarios readable to business and client stakeholders.",
+            "Tested CBDC mobile banking apps on iOS, Android and web with international central banks, including the Bank of Canada and Bank of Israel.",
+            "Automated import of Jenkins Android test results into Jira test executions, cutting manual reporting effort by 40%.",
+            "Created Python test scripts for eUICC 5G SUCI, increasing coverage and efficiency by 25%.",
+            "Orchestrated PCOM regression testing, reducing post-release defects by 20%; smart card feature testing improved integration by 15%.",
+            "Mentored and onboarded new QA engineers; applied AI assistants to test design, scripting and defect analysis."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Software Testing Engineer",
+      "company": "PT Advotics Teknologi Global",
+      "dates": "December 2022 — June 2023",
+      "location": "Jakarta",
+      "bullets": [
+        "Automated tests with Selenium and Postman, reducing testing time by 30%.",
+        "API testing with Postman and database testing with MySQL to ensure data integrity.",
+        "Maintained test cases, plans and reports in Jira across Scrum sprints."
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "title": "Politeknik STMI Jakarta · Information System",
+      "dates": "August 2018 — December 2022",
+      "text": "Graduated summa cum laude (GPA 3.82 / 4.00). Certified Information System Business Analyst by BNSP. Led the development and testing of the Wanda FLP App for PT Cheger Motor, later published in Technomedia Journal."
+    }
+  ],
+
+  "certifications": [
+    { "issuer": "BNSP", "name": "Certified Development of Information System Business Process", "date": "2022-09" },
+    { "issuer": "Google × Coursera", "name": "Certified Data Analytics", "date": "2022-10" },
+    { "issuer": "Dicoding", "name": "Certified Python Programming", "date": "2022-10" },
+    { "issuer": "Dicoding", "name": "Certified Data Visualization", "date": "2022-10" },
+    { "issuer": "HackerRank", "name": "Certified SQL Basic", "date": "2022-07" },
+    { "issuer": "AWS", "name": "Cloud Practitioner Essentials (course)", "date": "2021-11" }
+  ],
+
+  "skills": [
+    {
+      "title": "Consulting & Leadership",
+      "items": ["Test strategy & entry/exit criteria", "Test team leadership", "Release-readiness reporting", "Client & stakeholder management", "Mentoring & onboarding", "Agile & DevOps (Scrum)", "Multi-engagement delivery"]
+    },
+    {
+      "title": "Quality Engineering",
+      "items": ["Framework design (TDD → BDD)", "Regression & non-regression", "Test design from epics / stories", "iOS, Android & web testing", "Defect & test management (Jira)", "CBDC, HSM, smart card, eUICC"]
+    },
+    {
+      "title": "Technical",
+      "items": ["Python", "Selenium", "Jenkins", "Git & CI/CD", "Postman (API)", "MySQL / SQL Server", "Data warehouse / ETL", "AI-assisted testing"]
+    }
+  ],
+
+  "languages": "Indonesian (native) · English (professional working)"
+}

@@ -1,0 +1,132 @@
+/*-----------------------------------*\
+  #admin.css
+  private statistics page; builds on the tokens of article.css
+\*-----------------------------------*/
+
+:root { --warn: hsl(355, 60%, 62%); }
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { --warn: hsl(355, 55%, 45%); }
+}
+
+:root[data-theme="light"] { --warn: hsl(355, 55%, 45%); }
+
+.admin {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+.admin h1 {
+  font-family: var(--ff-display);
+  color: var(--text-strong);
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.admin h2 {
+  color: var(--text-strong);
+  font-size: 1rem;
+  margin: 32px 0 12px;
+}
+
+.admin-alert {
+  border: 1px solid var(--warn);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+}
+
+.admin-stats {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.admin-stats li {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.admin-stats strong {
+  display: block;
+  color: var(--text-strong);
+  font-size: 1.8rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.admin-stats span { color: var(--text-muted); font-size: 0.85rem; }
+
+.admin-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0 24px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+
+.admin-table th { color: var(--text-muted); font-weight: 500; }
+
+.admin-table .num { text-align: right; font-variant-numeric: tabular-nums; width: 1%; white-space: nowrap; }
+
+.bar-cell { width: 60%; }
+
+.bar {
+  display: block;
+  height: 8px;
+  min-width: 2px;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+.admin-messages { list-style: none; display: grid; gap: 12px; }
+
+.admin-messages li {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.admin-message-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+.admin-message-meta strong { color: var(--text-strong); }
+
+.admin-message-subject { color: var(--text-strong); font-weight: 600; margin-top: 6px; }
+
+.admin-message-body { white-space: pre-wrap; margin-top: 6px; }
+
+.ok { color: var(--accent); }
+
+.warn { color: var(--warn); }
+
+.admin-empty,
+.admin-note { color: var(--text-muted); font-size: 0.9rem; }
+
+.admin-note { margin-top: 40px; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

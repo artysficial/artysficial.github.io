@@ -2513,6 +2513,34 @@ textarea.form-input::-webkit-resizer { display: none; }
   margin-bottom: 20px;
 }
 
+/* spam trap: off-screen rather than display:none, which some bots skip */
+.form-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-status:empty { display: none; }
+
+.form-status {
+  font-size: var(--fs-7);
+  line-height: 1.5;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-strong);
+}
+
+.form-status.sent { border-color: var(--accent); background: var(--accent-glow); }
+
+.form-status.invalid,
+.form-status.error { border-color: var(--danger); }
+
+.form-input.invalid { border-color: var(--danger); }
+
 /**
  * footer
  */

@@ -1,0 +1,118 @@
+---
+title: "Testing Hardware Security Modules: a regression strategy for cryptographic products"
+description: "Known-answer tests, key lifecycle coverage, negative paths and CI automation: what it takes to automate most of an HSM regression suite without losing rigour."
+lead: "Known-answer tests, key lifecycle coverage, negative paths and CI automation: what it takes to automate most of an HSM regression suite without losing rigour."
+category: "Payment security"
+date: "2026-10-27"
+readTime: "9 min read"
+order: 2
+hue: 345
+icon: "lock-closed-outline"
+excerpt: "Known-answer tests, key lifecycle coverage, negative paths and CI automation: what it takes to automate most of an HSM regression suite without losing rigour."
+---
+<h2>What makes HSM testing different</h2>
+
+<p>
+  A Hardware Security Module is the device a bank or payment processor trusts with its most sensitive keys. It
+  generates and stores them, and performs cryptographic operations with them, without the keys ever leaving the
+  tamper-resistant boundary in clear form. PIN verification, card issuance, transaction authorisation, key exchange
+  between institutions: all of it rests on the HSM doing exactly what its specification says, every time.
+</p>
+
+<p>
+  That has three consequences for testing. First, correctness is binary: a MAC that is "almost right" is simply wrong.
+  Second, the product is usually certified (FIPS 140-3, PCI PTS HSM and similar), so behaviour, including how errors
+  are reported, is part of a compliance contract. Third, the surface is wide: dozens of commands multiplied by key
+  types, algorithms, key formats and authorisation states. Regression testing by hand does not scale.
+</p>
+
+<h2>Regression and non-regression</h2>
+
+<p>
+  I split the work into two kinds of campaign. A <strong>full regression</strong> campaign runs the entire suite
+  before a release or firmware update. <strong>Targeted non-regression</strong> runs follow each change or fix and
+  cover the commands it touches plus their neighbours. Both draw on the same automated suite; what differs is the
+  selection, which is why every test is tagged by command family, algorithm and feature.
+</p>
+
+<h2>Designing tests from the functional specification</h2>
+
+<p>
+  Every test case starts from the functional specification of a command. For each one I work through the same list:
+</p>
+
+<ul>
+  <li><strong>Valid inputs</strong> for every supported algorithm, key length and format.</li>
+  <li><strong>Boundaries</strong>: minimum and maximum data lengths, padding edges, empty input where it is allowed.</li>
+  <li><strong>Every documented error code</strong>, triggered on purpose. If the spec lists fourteen error codes, the suite proves fourteen.</li>
+  <li><strong>State</strong>: the same command under each relevant authorisation or operating state.</li>
+</ul>
+
+<h2>Five pillars of a strong HSM suite</h2>
+
+<h3>1. Known-answer tests</h3>
+<p>
+  For deterministic operations (encryption with a fixed key, hashing, MAC generation), compare the output against
+  published vectors such as NIST's CAVP sets, or against values computed independently. These are the fastest and
+  most reliable tests in the suite.
+</p>
+
+<h3>2. Round-trip and independent verification</h3>
+<p>
+  Some outputs are randomised by design, such as ECDSA signatures or RSA-OAEP ciphertext. Here, verify properties
+  instead: a signature produced by the HSM must verify with an independent library such as <code>cryptography</code>
+  in Python, and data the HSM encrypts must decrypt correctly. The rule is simple: <strong>never use the HSM to check
+  itself</strong>.
+</p>
+
+<h3>3. Key lifecycle and usage enforcement</h3>
+<p>
+  Keys are generated, imported, exported under a key-encryption key, translated between formats, and destroyed. Modern
+  key blocks (for example ANSI X9.143, formerly TR-31) bind usage attributes to the key. Some of the most valuable
+  tests are negative ones: a key marked for MAC generation must be refused for encryption, and a key block with one
+  altered byte must be rejected.
+</p>
+
+<h3>4. Access control and audit</h3>
+<p>
+  Sensitive commands should only run in the right authorised state, and actions should leave the right audit trail.
+  Test both the allowed path and the refusal, and assert on the audit record, not just the response.
+</p>
+
+<h3>5. Non-functional behaviour</h3>
+<p>
+  Throughput under concurrent load, behaviour across restarts, persistence of keys after a firmware upgrade, and
+  failover in clustered set-ups. A firmware upgrade that leaves every stored key usable and every known-answer test
+  unchanged is the release gate that matters most.
+</p>
+
+<h2>Automation architecture</h2>
+
+<pre><code>tests/
+  commands/          # one module per command family, tagged for selection
+  vectors/           # known-answer data, kept as data files, not code
+  oracle/            # independent crypto checks (never the HSM itself)
+  client/            # thin Python wrapper over the HSM host interface
+Jenkinsfile          # lock an HSM in the lab, run, publish JUnit XML</code></pre>
+
+<p>
+  The client layer hides the wire format, so tests read as intent ("generate an AES-256 key, export it under the
+  zone master key"). Test data lives in files so new vectors do not need code changes. In Jenkins, each run locks a
+  physical HSM from the lab pool, runs the selected suite and publishes results, so nightly regressions and
+  on-demand non-regression runs never fight over hardware.
+</p>
+
+<h2>What stays manual, and why that is fine</h2>
+
+<p>
+  On the product I work on, 86% of test cases are automated. The remainder is deliberate: physical tamper response,
+  initial key ceremonies that need custodians and smart cards, and some hardware-level behaviour cannot be scripted
+  sensibly. Chasing 100% there would spend effort on brittle automation instead of on coverage. The goal is not a
+  number; it is that every release decision rests on evidence that can be repeated.
+</p>
+
+<div class="callout">
+  <strong>Checklist for an HSM release:</strong> all known-answer tests pass; every documented error code is
+  reproduced; key usage restrictions are enforced; stored keys survive the upgrade; throughput is within tolerance of
+  the previous release; audit records match the actions performed.
+</div>

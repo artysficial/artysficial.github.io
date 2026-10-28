@@ -38,8 +38,3 @@ themeBtn.addEventListener("click", function () {
   try { localStorage.setItem("theme", theme); } catch (error) { }
 
 });
-
-
-
-// footer year
-document.querySelector("[data-year]").textContent = new Date().getFullYear();

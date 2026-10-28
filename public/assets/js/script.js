@@ -150,33 +150,61 @@ copyCitationBtn.addEventListener("click", async function () {
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
+const formBtnLabel = document.querySelector("[data-form-btn-label]");
+const formStatus = document.querySelector("[data-form-status]");
 
-// add event to all form input field
+const updateFormBtn = function () { formBtn.disabled = !form.checkValidity(); }
+
+const showFormStatus = function (kind, message) {
+  formStatus.className = "form-status " + kind;
+  formStatus.textContent = message;
+}
+
+// the button stays usable without JavaScript; with it, enable only once the form is valid
+updateFormBtn();
+
 for (let i = 0; i < formInputs.length; i++) {
   formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
+    this.classList.remove("invalid");
+    updateFormBtn();
   });
 }
 
-// compose the message in the visitor's email app (static hosting has no backend)
-form.addEventListener("submit", function (event) {
+// send the message to the server, which emails it on
+form.addEventListener("submit", async function (event) {
 
   event.preventDefault();
 
-  const data = new FormData(form);
-  const subject = data.get("subject").trim() || "Portfolio enquiry from " + data.get("fullname").trim();
-  const body = data.get("message").trim() + "\n\n" + data.get("fullname").trim() + "\n" + data.get("email").trim();
+  formBtn.disabled = true;
+  formBtnLabel.textContent = "Sending…";
+  showFormStatus("", "");
 
-  window.location.href = "mailto:artysficial@gmail.com"
-    + "?subject=" + encodeURIComponent(subject)
-    + "&body=" + encodeURIComponent(body);
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    });
+    const result = await response.json();
+
+    if (result.ok) {
+      // reset() leaves hidden inputs alone, so the server's start time is kept
+      form.reset();
+      showFormStatus("sent", result.message);
+    } else {
+      for (const name in result.errors || {}) {
+        const input = form.elements[name];
+        if (input) input.classList.add("invalid");
+      }
+      const details = Object.values(result.errors || {}).join(" ");
+      showFormStatus(result.errors ? "invalid" : "error", (result.message + " " + details).trim());
+    }
+  } catch (error) {
+    showFormStatus("error", "Sorry, the message could not be sent. Please email me directly at artysficial@gmail.com.");
+  }
+
+  formBtnLabel.textContent = "Send Message";
+  updateFormBtn();
 
 });
 
@@ -216,7 +244,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-// open the page named in the URL hash, e.g. index.html#insights
+// open the page named in the URL hash, e.g. /#insights
 showPage(location.hash.slice(1) || "about");
 window.addEventListener("hashchange", function () { showPage(location.hash.slice(1)); });
 
@@ -247,5 +275,3 @@ systemLight.addEventListener("change", function (event) {
 
 
 
-// footer year
-document.querySelector("[data-year]").textContent = new Date().getFullYear();

@@ -1,0 +1,27 @@
+# Render blueprint: New > Blueprint, then pick this repository.
+# Secrets marked sync: false are asked for once in the Render dashboard.
+services:
+  - type: web
+    name: artysficial-portfolio
+    runtime: node
+    # free plan: sleeps after 15 idle minutes and its disk is wiped on restart,
+    # so CV downloads and messages are kept in MongoDB (MONGODB_URI) instead
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: SITE_URL
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_TO
+        value: artysficial@gmail.com
+      - key: ADMIN_PASSWORD
+        sync: false
