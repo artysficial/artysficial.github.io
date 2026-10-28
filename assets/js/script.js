@@ -200,10 +200,27 @@ const showPage = function (pageName) {
   if (!found) return showPage("about");
 
   for (let i = 0; i < navigationLinks.length; i++) {
-    navigationLinks[i].classList.toggle("active", navigationLinks[i].dataset.navLink === pageName);
+    const isCurrent = navigationLinks[i].dataset.navLink === pageName;
+    navigationLinks[i].classList.toggle("active", isCurrent);
+    // on narrow phones the menu scrolls sideways: keep the current page's link in view
+    if (isCurrent && navList.scrollWidth > navList.clientWidth) {
+      navList.scrollLeft = navigationLinks[i].offsetLeft - (navList.clientWidth - navigationLinks[i].offsetWidth) / 2;
+    }
   }
 
 }
+
+// fade whichever edge of the menu has more links beyond it
+const navList = document.querySelector(".navbar-list");
+
+const markNavOverflow = function () {
+  const scrollable = navList.scrollWidth > navList.clientWidth + 1;
+  navList.classList.toggle("is-scrollable", scrollable);
+  navList.classList.toggle("at-end", scrollable && navList.scrollLeft + navList.clientWidth >= navList.scrollWidth - 1);
+}
+
+navList.addEventListener("scroll", markNavOverflow, { passive: true });
+window.addEventListener("resize", markNavOverflow);
 
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
@@ -218,6 +235,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
 // open the page named in the URL hash, e.g. index.html#insights
 showPage(location.hash.slice(1) || "about");
+markNavOverflow();
 window.addEventListener("hashchange", function () { showPage(location.hash.slice(1)); });
 
 
