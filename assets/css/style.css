@@ -2231,6 +2231,19 @@ textarea.form-input::-webkit-resizer { display: none; }
   margin-bottom: 6px;
 }
 
+.timeline-subrole {
+  color: var(--text);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  line-height: 1.4;
+  margin: 14px 0 6px;
+}
+
+.timeline-subrole span {
+  display: block;
+  font-size: var(--fs-7);
+}
+
 .timeline-bullets li::before {
   content: "";
   position: absolute;
