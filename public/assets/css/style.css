@@ -219,6 +219,13 @@ input, textarea {
   font: inherit;
 }
 
+/* drop Safari's native control styling (inner shadows, gradients, grey tap flash) */
+button, input, textarea {
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 ::selection {
   background: var(--accent);
   color: var(--on-accent);
@@ -226,7 +233,12 @@ input, textarea {
 
 :focus { outline-color: var(--accent); }
 
-html { font-family: var(--ff-primary); }
+html {
+  font-family: var(--ff-primary);
+  /* stop iOS from enlarging text when the phone is turned sideways */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
   background: var(--bg-page);
@@ -542,20 +554,34 @@ main {
   border-radius: 12px 12px 0 0;
   box-shadow: var(--shadow-2);
   z-index: 5;
+  /* keep the links clear of the iPhone home indicator */
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* one row on every phone: centred when it fits, swipeable when it does not */
 .navbar-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
   align-items: center;
   padding: 0 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
+
+.navbar-list::-webkit-scrollbar { display: none; }
+
+.navbar-item { flex-shrink: 0; }
+
+.navbar-item:first-child { margin-left: auto; }
+
+.navbar-item:last-child { margin-right: auto; }
 
 .navbar-link {
   color: var(--text);
   font-size: var(--fs-8);
   padding: 20px 7px;
+  white-space: nowrap;
   transition: color var(--transition-1);
 }
 
@@ -563,6 +589,23 @@ main {
 .navbar-link:focus { color: var(--text-muted); }
 
 .navbar-link.active { color: var(--accent); }
+
+/* narrow phones: tighter spacing so the whole menu fits; if it still does not, fade the edge to hint at swiping */
+@media (max-width: 399px) {
+  .navbar-list { padding: 0 4px; }
+  .navbar-link { padding-inline: 4px; }
+  .navbar .theme-btn { margin-inline: 2px; }
+}
+
+.navbar-list.is-scrollable {
+  -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
+  mask-image: linear-gradient(to right, #000 85%, transparent);
+}
+
+.navbar-list.is-scrollable.at-end {
+  -webkit-mask-image: linear-gradient(to left, #000 85%, transparent);
+  mask-image: linear-gradient(to left, #000 85%, transparent);
+}
 
 
 
@@ -1231,7 +1274,8 @@ main {
 
 .form-input {
   color: var(--text-strong);
-  font-size: var(--fs-6);
+  /* iOS Safari zooms the page into any field under 16px */
+  font-size: max(16px, var(--fs-6));
   font-weight: var(--fw-400);
   padding: 13px 20px;
   border: 1px solid var(--border);
@@ -1792,6 +1836,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   .navbar-list {
     gap: 18px;
     padding: 0 6px;
+    overflow: visible;
   }
 
   .navbar-link { font-weight: var(--fw-500); }
