@@ -22,7 +22,7 @@
       var theme;
       try { theme = localStorage.getItem("theme"); } catch (error) { }
       if (theme !== "light" && theme !== "dark") {
-        theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       }
       document.documentElement.setAttribute("data-theme", theme);
     })();
@@ -55,7 +55,7 @@
       </a>
 
       <div class="topbar-actions">
-        <a href="../index.html#insights" class="back-link">&larr; All insights</a>
+        <a href="../index.html#writing" class="back-link">&larr; All writing</a>
 
         <button class="theme-btn" type="button" data-theme-btn aria-label="Switch between light and dark mode">
           <ion-icon class="icon-moon" name="moon-outline"></ion-icon>

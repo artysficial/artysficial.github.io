@@ -1,1516 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rahmadani Tyas Ningrum | Test Lead &amp; Senior SDET</title>
-  <meta name="description"
-    content="Rahmadani Tyas Ningrum: quality engineering consultant for mission-critical banking and payment security technology. Test Lead for CBDC, Senior Automation SDET for HSM, eUICC and smart card testing.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rahmadani Tyas Ningrum · Quality, end to end</title>
+  <meta name="description" content="Rahmadani Tyas Ningrum: Test Lead and Senior Automation SDET at IDEMIA. One case study seen through six roles: SDET, IT Business Analyst, Project Manager, IT Auditor, SAP Consultant and Senior IT Consultant, each with a live dashboard.">
   <meta name="author" content="Rahmadani Tyas Ningrum">
   <link rel="canonical" href="https://artysficial.github.io/">
-
-  <!--
-    - open graph
-  -->
   <meta property="og:type" content="profile">
-  <meta property="og:title" content="Rahmadani Tyas Ningrum | Test Lead & Senior SDET">
-  <meta property="og:description"
-    content="Quality engineering for central banks, payment security and telecom: CBDC, HSM, eUICC and smart card testing.">
+  <meta property="og:title" content="Rahmadani Tyas Ningrum · Quality, end to end">
+  <meta property="og:description" content="Test Lead and Senior Automation SDET. One case study, six roles, eight live dashboards.">
   <meta property="og:url" content="https://artysficial.github.io/">
   <meta property="og:image" content="https://artysficial.github.io/assets/images/avatar-memoji.png">
-
-  <!--
-    - favicon
-  -->
-  <link rel="icon" href="./assets/images/favicon.png" type="image/png">
-  <link rel="apple-touch-icon" href="./assets/images/avatar-memoji.png">
-
-  <!--
-    - apply the saved or system theme before first paint
-  -->
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/avatar-memoji.png">
+  <!-- apply the saved or system theme before the first paint -->
   <script>
     (function () {
       var theme;
-      try { theme = localStorage.getItem("theme"); } catch (error) { }
-      if (theme !== "light" && theme !== "dark") {
-        theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-      }
+      try { theme = localStorage.getItem("theme"); } catch (e) {}
+      if (theme !== "light" && theme !== "dark") theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       document.documentElement.setAttribute("data-theme", theme);
     })();
   </script>
-
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-
-  <!--
-    - google font link
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Rahmadani Tyas Ningrum",
-    "jobTitle": "Test Lead & Senior Automation SDET",
-    "worksFor": { "@type": "Organization", "name": "IDEMIA Technologies Indonesia" },
-    "email": "mailto:artysficial@gmail.com",
-    "url": "https://artysficial.github.io/",
-    "sameAs": ["https://www.linkedin.com/in/rahmadani-t-747a77186"],
-    "address": { "@type": "PostalAddress", "addressLocality": "Jakarta", "addressCountry": "ID" }
-  }
+  {"@context": "https://schema.org", "@type": "Person", "name": "Rahmadani Tyas Ningrum", "jobTitle": "Test Lead & Senior Automation SDET",
+   "worksFor": {"@type": "Organization", "name": "IDEMIA Technologies Indonesia"}, "url": "https://artysficial.github.io/",
+   "sameAs": ["https://www.linkedin.com/in/rahmadani-t-747a77186", "https://github.com/artysficial"],
+   "address": {"@type": "PostalAddress", "addressLocality": "Jakarta", "addressCountry": "ID"}}
   </script>
 </head>
-
 <body>
-
-  <!--
-    - #MAIN
-  -->
-
-  <main>
-
-    <!--
-      - #SIDEBAR
-    -->
-
-    <aside class="sidebar" data-sidebar>
-
-      <div class="sidebar-info">
-
-        <figure class="avatar-box">
-          <img src="./assets/images/avatar-memoji.png" alt="Memoji of Rahmadani Tyas Ningrum" width="80">
-        </figure>
-
-        <div class="info-content">
-          <h1 class="name" title="Rahmadani Tyas Ningrum">Rahmadani Tyas Ningrum</h1>
-
-          <p class="title">Test Lead &middot; Senior SDET</p>
-        </div>
-
-        <button class="info_more-btn" data-sidebar-btn aria-label="Show contacts">
-          <span>Show Contacts</span>
-
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
-      </div>
-
-      <div class="sidebar-info_more">
-
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-
-              <a href="mailto:artysficial@gmail.com" class="contact-link">artysficial@gmail.com</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">LinkedIn</p>
-
-              <a href="https://www.linkedin.com/in/rahmadani-t-747a77186" class="contact-link" target="_blank"
-                rel="noopener">in/rahmadani-t</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="briefcase-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Current</p>
-
-              <p class="contact-text">IDEMIA Technologies</p>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
-
-              <address>Jakarta, Indonesia</address>
-            </div>
-
-          </li>
-
-        </ul>
-
-        <div class="separator"></div>
-
-        <a href="./assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf" class="cv-btn" download>
-          <ion-icon name="download-outline"></ion-icon>
-          <span>Download CV</span>
-        </a>
-
-        <ul class="social-list">
-
-          <li class="social-item">
-            <a href="https://www.linkedin.com/in/rahmadani-t-747a77186" class="social-link" target="_blank"
-              rel="noopener" aria-label="LinkedIn">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://github.com/artysficial" class="social-link" target="_blank" rel="noopener"
-              aria-label="GitHub">
-              <ion-icon name="logo-github"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="mailto:artysficial@gmail.com" class="social-link" aria-label="Email">
-              <ion-icon name="mail"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://garuda.kemdiktisaintek.go.id/documents/detail/4552009" class="social-link" target="_blank"
-              rel="noopener" aria-label="Published journal on Garuda">
-              <ion-icon name="school"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
-    </aside>
-
-
-
-
-
-    <!--
-      - #main-content
-    -->
-
-    <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
-      <nav class="navbar">
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link="about">About</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link="resume">Resume</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link="portfolio">Portfolio</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link="publications">Publications</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link="insights">Insights</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link="contact">Contact</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="theme-btn" data-theme-btn aria-label="Switch between light and dark mode">
-              <ion-icon class="icon-moon" name="moon-outline"></ion-icon>
-              <ion-icon class="icon-sun" name="sunny-outline"></ion-icon>
-            </button>
-          </li>
-
-        </ul>
-
-      </nav>
-
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About me</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-            I am a quality engineering professional with nearly four years of experience assuring
-            <strong>mission-critical banking and payment security technology</strong> for central banks and government
-            clients across four continents. I currently serve as <strong>Test Lead</strong> for a Central Bank Digital
-            Currency (CBDC) client in Malawi and as <strong>Senior Automation SDET</strong> for a Hardware Security
-            Module (HSM) product at IDEMIA.
-          </p>
-
-          <p>
-            My work sits where business risk meets engineering detail: owning test strategy, entry and exit criteria,
-            regression and non-regression cycles, and the release-readiness reporting that clients rely on for go/no-go
-            decisions. I am hands-on in Python, Selenium and Jenkins CI/CD, built our test framework from TDD to BDD,
-            and mentor new QA engineers so teams can deliver independently.
-          </p>
-        </section>
-
-
-        <!--
-          - impact
-        -->
-
-        <section class="impact">
-
-          <h3 class="h3 service-title">Impact at a glance</h3>
-
-          <ul class="stats-list">
-
-            <li class="stat-item">
-              <data class="stat-value" value="86">86%</data>
-              <p class="stat-label">of HSM test cases automated</p>
-            </li>
-
-            <li class="stat-item">
-              <data class="stat-value" value="40">40%</data>
-              <p class="stat-label">less manual reporting via Jenkins&nbsp;&rarr;&nbsp;Jira</p>
-            </li>
-
-            <li class="stat-item">
-              <data class="stat-value" value="30">30%</data>
-              <p class="stat-label">shorter test cycles with Selenium &amp; Postman</p>
-            </li>
-
-            <li class="stat-item">
-              <data class="stat-value" value="25">25%</data>
-              <p class="stat-label">higher coverage on eUICC 5G SUCI</p>
-            </li>
-
-            <li class="stat-item">
-              <data class="stat-value" value="20">20%</data>
-              <p class="stat-label">fewer post-release defects</p>
-            </li>
-
-            <li class="stat-item">
-              <data class="stat-value" value="4">4</data>
-              <p class="stat-label">continents of central bank &amp; government clients</p>
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - featured project
-        -->
-
-        <section class="featured">
-
-          <h3 class="h3 service-title">Featured project</h3>
-
-          <div class="featured-card">
-
-            <div class="featured-body">
-              <p class="featured-eyebrow">Open source &middot; Python &middot; CI/CD</p>
-
-              <h4 class="h3 featured-title">SDET Automation Framework</h4>
-
-              <p class="featured-text">
-                BDD UI and API test automation across a storefront, an online bank (ParaBank), two REST APIs and an
-                OWASP-aligned security suite, running on every change and nightly in GitHub Actions. Each run publishes
-                a release-readiness report with exit criteria, open defects and a Go / No-go recommendation.
-              </p>
-
-              <ul class="tag-list">
-                <li class="tag">pytest-bdd</li>
-                <li class="tag">Selenium</li>
-                <li class="tag">API &amp; JSON Schema</li>
-                <li class="tag">Security (SQLi / XSS)</li>
-                <li class="tag">GitHub Actions</li>
-                <li class="tag">6 findings</li>
-              </ul>
-
-              <div class="publication-actions">
-                <a href="https://artysficial.github.io/sdet-automation-framework/" class="btn-primary" target="_blank"
-                  rel="noopener">
-                  <ion-icon name="stats-chart-outline"></ion-icon>
-                  <span>View live report</span>
-                </a>
-
-                <a href="https://github.com/artysficial/sdet-automation-framework" class="btn-outline"
-                  target="_blank" rel="noopener">
-                  <ion-icon name="logo-github"></ion-icon>
-                  <span>Source code</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!--
-          - service
-        -->
-
-        <section class="service">
-
-          <h3 class="h3 service-title">How I help clients</h3>
-
-          <ul class="service-list">
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <ion-icon name="compass-outline"></ion-icon>
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Test strategy &amp; leadership</h4>
-
-                <p class="service-item-text">
-                  Test strategy, plans and entry/exit criteria, team coordination, and release-readiness reporting that
-                  supports clear go/no-go decisions.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <ion-icon name="code-slash-outline"></ion-icon>
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Test automation &amp; frameworks</h4>
-
-                <p class="service-item-text">
-                  Python and Selenium automation, BDD frameworks business stakeholders can read, and regression suites
-                  that scale with the product.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <ion-icon name="shield-checkmark-outline"></ion-icon>
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Payment security &amp; telecom QA</h4>
-
-                <p class="service-item-text">
-                  Domain depth in CBDC, Hardware Security Modules, smart cards and eUICC / 5G SUCI, where correctness
-                  is a compliance requirement.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <ion-icon name="git-network-outline"></ion-icon>
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">CI/CD &amp; quality engineering</h4>
-
-                <p class="service-item-text">
-                  Jenkins pipelines, Git branching strategy and Jira traceability, with AI-assisted test design to
-                  speed up delivery.
-                </p>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - domains
-        -->
-
-        <section class="domains">
-
-          <h3 class="h3 service-title">Domains &amp; engagements</h3>
-
-          <ul class="tag-list">
-            <li class="tag">Central Bank Digital Currency (CBDC)</li>
-            <li class="tag">Hardware Security Modules (HSM)</li>
-            <li class="tag">eUICC &amp; 5G SUCI</li>
-            <li class="tag">Smart cards</li>
-            <li class="tag">Mobile &amp; web banking</li>
-            <li class="tag">Central banks &amp; government</li>
-            <li class="tag">Agile / Scrum delivery</li>
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-        <header class="article-header">
-          <h2 class="h2 article-title">Resume</h2>
-
-          <a href="./assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf" class="btn-outline" download>
-            <ion-icon name="download-outline"></ion-icon>
-            <span>Download PDF</span>
-          </a>
-        </header>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="briefcase-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Experience</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Test Lead &amp; Senior Automation SDET &middot; IDEMIA Technologies
-                Indonesia</h4>
-
-              <span>September 2023 &mdash; Present &middot; Jakarta</span>
-
-              <h5 class="timeline-subrole">Test Lead, CBDC CSR Malawi <span>June 2026 &mdash; Present</span></h5>
-
-              <ul class="timeline-bullets">
-                <li>Own test strategy, test plans, entry/exit criteria, execution and release sign-off for the CBDC CSR
-                  deployment.</li>
-                <li>Coordinate a team of mobile and web testers and act as the primary QA contact for client
-                  stakeholders.</li>
-                <li>Report quality status, defect trends and release-readiness risks to support go/no-go
-                  decisions.</li>
-              </ul>
-
-              <h5 class="timeline-subrole">Senior Automation SDET, HSM <span>August 2026 &mdash; Present</span></h5>
-
-              <ul class="timeline-bullets">
-                <li>Manage the majority of regression and non-regression testing for a Hardware Security Module
-                  product, designing test cases from functional specifications.</li>
-                <li>Maintain Python automation integrated into Jenkins CI, automating 86% of test cases.</li>
-              </ul>
-
-              <h5 class="timeline-subrole">Software Development Engineer in Test <span>September 2023 &mdash; June
-                  2026</span></h5>
-
-              <ul class="timeline-bullets">
-                <li>Built the test automation framework and evolved it from TDD to BDD, making scenarios readable to
-                  business and client stakeholders.</li>
-                <li>Tested CBDC mobile banking apps on iOS, Android and web with international central banks, including
-                  the Bank of Canada and Bank of Israel.</li>
-                <li>Automated import of Jenkins Android test results into Jira test executions, cutting manual
-                  reporting effort by 40%.</li>
-                <li>Created Python test scripts for eUICC 5G SUCI, increasing coverage and efficiency by 25%.</li>
-                <li>Orchestrated PCOM regression testing, reducing post-release defects by 20%; smart card feature
-                  testing improved integration by 15%.</li>
-                <li>Mentored and onboarded new QA engineers; applied AI assistants to test design, scripting and defect
-                  analysis.</li>
-              </ul>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Software Testing Engineer &middot; PT Advotics Teknologi Global</h4>
-
-              <span>December 2022 &mdash; June 2023 &middot; Jakarta</span>
-
-              <ul class="timeline-bullets">
-                <li>Automated tests with Selenium and Postman, reducing testing time by 30%.</li>
-                <li>API testing with Postman and database testing with MySQL to ensure data integrity.</li>
-                <li>Maintained test cases, plans and reports in Jira across Scrum sprints.</li>
-              </ul>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="school-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Politeknik STMI Jakarta &middot; Information System</h4>
-
-              <span>August 2018 &mdash; December 2022</span>
-
-              <p class="timeline-text">
-                Graduated summa cum laude (GPA 3.82 / 4.00). Certified Information System Business Analyst by BNSP. Led
-                the development and testing of the Wanda FLP App for PT Cheger Motor, later published in Technomedia
-                Journal.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="ribbon-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Certifications</h3>
-          </div>
-
-          <ul class="cert-list">
-            <li class="cert-item"><span class="cert-issuer">BNSP</span> Certified Development of Information System
-              Business Process <time datetime="2022-09">Sep 2022</time></li>
-            <li class="cert-item"><span class="cert-issuer">Google &times; Coursera</span> Certified Data Analytics
-              <time datetime="2022-10">Oct 2022</time></li>
-            <li class="cert-item"><span class="cert-issuer">Dicoding</span> Certified Python Programming <time
-                datetime="2022-10">Oct 2022</time></li>
-            <li class="cert-item"><span class="cert-issuer">Dicoding</span> Certified Data Visualization <time
-                datetime="2022-10">Oct 2022</time></li>
-            <li class="cert-item"><span class="cert-issuer">HackerRank</span> Certified SQL Basic <time
-                datetime="2022-07">Jul 2022</time></li>
-            <li class="cert-item"><span class="cert-issuer">AWS</span> Cloud Practitioner Essentials (course) <time
-                datetime="2021-11">Nov 2021</time></li>
-          </ul>
-
-        </section>
-
-        <section class="skill">
-
-          <h3 class="h3 skills-title">Capabilities</h3>
-
-          <div class="skill-groups">
-
-            <div class="skill-group content-card">
-              <h4 class="h5 skill-group-title">Consulting &amp; Leadership</h4>
-              <ul class="tag-list">
-                <li class="tag">Test strategy &amp; entry/exit criteria</li>
-                <li class="tag">Test team leadership</li>
-                <li class="tag">Release-readiness reporting</li>
-                <li class="tag">Client &amp; stakeholder management</li>
-                <li class="tag">Mentoring &amp; onboarding</li>
-                <li class="tag">Agile &amp; DevOps (Scrum)</li>
-                <li class="tag">Multi-engagement delivery</li>
-              </ul>
-            </div>
-
-            <div class="skill-group content-card">
-              <h4 class="h5 skill-group-title">Quality Engineering</h4>
-              <ul class="tag-list">
-                <li class="tag">Framework design (TDD &rarr; BDD)</li>
-                <li class="tag">Regression &amp; non-regression</li>
-                <li class="tag">Test design from epics / stories</li>
-                <li class="tag">iOS, Android &amp; web testing</li>
-                <li class="tag">Defect &amp; test management (Jira)</li>
-                <li class="tag">CBDC, HSM, smart card, eUICC</li>
-              </ul>
-            </div>
-
-            <div class="skill-group content-card">
-              <h4 class="h5 skill-group-title">Technical</h4>
-              <ul class="tag-list">
-                <li class="tag">Python</li>
-                <li class="tag">Selenium</li>
-                <li class="tag">Jenkins</li>
-                <li class="tag">Git &amp; CI/CD</li>
-                <li class="tag">Postman (API)</li>
-                <li class="tag">MySQL / SQL Server</li>
-                <li class="tag">Data warehouse / ETL</li>
-                <li class="tag">AI-assisted testing</li>
-              </ul>
-            </div>
-
-          </div>
-
-          <p class="languages">
-            <strong>Languages:</strong> Indonesian (native) &middot; English (professional working)
-          </p>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Banking &amp; Payments</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Security &amp; Telecom</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Automation &amp; DevOps</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Research</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-select-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Banking &amp; Payments</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Security &amp; Telecom</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Automation &amp; DevOps</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Research</button>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <ul class="project-list">
-
-            <li class="project-item  active" data-filter-item data-category="automation &amp; devops">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 18;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="logo-github"></ion-icon>
-                  <span class="cover-label">Open source &middot; Live report</span>
-                </figure>
-
-                <h3 class="project-title">SDET Automation Framework</h3>
-
-                <p class="project-category">Automation &amp; DevOps</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                <p class="project-meta">Personal open-source project &middot; Python &middot; GitHub Actions</p>
-                <p>A production-style automation framework spanning a storefront, an online bank, two REST APIs and a
-                  security suite, built the way I build them for banking clients, with a published release-readiness
-                  report.</p>
-                <ul>
-                  <li>BDD scenarios (pytest-bdd) over Selenium page objects; storefront and ParaBank banking (UI + REST).</li>
-                  <li>API breadth: restful-booker contracts (JSON Schema) and the YouTube Data API.</li>
-                  <li>OWASP-aligned security suite: SQL injection, XSS, broken access control and security headers,
-                    with OWASP Juice Shop as a known-vulnerable reference target.</li>
-                  <li>Order totals verified to the cent; CI on every change and nightly; screenshots kept as evidence.</li>
-                  <li>Readiness report with a security gate and a Go / No-go recommendation; 62 tests, 6 findings logged.</li>
-                </ul>
-                <div class="modal-actions">
-                  <a href="https://artysficial.github.io/sdet-automation-framework/" class="btn-primary"
-                    target="_blank" rel="noopener">
-                    <ion-icon name="stats-chart-outline"></ion-icon>
-                    <span>Live report</span>
-                  </a>
-                  <a href="https://github.com/artysficial/sdet-automation-framework" class="btn-outline"
-                    target="_blank" rel="noopener">
-                    <ion-icon name="logo-github"></ion-icon>
-                    <span>Source code</span>
-                  </a>
-                </div>
-              </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="banking &amp; payments">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 22;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="cash-outline"></ion-icon>
-                  <span class="cover-label">Test Lead</span>
-                </figure>
-
-                <h3 class="project-title">CBDC CSR Deployment, Malawi</h3>
-
-                <p class="project-category">Banking &amp; Payments</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">Test Lead &middot; IDEMIA &middot; June 2026 &ndash; Present</p>
-                  <p>End-to-end test leadership for a Central Bank Digital Currency CSR deployment for a client in
-                    Malawi.</p>
-                  <ul>
-                    <li>Own test strategy, test plans, entry/exit criteria, execution and release sign-off.</li>
-                    <li>Coordinate a team of mobile and web testers across the delivery.</li>
-                    <li>Primary QA contact for client stakeholders.</li>
-                    <li>Report quality status, defect trends and release-readiness risks to project management and the
-                      client to support go/no-go decisions.</li>
-                  </ul>
-                  <a href="./articles/cbdc-test-leadership.html" class="text-link">Read: Quality engineering for
-                    CBDC &rarr;</a>
-                </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="security &amp; telecom">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 345;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="lock-closed-outline"></ion-icon>
-                  <span class="cover-label">86% automated</span>
-                </figure>
-
-                <h3 class="project-title">HSM Regression Automation</h3>
-
-                <p class="project-category">Security &amp; Telecom</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">Senior Automation SDET &middot; IDEMIA &middot; August 2026 &ndash; Present
-                  </p>
-                  <p>Regression and non-regression testing for a Hardware Security Module (HSM) product.</p>
-                  <ul>
-                    <li>Manage the majority of regression and non-regression cycles.</li>
-                    <li>Design and create test cases directly from functional specifications.</li>
-                    <li>Develop and maintain Python automation integrated into Jenkins CI.</li>
-                    <li>86% of test cases automated.</li>
-                  </ul>
-                  <a href="./articles/hsm-testing.html" class="text-link">Read: Testing Hardware Security Modules
-                    &rarr;</a>
-                </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="banking &amp; payments">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 34;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="phone-portrait-outline"></ion-icon>
-                  <span class="cover-label">iOS &middot; Android &middot; Web</span>
-                </figure>
-
-                <h3 class="project-title">CBDC Mobile Banking for Central Banks</h3>
-
-                <p class="project-category">Banking &amp; Payments</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">SDET &middot; IDEMIA &middot; 2023 &ndash; 2026</p>
-                  <p>Comprehensive testing of iOS, Android and web applications for a CBDC programme, working with
-                    international central banks including the Bank of Canada and Bank of Israel.</p>
-                  <ul>
-                    <li>Manual testing on iOS, automated testing on web, and manual Android testing for features that
-                      need physical interaction with smart cards.</li>
-                    <li>Verified compliance with banking standards and user requirements.</li>
-                    <li>Consistent functionality, usability and security across platforms.</li>
-                  </ul>
-                </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="security &amp; telecom">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 12;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="cellular-outline"></ion-icon>
-                  <span class="cover-label">+25% coverage</span>
-                </figure>
-
-                <h3 class="project-title">eUICC 5G SUCI Test Suite</h3>
-
-                <p class="project-category">Security &amp; Telecom</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">SDET &middot; IDEMIA</p>
-                  <p>Python test scripts for 5G subscriber identity concealment (SUCI) on eUICC, developed in
-                    PyCharm.</p>
-                  <ul>
-                    <li>Created and enhanced scripts covering SUCI calculation and protection scheme behaviour.</li>
-                    <li>Increased test coverage and efficiency by 25%.</li>
-                  </ul>
-                  <a href="./articles/euicc-5g-suci-testing.html" class="text-link">Read: Testing eUICC for 5G
-                    &rarr;</a>
-                </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="automation &amp; devops">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 28;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="sync-outline"></ion-icon>
-                  <span class="cover-label">&minus;40% manual effort</span>
-                </figure>
-
-                <h3 class="project-title">Jenkins &rarr; Jira Test Traceability</h3>
-
-                <p class="project-category">Automation &amp; DevOps</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">SDET &middot; with the DevOps team &middot; IDEMIA</p>
-                  <p>Automated the import of Jenkins Android test JSON results into Jira test execution tickets.</p>
-                  <ul>
-                    <li>Reduced manual reporting effort by 40%.</li>
-                    <li>Improved traceability from requirement to execution evidence.</li>
-                  </ul>
-                  <a href="./articles/jenkins-jira-traceability.html" class="text-link">Read: Closing the loop
-                    between Jenkins and Jira &rarr;</a>
-                </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="automation &amp; devops">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 0;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="layers-outline"></ion-icon>
-                  <span class="cover-label">TDD &rarr; BDD</span>
-                </figure>
-
-                <h3 class="project-title">Test Framework Design</h3>
-
-                <p class="project-category">Automation &amp; DevOps</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">Framework owner &middot; IDEMIA</p>
-                  <p>Built the test automation framework and evolved it from a TDD approach to BDD.</p>
-                  <ul>
-                    <li>Scenarios readable by business and client stakeholders.</li>
-                    <li>Improved reuse across regression suites.</li>
-                    <li>Used to onboard and mentor new QA engineers.</li>
-                  </ul>
-                  <a href="./articles/tdd-to-bdd-framework.html" class="text-link">Read: From TDD to BDD &rarr;</a>
-                </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="security &amp; telecom">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 16;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="card-outline"></ion-icon>
-                  <span class="cover-label">&minus;20% post-release defects</span>
-                </figure>
-
-                <h3 class="project-title">Smart Card &amp; PCOM Regression</h3>
-
-                <p class="project-category">Security &amp; Telecom</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">SDET &middot; IDEMIA</p>
-                  <p>Regression orchestration in PCOM and feature testing for smart cards.</p>
-                  <ul>
-                    <li>Reduced post-release defects by 20%.</li>
-                    <li>Smart card feature testing improved feature integration and functionality by 15%.</li>
-                    <li>Documented and prioritised defects to drive resolution across concurrent projects.</li>
-                  </ul>
-                </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="automation &amp; devops">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 38;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="globe-outline"></ion-icon>
-                  <span class="cover-label">&minus;30% test time</span>
-                </figure>
-
-                <h3 class="project-title">Web &amp; API Test Automation</h3>
-
-                <p class="project-category">Automation &amp; DevOps</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">Software Testing Engineer &middot; PT Advotics &middot; Dec 2022 &ndash; Jun
-                    2023</p>
-                  <p>Automated web, API and database testing for a supply-chain SaaS platform.</p>
-                  <ul>
-                    <li>Selenium and Postman automation, cutting testing time by 30%.</li>
-                    <li>API testing in Postman and data integrity checks with MySQL.</li>
-                    <li>Test cases, plans and reports maintained in Jira across Scrum sprints.</li>
-                  </ul>
-                </div>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="research">
-              <button class="project-card" data-project-btn>
-
-                <figure class="project-img cover" style="--hue: 330;">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <ion-icon class="cover-icon" name="document-text-outline"></ion-icon>
-                  <span class="cover-label">Published 2024</span>
-                </figure>
-
-                <h3 class="project-title">Wanda FLP App, PT Cheger Motor</h3>
-
-                <p class="project-category">Research</p>
-
-              </button>
-
-              <div class="project-details" hidden>
-                  <p class="project-meta">Project lead &middot; Politeknik STMI Jakarta</p>
-                  <p>Led the development and testing of an information system that replaced ledger and WhatsApp-based
-                    tracking of motorcycle indent orders for an authorised Honda dealer.</p>
-                  <ul>
-                    <li>Prioritised the indent queue using the Graphic Rating Scale method.</li>
-                    <li>Built with the Waterfall model, with reporting in Google Data Studio.</li>
-                    <li>Published in Technomedia Journal, Vol. 9 No. 1 (2024).</li>
-                  </ul>
-                  <a href="https://garuda.kemdiktisaintek.go.id/documents/detail/4552009" class="text-link"
-                    target="_blank" rel="noopener">View the publication &rarr;</a>
-                </div>
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - project modal
-        -->
-
-        <div class="modal-container" data-modal-container>
-
-          <div class="overlay" data-overlay></div>
-
-          <section class="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-
-            <button class="modal-close-btn" data-modal-close-btn aria-label="Close">
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <h4 class="h3 modal-title" id="modal-title" data-modal-title></h4>
-
-            <div class="modal-content" data-modal-text></div>
-
-          </section>
-
-        </div>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #PUBLICATIONS
-      -->
-
-      <article class="publications" data-page="publications">
-
-        <header>
-          <h2 class="h2 article-title">Publications</h2>
-        </header>
-
-        <section class="publication-card content-card">
-
-          <div class="blog-meta">
-            <p class="blog-category">Journal article</p>
-            <span class="dot"></span>
-            <time datetime="2024-05-22">Published 22 May 2024</time>
-          </div>
-
-          <h3 class="h3 publication-title">Implementation of the Graphic Rating Scale in Determining Motorcycle Indent
-            Priorities at Motorcycle Dealers</h3>
-
-          <p class="publication-subtitle" lang="id">
-            Implementasi Graphic Rating Scale Dalam Menentukan Prioritas Indent Motor Pada Dealer Sepeda Motor
-          </p>
-
-          <p class="publication-authors">
-            Denny Riandhita Arief Permana, Muhamad Fahrulrozi, Ahlan Ismono, <strong>Rahmadani Tyas Ningrum</strong>
-          </p>
-
-          <p class="publication-venue">
-            <em>Technomedia Journal (TMJ)</em>, Vol. 9, No. 1, June 2024
-          </p>
-
-          <p class="publication-abstract">
-            PT Cheger Motor, an authorised Honda motorcycle dealer in South Tangerang, handled indent (pre-order) sales
-            through manual ledgers and WhatsApp, leading to booking delays, lost records and redundant data. This
-            research develops an integrated information system that stores and manages indent orders and calculates a
-            priority value for each transaction using the Graphic Rating Scale method, so the dealer can rank the queue
-            against defined criteria.
-          </p>
-
-          <ul class="tag-list">
-            <li class="tag">Indent</li>
-            <li class="tag">Waterfall</li>
-            <li class="tag">Graphic Rating Scale</li>
-            <li class="tag">Google Data Studio</li>
-          </ul>
-
-          <div class="publication-actions">
-            <a href="https://garuda.kemdiktisaintek.go.id/documents/detail/4552009" class="btn-primary"
-              target="_blank" rel="noopener">
-              <ion-icon name="library-outline"></ion-icon>
-              <span>View on Garuda</span>
-            </a>
-
-            <a href="https://ijc.ilearning.co/index.php/TMJ/article/view/2217/816" class="btn-outline"
-              target="_blank" rel="noopener">
-              <ion-icon name="document-text-outline"></ion-icon>
-              <span>Read full text</span>
-            </a>
-
-            <button class="btn-outline" data-copy-citation>
-              <ion-icon name="copy-outline"></ion-icon>
-              <span data-copy-label>Copy citation</span>
-            </button>
-          </div>
-
-          <p class="citation" data-citation>Permana, D. R. A., Fahrulrozi, M., Ismono, A., &amp; Ningrum, R. T. (2024).
-            Implementasi Graphic Rating Scale dalam menentukan prioritas indent motor pada dealer sepeda motor.
-            Technomedia Journal, 9(1).</p>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #INSIGHTS
-      -->
-
-      <article class="blog" data-page="insights">
-
-        <header>
-          <h2 class="h2 article-title">Insights</h2>
-        </header>
-
-        <p class="section-intro">
-          Field notes on testing payment security, telecom and central bank technology, written from hands-on delivery
-          work.
-        </p>
-
-        <section class="blog-posts">
-
-          <ul class="blog-posts-list">
-
-            <li class="blog-post-item">
-              <a href="./articles/euicc-5g-suci-testing.html">
-
-                <figure class="blog-banner-box cover" style="--hue: 12;">
-                  <ion-icon class="cover-icon" name="cellular-outline"></ion-icon>
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Telecom security</p>
-                    <span class="dot"></span>
-                    <p class="blog-category">9 min read</p>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Testing eUICC for 5G: validating SUCI subscriber privacy</h3>
-
-                  <p class="blog-text">
-                    How to build a test suite for SUCI concealment on eUICC: null scheme, ECIES Profiles A and B, test
-                    vectors, APDU-level checks and the negative cases that catch real defects.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="./articles/hsm-testing.html">
-
-                <figure class="blog-banner-box cover" style="--hue: 345;">
-                  <ion-icon class="cover-icon" name="lock-closed-outline"></ion-icon>
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Payment security</p>
-                    <span class="dot"></span>
-                    <p class="blog-category">9 min read</p>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Testing Hardware Security Modules: a regression strategy for
-                    cryptographic products</h3>
-
-                  <p class="blog-text">
-                    Known-answer tests, key lifecycle coverage, negative paths and CI automation: what it takes to
-                    automate most of an HSM regression suite without losing rigour.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="./articles/cbdc-test-leadership.html">
-
-                <figure class="blog-banner-box cover" style="--hue: 22;">
-                  <ion-icon class="cover-icon" name="cash-outline"></ion-icon>
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Central banking</p>
-                    <span class="dot"></span>
-                    <p class="blog-category">8 min read</p>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Quality engineering for Central Bank Digital Currency</h3>
-
-                  <p class="blog-text">
-                    What changes when the client is a central bank: risk-based strategy, entry and exit criteria,
-                    device and card coverage, and reporting that supports a go/no-go call.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="./articles/tdd-to-bdd-framework.html">
-
-                <figure class="blog-banner-box cover" style="--hue: 0;">
-                  <ion-icon class="cover-icon" name="layers-outline"></ion-icon>
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Test automation</p>
-                    <span class="dot"></span>
-                    <p class="blog-category">7 min read</p>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">From TDD to BDD: a test framework stakeholders can read</h3>
-
-                  <p class="blog-text">
-                    Why and how to move a Python test framework from developer-style tests to Gherkin scenarios that
-                    clients can review, without throwing away what already works.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="./articles/jenkins-jira-traceability.html">
-
-                <figure class="blog-banner-box cover" style="--hue: 28;">
-                  <ion-icon class="cover-icon" name="sync-outline"></ion-icon>
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">CI/CD</p>
-                    <span class="dot"></span>
-                    <p class="blog-category">6 min read</p>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Closing the loop: Jenkins results into Jira test executions</h3>
-
-                  <p class="blog-text">
-                    A practical pattern for pushing automated results into Jira so every run is traceable to a
-                    requirement, and nobody copies pass/fail by hand again.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="./articles/release-readiness-reporting.html">
-
-                <figure class="blog-banner-box cover" style="--hue: 16;">
-                  <ion-icon class="cover-icon" name="stats-chart-outline"></ion-icon>
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Test leadership</p>
-                    <span class="dot"></span>
-                    <p class="blog-category">6 min read</p>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Release-readiness reporting clients can act on</h3>
-
-                  <p class="blog-text">
-                    Turning pass rates and defect counts into a clear go/no-go recommendation: the structure I use for
-                    client-facing quality reports.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #CONTACT
-      -->
-
-      <article class="contact" data-page="contact">
-
-        <header>
-          <h2 class="h2 article-title">Contact</h2>
-        </header>
-
-        <p class="section-intro">
-          Open to conversations about quality engineering for banking, payment security and telecom programmes, test
-          leadership engagements, and speaking or writing on testing.
-        </p>
-
-        <section class="connect-list">
-
-          <a href="mailto:artysficial@gmail.com" class="connect-card">
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <div>
-              <p class="contact-title">Email</p>
-              <p class="connect-value">artysficial@gmail.com</p>
-            </div>
-
-            <ion-icon class="connect-arrow" name="arrow-forward-outline"></ion-icon>
-          </a>
-
-          <a href="https://www.linkedin.com/in/rahmadani-t-747a77186" class="connect-card" target="_blank"
-            rel="noopener">
-            <div class="icon-box">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </div>
-
-            <div>
-              <p class="contact-title">LinkedIn</p>
-              <p class="connect-value">Rahmadani Tyas Ningrum</p>
-            </div>
-
-            <ion-icon class="connect-arrow" name="arrow-forward-outline"></ion-icon>
-          </a>
-
-        </section>
-
-        <section class="contact-form">
-
-          <h3 class="h3 form-title">Send a message</h3>
-
-          <form action="mailto:artysficial@gmail.com" class="form" data-form>
-
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
-
-            <input type="text" name="subject" class="form-input form-subject" placeholder="Subject (optional)"
-              data-form-input>
-
-            <textarea name="message" class="form-input" placeholder="How can I help?" required
-              data-form-input></textarea>
-
-            <p class="form-note">Opens your email app with the message ready to send to artysficial@gmail.com.</p>
-
-            <button class="form-btn" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
-
-          </form>
-
-        </section>
-
-      </article>
-
-      <footer class="site-footer">
-        <p>&copy; <span data-year>2026</span> Rahmadani Tyas Ningrum &middot; Jakarta, Indonesia</p>
-      </footer>
-
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <a class="brand" href="#top"><img src="assets/images/avatar-memoji.png" alt="" width="30" height="30"><span>Rahmadani Tyas Ningrum</span></a>
+    <ul class="nav-links" data-nav-links>
+      <li><a href="#paths">Career paths</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#play">Play</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <mask id="moon-cut"><rect x="-4" y="-4" width="32" height="32" fill="#fff"/><circle class="moon-mask" cx="24" cy="4" r="6" fill="#000"/></mask>
+          <circle class="sun" cx="12" cy="12" r="5" fill="currentColor" mask="url(#moon-cut)"/>
+          <g class="rays" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="1.5" x2="12" y2="3.5"/><line x1="12" y1="20.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="3.5" y2="12"/><line x1="20.5" y1="12" x2="22.5" y2="12"/>
+            <line x1="4.6" y1="4.6" x2="6" y2="6"/><line x1="18" y1="18" x2="19.4" y2="19.4"/><line x1="4.6" y1="19.4" x2="6" y2="18"/><line x1="18" y1="6" x2="19.4" y2="4.6"/>
+          </g>
+        </svg>
+      </button>
+      <a class="pill-btn" href="assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf" download>Résumé</a>
+      <button class="menu-btn" type="button" data-menu aria-label="Open menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="orb one"></div><div class="orb two"></div>
+  <img class="avatar scale-in" src="assets/images/avatar-memoji.png" alt="Memoji of Rahmadani" width="96" height="96">
+  <p class="eyebrow reveal">Rahmadani Tyas Ningrum</p>
+  <h1 class="hero-title reveal" style="--delay:.08s">Quality,<br><span class="gradient-text">end to end.</span></h1>
+  <p class="subhead reveal" style="--delay:.16s">Test Lead and Senior Automation SDET at IDEMIA. I turn business risk into evidence, from requirements and controls to automated tests and release decisions.</p>
+  <div class="cta-row reveal" style="--delay:.24s">
+    <a class="btn btn-primary" href="#paths">See the six roles</a>
+    <a class="btn btn-ghost" href="#projects">Live dashboards</a>
+  </div>
+
+  <div class="window scale-in" aria-label="Live project status">
+    <div class="window-bar"><i></i><i></i><i></i><span>Arunika Bank case study · live status</span></div>
+    <div class="window-body" data-status-board></div>
+    <div class="live-note" data-status-note>Fetching the latest results from each project's CI…</div>
+  </div>
+</header>
+
+<!-- ============ IMPACT ============ -->
+<section class="section alt" aria-labelledby="impact-title">
+  <div class="wrap center">
+    <p class="eyebrow reveal">Impact</p>
+    <h2 class="headline reveal" id="impact-title">Numbers from the real job.</h2>
+    <p class="subhead reveal">Nearly four years assuring banking and payment-security technology for central banks and government clients across four continents.</p>
+    <div class="stats">
+      <div class="stat reveal"><div class="value" data-count="86" data-suffix="%">86%</div><div class="label">of HSM regression tests automated in Python and Jenkins</div></div>
+      <div class="stat reveal" style="--delay:.06s"><div class="value" data-count="40" data-suffix="%">40%</div><div class="label">less manual reporting by piping Jenkins results into Jira</div></div>
+      <div class="stat reveal" style="--delay:.12s"><div class="value" data-count="30" data-suffix="%">30%</div><div class="label">shorter test cycles with Selenium and Postman automation</div></div>
+      <div class="stat reveal"><div class="value" data-count="25" data-suffix="%">25%</div><div class="label">higher coverage on eUICC 5G SUCI test scripts</div></div>
+      <div class="stat reveal" style="--delay:.06s"><div class="value" data-count="20" data-suffix="%">20%</div><div class="label">fewer post-release defects after PCOM regression orchestration</div></div>
+      <div class="stat reveal" style="--delay:.12s"><div class="value" data-count="4" data-suffix="">4</div><div class="label">continents of central bank and government clients</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAREER PATHS ============ -->
+<section class="section" id="paths" aria-labelledby="paths-title">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow reveal">Career paths</p>
+      <h2 class="headline reveal" id="paths-title">Six roles.<br>One way of working.</h2>
+      <p class="subhead reveal">People ask whether I am a tester, an auditor or a consultant. The same skill runs through all of them: making risk visible and proving it is under control. So I built one case study, a fictional bank's payment-security programme, and worked it through every role.</p>
     </div>
 
-  </main>
+    <div class="thread reveal" role="tablist" aria-label="The programme, role by role" data-thread>
+      <button class="thread-step" role="tab" data-role="consultant" style="--role:var(--consultant)"><div class="badge">01</div><div class="verb">Assess</div><div class="role-name">IT Consultant</div></button>
+      <button class="thread-step" role="tab" data-role="ba" style="--role:var(--ba)"><div class="badge">02</div><div class="verb">Define</div><div class="role-name">Business Analyst</div></button>
+      <button class="thread-step" role="tab" data-role="pm" style="--role:var(--pm)"><div class="badge">03</div><div class="verb">Plan</div><div class="role-name">Project Manager</div></button>
+      <button class="thread-step" role="tab" data-role="sdet" style="--role:var(--sdet)"><div class="badge">04</div><div class="verb">Verify</div><div class="role-name">SDET</div></button>
+      <button class="thread-step" role="tab" data-role="sap" style="--role:var(--sap)"><div class="badge">05</div><div class="verb">Procure</div><div class="role-name">SAP Consultant</div></button>
+      <button class="thread-step" role="tab" data-role="auditor" style="--role:var(--auditor)"><div class="badge">06</div><div class="verb">Assure</div><div class="role-name">IT Auditor</div></button>
+    </div>
 
+    <div class="segmented reveal" role="tablist" aria-label="Choose a role" data-segmented>
+      <span class="glider" aria-hidden="true"></span>
+      <button role="tab" data-role="sdet" aria-selected="true">SDET</button>
+      <button role="tab" data-role="ba">Business Analyst</button>
+      <button role="tab" data-role="pm">Project Manager</button>
+      <button role="tab" data-role="auditor">IT Auditor</button>
+      <button role="tab" data-role="sap">SAP Consultant</button>
+      <button role="tab" data-role="consultant">IT Consultant</button>
+    </div>
 
+    <!-- SDET -->
+    <div class="role-panel active" role="tabpanel" data-panel="sdet" style="--role:var(--sdet)">
+      <div class="card role-card">
+        <span class="tag">SDET · QA Lead</span>
+        <h3>Automation that decision-makers can trust.</h3>
+        <p>This is my day job: I lead testing for a CBDC deployment and automate regression for a Hardware Security Module at IDEMIA.</p>
+        <h4>Evidence from my work</h4>
+        <ul class="evidence">
+          <li>Built our test framework and evolved it from TDD to BDD, so clients read the scenarios.</li>
+          <li>Automated 86% of HSM regression in Python with Jenkins CI.</li>
+          <li>Own test strategy, entry/exit criteria and release sign-off as Test Lead.</li>
+        </ul>
+        <h4>What I bring</h4>
+        <ul class="chips"><li>Python · pytest</li><li>Selenium · Playwright</li><li>API & security testing</li><li>Jenkins · GitHub Actions</li><li>BDD</li></ul>
+        <p class="connects">Verifies the requirements the BA defines, and feeds the PM's quality gate.</p>
+      </div>
+      <div class="project-stack">
+        <a class="project" href="https://artysficial.github.io/hsm-api-security-lab/" data-live="hsm-api-security-lab">
+          <span class="kicker">Security testing</span><h4>HSM API Security Lab</h4>
+          <p>59 security tests against a simulated payment HSM API: OWASP API Top 10, key usage, PIN and MAC controls, audit logging.</p>
+          <div class="live"></div><div class="links"><span class="link-arrow">Dashboard</span></div>
+        </a>
+        <a class="project" href="https://artysficial.github.io/youtube-test-automation/" data-live="youtube-test-automation">
+          <span class="kicker">API & UI automation</span><h4>YouTube Test Automation</h4>
+          <p>oEmbed, feeds, CDN, Data API v3 and a Playwright smoke suite, every week in CI.</p>
+          <div class="live"></div><div class="links"><span class="link-arrow">Dashboard</span></div>
+        </a>
+        <a class="project" href="https://artysficial.github.io/google-test-automation/" data-live="google-test-automation">
+          <span class="kicker">API & UI automation</span><h4>Google Test Automation</h4>
+          <p>Public DNS, Fonts, Calendar and Books APIs, sign-in security headers and a polite browser suite.</p>
+          <div class="live"></div><div class="links"><span class="link-arrow">Dashboard</span></div>
+        </a>
+      </div>
+    </div>
 
+    <!-- BA -->
+    <div class="role-panel" role="tabpanel" data-panel="ba" style="--role:var(--ba)">
+      <div class="card role-card">
+        <span class="tag">IT Business Analyst</span>
+        <h3>Requirements you can trace to evidence.</h3>
+        <p>I am a BNSP-certified Information System Business Analyst, and I design tests straight from epics, stories and functional specifications.</p>
+        <h4>Evidence from my work</h4>
+        <ul class="evidence">
+          <li>Certified Development of Information System Business Process (BNSP).</li>
+          <li>Design test cases from functional specifications and user stories every sprint.</li>
+          <li>Led the analysis, build and testing of the Wanda FLP app, published in Technomedia Journal.</li>
+        </ul>
+        <h4>What I bring</h4>
+        <ul class="chips"><li>BRD writing</li><li>User stories · Gherkin</li><li>Process modelling</li><li>Traceability</li><li>Stakeholder workshops</li></ul>
+        <p class="connects">Turns the consultant's roadmap into requirements that the SDET can verify.</p>
+      </div>
+      <div class="project-stack">
+        <a class="project" href="https://artysficial.github.io/requirements-traceability/" data-live="requirements-traceability">
+          <span class="kicker">BRD to evidence</span><h4>Requirements Traceability</h4>
+          <p>Objectives, business requirements, user stories with Gherkin acceptance criteria, linked to the live HSM test results.</p>
+          <div class="live"></div><div class="links"><span class="link-arrow">Dashboard</span></div>
+        </a>
+      </div>
+    </div>
 
+    <!-- PM -->
+    <div class="role-panel" role="tabpanel" data-panel="pm" style="--role:var(--pm)">
+      <div class="card role-card">
+        <span class="tag">Project Manager</span>
+        <h3>Status reports that say what is true.</h3>
+        <p>As Test Lead I already run a workstream: plan, team, risks and the go/no-go call. Project management is the same discipline at programme scale.</p>
+        <h4>Evidence from my work</h4>
+        <ul class="evidence">
+          <li>Coordinate a team of mobile and web testers for a central bank client.</li>
+          <li>Report quality status, defect trends and release risks to management and the client.</li>
+          <li>Deliver in Agile/Scrum across multiple concurrent engagements.</li>
+        </ul>
+        <h4>What I bring</h4>
+        <ul class="chips"><li>Earned value</li><li>RAID management</li><li>Milestone planning</li><li>Agile delivery</li><li>Executive reporting</li></ul>
+        <p class="connects">Plans what the BA defines, buys through SAP, and gates release on the SDET's results.</p>
+      </div>
+      <div class="project-stack">
+        <a class="project" href="https://artysficial.github.io/project-health-dashboard/" data-live="project-health-dashboard">
+          <span class="kicker">Status report</span><h4>Programme Health</h4>
+          <p>Earned value with CPI, SPI and EAC, an S-curve, milestones, a RAID heat map, velocity and a live quality gate.</p>
+          <div class="live"></div><div class="links"><span class="link-arrow">Dashboard</span></div>
+        </a>
+      </div>
+    </div>
 
+    <!-- AUDITOR -->
+    <div class="role-panel" role="tabpanel" data-panel="auditor" style="--role:var(--auditor)">
+      <div class="card role-card">
+        <span class="tag">IT Auditor</span>
+        <h3>Controls tested on every record, not a sample.</h3>
+        <p>Testing certified payment-security products taught me to think like an assessor: every claim needs evidence, and every exception needs an owner.</p>
+        <h4>Evidence from my work</h4>
+        <ul class="evidence">
+          <li>Test HSM, smart card and eUICC products where behaviour is a compliance requirement.</li>
+          <li>Built traceability from requirement to execution evidence (Jenkins to Jira).</li>
+          <li>Release sign-off against defined entry and exit criteria.</li>
+        </ul>
+        <h4>What I bring</h4>
+        <ul class="chips"><li>ITGC testing</li><li>COBIT 2019</li><li>ISO 27001</li><li>SoD analysis</li><li>Data analytics</li></ul>
+        <p class="connects">Audits the HSM platform the SDET tests and the SAP system behind procurement.</p>
+      </div>
+      <div class="project-stack">
+        <a class="project" href="https://artysficial.github.io/itgc-audit-analytics/" data-live="itgc-audit-analytics">
+          <span class="kicker">IT general controls</span><h4>ITGC Audit Analytics</h4>
+          <p>Eleven access, change and operations controls over SAP, the HSM console and Active Directory, mapped to COBIT and ISO 27001.</p>
+          <div class="live"></div><div class="links"><span class="link-arrow">Dashboard</span></div>
+        </a>
+      </div>
+    </div>
 
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
+    <!-- SAP -->
+    <div class="role-panel" role="tabpanel" data-panel="sap" style="--role:var(--sap)">
+      <div class="card role-card">
+        <span class="tag">SAP Consultant</span>
+        <h3>Business processes, down to the table.</h3>
+        <p>The path I am growing into. My Information Systems degree, business-process certification and data background are a strong start for SAP MM/FI.</p>
+        <h4>Evidence I build on</h4>
+        <ul class="evidence">
+          <li>Information Systems graduate, summa cum laude, with ERP and business-process coursework.</li>
+          <li>Google Data Analytics and Dicoding Python certifications; SQL every week at work.</li>
+          <li>Data warehouse and ETL testing experience.</li>
+        </ul>
+        <h4>What I bring</h4>
+        <ul class="chips"><li>Procure-to-pay</li><li>SAP MM / FI tables</li><li>Three-way match</li><li>SQL · Python</li><li>Data quality</li></ul>
+        <p class="connects">Buys the programme's HSMs and services, with controls the IT Auditor relies on.</p>
+      </div>
+      <div class="project-stack">
+        <a class="project" href="https://artysficial.github.io/sap-p2p-analytics/" data-live="sap-p2p-analytics">
+          <span class="kicker">SAP S/4HANA · MM / FI</span><h4>Procure-to-Pay Analytics</h4>
+          <p>Spend, cycle time, three-way match and on-time payment on SAP-shaped tables, with duplicate invoices, split POs and maverick buying detected.</p>
+          <div class="live"></div><div class="links"><span class="link-arrow">Dashboard</span></div>
+        </a>
+      </div>
+    </div>
 
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- CONSULTANT -->
+    <div class="role-panel" role="tabpanel" data-panel="consultant" style="--role:var(--consultant)">
+      <div class="card role-card">
+        <span class="tag">Senior IT Consultant</span>
+        <h3>Start from the gap, end with a roadmap.</h3>
+        <p>I advise central banks on quality today. Consulting widens the lens from one product to the whole IT organisation.</p>
+        <h4>Evidence from my work</h4>
+        <ul class="evidence">
+          <li>Primary QA contact for central bank and government stakeholders on four continents.</li>
+          <li>Worked with the Bank of Canada and Bank of Israel on CBDC programmes.</li>
+          <li>Mentor and onboard engineers so teams deliver independently.</li>
+        </ul>
+        <h4>What I bring</h4>
+        <ul class="chips"><li>Maturity assessment</li><li>COBIT 2019</li><li>Roadmapping</li><li>Client management</li><li>Workshops</li></ul>
+        <p class="connects">Finds the gaps that become the programme everyone else delivers.</p>
+      </div>
+      <div class="project-stack">
+        <a class="project" href="https://artysficial.github.io/it-maturity-assessment/" data-live="it-maturity-assessment">
+          <span class="kicker">Assessment & roadmap</span><h4>IT Maturity Assessment</h4>
+          <p>Eight COBIT-aligned domains scored by five stakeholders, impact-weighted gaps and a 24-month roadmap.</p>
+          <div class="live"></div><div class="links"><span class="link-arrow">Dashboard</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ============ ALL PROJECTS ============ -->
+<section class="section alt" id="projects" aria-labelledby="projects-title">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow reveal">Projects</p>
+      <h2 class="headline reveal" id="projects-title">Eight repos.<br>Eight live dashboards.</h2>
+      <p class="subhead reveal">Every project is real code with tests, rebuilt by CI every week. The status on each tile is read live from its latest run.</p>
+    </div>
+    <div class="bento">
+      <article class="project feature wide tall reveal" data-live="hsm-api-security-lab" style="--role:var(--sdet)">
+        <span class="kicker">SDET · Security testing</span>
+        <h4>HSM API Security Lab</h4>
+        <p>A simulated payment HSM REST API, attacked the way an assessor would: broken authentication, BOLA, mass assignment, injection, rate limits, key-usage abuse, PIN-block validation, MAC tampering and audit-log leakage. Two seeded findings prove the suite catches real issues.</p>
+        <div class="mini-metrics"><div><b>59</b><span>security tests</span></div><div><b>9</b><span>OWASP / HSM areas</span></div><div><b>14</b><span>requirements traced</span></div></div>
+        <div class="live"></div>
+        <div class="links"><a class="link-arrow stretched" href="https://artysficial.github.io/hsm-api-security-lab/">Dashboard</a><a class="link-arrow" href="https://github.com/artysficial/hsm-api-security-lab">Code</a></div>
+      </article>
+      <article class="project wide reveal" data-live="requirements-traceability" style="--role:var(--ba)">
+        <span class="kicker">Business Analyst</span><h4>Requirements Traceability</h4>
+        <p>BRD to user stories to live test evidence, with quality gates on the requirements themselves.</p>
+        <div class="live"></div><div class="links"><a class="link-arrow stretched" href="https://artysficial.github.io/requirements-traceability/">Dashboard</a><a class="link-arrow" href="https://github.com/artysficial/requirements-traceability">Code</a></div>
+      </article>
+      <article class="project reveal" data-live="project-health-dashboard" style="--role:var(--pm)">
+        <span class="kicker">Project Manager</span><h4>Programme Health</h4>
+        <p>EVM, milestones, RAID and a live quality gate.</p>
+        <div class="live"></div><div class="links"><a class="link-arrow stretched" href="https://artysficial.github.io/project-health-dashboard/">Dashboard</a></div>
+      </article>
+      <article class="project reveal" data-live="itgc-audit-analytics" style="--role:var(--auditor)">
+        <span class="kicker">IT Auditor</span><h4>ITGC Audit Analytics</h4>
+        <p>Full-population control testing with COBIT and ISO 27001 mapping.</p>
+        <div class="live"></div><div class="links"><a class="link-arrow stretched" href="https://artysficial.github.io/itgc-audit-analytics/">Dashboard</a></div>
+      </article>
+      <article class="project reveal" data-live="sap-p2p-analytics" style="--role:var(--sap)">
+        <span class="kicker">SAP Consultant</span><h4>Procure-to-Pay Analytics</h4>
+        <p>SAP MM/FI KPIs and exception detection.</p>
+        <div class="live"></div><div class="links"><a class="link-arrow stretched" href="https://artysficial.github.io/sap-p2p-analytics/">Dashboard</a></div>
+      </article>
+      <article class="project reveal" data-live="it-maturity-assessment" style="--role:var(--consultant)">
+        <span class="kicker">IT Consultant</span><h4>IT Maturity Assessment</h4>
+        <p>Stakeholder scoring, gaps and a roadmap.</p>
+        <div class="live"></div><div class="links"><a class="link-arrow stretched" href="https://artysficial.github.io/it-maturity-assessment/">Dashboard</a></div>
+      </article>
+      <article class="project wide reveal" data-live="youtube-test-automation" style="--role:var(--sdet)">
+        <span class="kicker">SDET · Automation</span><h4>YouTube Test Automation</h4>
+        <p>oEmbed, channel feeds, thumbnail CDN, Data API v3 and Playwright smoke tests, with bot walls reported as blocked rather than failed.</p>
+        <div class="live"></div><div class="links"><a class="link-arrow stretched" href="https://artysficial.github.io/youtube-test-automation/">Dashboard</a><a class="link-arrow" href="https://github.com/artysficial/youtube-test-automation">Code</a></div>
+      </article>
+      <article class="project wide reveal" data-live="google-test-automation" style="--role:var(--sdet)">
+        <span class="kicker">SDET · Automation</span><h4>Google Test Automation</h4>
+        <p>Public DNS with DNSSEC, the Fonts API, the Indonesian holidays calendar feed, the Books API and sign-in security headers.</p>
+        <div class="live"></div><div class="links"><a class="link-arrow stretched" href="https://artysficial.github.io/google-test-automation/">Dashboard</a><a class="link-arrow" href="https://github.com/artysficial/google-test-automation">Code</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="section" id="experience" aria-labelledby="experience-title">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow reveal">Experience</p>
+      <h2 class="headline reveal" id="experience-title">Where the evidence comes from.</h2>
+    </div>
+    <div class="timeline">
+      <article class="card job reveal">
+        <div class="when">Sep 2023 — Present<br>Jakarta</div>
+        <div>
+          <h3>Test Lead & Senior Automation SDET</h3>
+          <p class="org">IDEMIA Technologies Indonesia</p>
+          <h4>Test Lead, CBDC CSR Malawi <span>Jun 2026 — Present</span></h4>
+          <ul>
+            <li>Own test strategy, test plans, entry/exit criteria, execution and release sign-off for the CBDC CSR deployment.</li>
+            <li>Coordinate a team of mobile and web testers; primary QA contact for client stakeholders.</li>
+            <li>Report quality status, defect trends and release-readiness risks to support go/no-go decisions.</li>
+          </ul>
+          <h4>Senior Automation SDET, HSM <span>Aug 2026 — Present</span></h4>
+          <ul>
+            <li>Manage most regression and non-regression testing for a Hardware Security Module, designing tests from functional specifications.</li>
+            <li>Maintain Python automation integrated into Jenkins CI, automating 86% of test cases.</li>
+          </ul>
+          <h4>Software Development Engineer in Test <span>Sep 2023 — Jun 2026</span></h4>
+          <ul>
+            <li>Built the test automation framework and evolved it from TDD to BDD, readable by business and client stakeholders.</li>
+            <li>Tested CBDC mobile banking apps on iOS, Android and web with central banks including the Bank of Canada and Bank of Israel.</li>
+            <li>Automated Jenkins Android results into Jira test executions, cutting manual reporting by 40%.</li>
+            <li>Python test scripts for eUICC 5G SUCI (+25% coverage); PCOM regression orchestration (−20% post-release defects).</li>
+            <li>Mentored new QA engineers; applied AI assistants to test design, scripting and defect analysis.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card job reveal">
+        <div class="when">Dec 2022 — Jun 2023<br>Jakarta</div>
+        <div>
+          <h3>Software Testing Engineer</h3>
+          <p class="org">PT Advotics Teknologi Global</p>
+          <ul>
+            <li>Automated tests with Selenium and Postman, reducing testing time by 30%.</li>
+            <li>API testing with Postman and database testing with MySQL to ensure data integrity.</li>
+            <li>Maintained test cases, plans and reports in Jira across Scrum sprints.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+    <div class="cred-grid">
+      <div class="card reveal">
+        <h3>Education</h3>
+        <ul>
+          <li><b>Politeknik STMI Jakarta</b><br>Information System, 2018 — 2022</li>
+          <li>Summa cum laude, GPA 3.82 / 4.00</li>
+          <li>Led the Wanda FLP app project, published in Technomedia Journal</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="--delay:.06s">
+        <h3>Certifications</h3>
+        <ul>
+          <li><b>BNSP</b> Information System Business Process (2022)</li>
+          <li><b>Google × Coursera</b> Data Analytics (2022)</li>
+          <li><b>Dicoding</b> Python Programming, Data Visualization (2022)</li>
+          <li><b>HackerRank</b> SQL Basic (2022) · <b>AWS</b> Cloud Practitioner Essentials (2021)</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="--delay:.12s">
+        <h3>Toolbox</h3>
+        <ul>
+          <li><b>Testing</b> Python, pytest, Selenium, Playwright, Postman</li>
+          <li><b>Delivery</b> Jenkins, GitHub Actions, Git, Jira, Scrum</li>
+          <li><b>Data</b> SQL (MySQL, SQL Server), ETL testing</li>
+          <li><b>Languages</b> Indonesian (native), English (professional)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WRITING ============ -->
+<section class="section alt" id="writing" aria-labelledby="writing-title">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow reveal">Writing</p>
+      <h2 class="headline reveal" id="writing-title">Field notes.</h2>
+      <p class="subhead reveal">On testing payment security, telecom and central bank technology, written from hands-on delivery work.</p>
+    </div>
+    <div class="articles">
+      <a class="article-card reveal" href="articles/hsm-testing.html"><span class="meta">Payment security · 9 min</span><h3>Testing Hardware Security Modules</h3><p>Known-answer tests, key lifecycle coverage, negative paths and CI automation without losing rigour.</p><span class="link-arrow">Read</span></a>
+      <a class="article-card reveal" style="--delay:.06s" href="articles/cbdc-test-leadership.html"><span class="meta">Central banking · 8 min</span><h3>Quality engineering for CBDC</h3><p>Risk-based strategy, entry and exit criteria, and reporting that supports a go/no-go call.</p><span class="link-arrow">Read</span></a>
+      <a class="article-card reveal" style="--delay:.12s" href="articles/euicc-5g-suci-testing.html"><span class="meta">Telecom security · 9 min</span><h3>Testing eUICC for 5G SUCI privacy</h3><p>Proving an eUICC conceals the subscriber identity, from protection schemes to negative cases.</p><span class="link-arrow">Read</span></a>
+      <a class="article-card reveal" href="articles/tdd-to-bdd-framework.html"><span class="meta">Test automation · 7 min</span><h3>From TDD to BDD</h3><p>Moving a Python framework to Gherkin scenarios that clients review, without throwing away what worked.</p><span class="link-arrow">Read</span></a>
+      <a class="article-card reveal" style="--delay:.06s" href="articles/jenkins-jira-traceability.html"><span class="meta">CI/CD · 6 min</span><h3>Jenkins results into Jira</h3><p>Every automated run traceable to a requirement, and nobody copying pass/fail by hand again.</p><span class="link-arrow">Read</span></a>
+      <a class="article-card reveal" style="--delay:.12s" href="articles/release-readiness-reporting.html"><span class="meta">Test leadership · 6 min</span><h3>Release-readiness reporting</h3><p>Turning pass rates and defect counts into a recommendation clients can act on.</p><span class="link-arrow">Read</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLAY ============ -->
+<section class="section" id="play" aria-labelledby="play-title">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow reveal">Play</p>
+      <h2 class="headline reveal" id="play-title">Take a break.</h2>
+      <p class="subhead reveal">Two classics, rebuilt with the polish of a Mac app. Both are tested by hand more than any project above.</p>
+    </div>
+    <div class="play-grid">
+      <a class="play-card reveal" href="play.html#tic-tac-toe">
+        <span class="eyebrow" style="font-size:15px;margin:0">macOS-inspired</span>
+        <h3>Tic-Tac-Toe</h3>
+        <p>A desktop window, an opponent that never loses on Unbeatable, and a scoreboard that remembers you.</p>
+        <div class="art ttt-art" aria-hidden="true"><span class="x">×</span><span class="o">○</span><span></span><span></span><span class="x">×</span><span class="o">○</span><span class="o">○</span><span></span><span class="x">×</span></div>
+      </a>
+      <a class="play-card reveal" style="--delay:.08s" href="play.html#snake">
+        <span class="eyebrow" style="font-size:15px;margin:0">Nokia, reimagined</span>
+        <h3>Snake</h3>
+        <p>The phone game you grew up with, smooth at 60 fps, with swipe controls and a classic LCD mode for nostalgia.</p>
+        <svg class="art snake-art" viewBox="0 0 240 120" aria-hidden="true">
+          <defs><linearGradient id="sg" x1="0" x2="1"><stop offset="0" stop-color="#30d158"/><stop offset="1" stop-color="#0a84ff"/></linearGradient></defs>
+          <path d="M20 90 H120 V40 H200" fill="none" stroke="url(#sg)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="226" cy="40" r="8" fill="#ff375f"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLICATION ============ -->
+<section class="section alt" aria-labelledby="pub-title">
+  <div class="narrow">
+    <div class="center">
+      <p class="eyebrow reveal">Publication</p>
+      <h2 class="headline reveal" id="pub-title" style="font-size:clamp(34px,5vw,56px)">Research, published.</h2>
+    </div>
+    <div class="card publication reveal">
+      <div class="year">2024</div>
+      <div>
+        <h3>Implementation of the Graphic Rating Scale in Determining Motorcycle Indent Priorities at Motorcycle Dealers</h3>
+        <p>Technomedia Journal (TMJ), Vol. 9 No. 1 · Permana, Fahrulrozi, Ismono, <b>Ningrum</b></p>
+        <p>An information system that replaced ledger and WhatsApp tracking of indent orders for an authorised Honda dealer, ranking the queue with the Graphic Rating Scale method.</p>
+        <a class="link-arrow" href="https://garuda.kemdiktisaintek.go.id/documents/detail/4552009">View on Garuda</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact" aria-labelledby="contact-title">
+  <div class="narrow center">
+    <p class="eyebrow reveal">Contact</p>
+    <h2 class="headline reveal" id="contact-title">Let's talk.</h2>
+    <p class="subhead reveal">Open to conversations about quality engineering, test leadership, IT audit, business analysis and SAP, in banking, payment security and beyond.</p>
+    <div class="contact-actions reveal">
+      <a class="btn btn-primary" href="mailto:artysficial@gmail.com">artysficial@gmail.com</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/rahmadani-t-747a77186">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/artysficial">GitHub</a>
+    </div>
+    <form class="contact-form reveal" data-contact-form>
+      <div class="row">
+        <input class="field" name="name" placeholder="Name" autocomplete="name" required maxlength="100" aria-label="Name">
+        <input class="field" name="email" type="email" placeholder="Email" autocomplete="email" required maxlength="254" aria-label="Email">
+      </div>
+      <textarea class="field" name="message" placeholder="How can I help?" required minlength="10" maxlength="4000" aria-label="Message"></textarea>
+      <button class="btn btn-primary" type="submit" style="justify-self:start">Write the email</button>
+      <p class="form-note">Opens your email app with the message ready to send.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Rahmadani Tyas Ningrum · Jakarta, Indonesia</span>
+    <span>The Arunika Bank case study uses fictional data. <a href="https://github.com/artysficial/artysficial.github.io">Site source</a></span>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
 </body>
-
 </html>

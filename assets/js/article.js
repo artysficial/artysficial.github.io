@@ -28,14 +28,33 @@ copyLinkBtn.addEventListener("click", async function () {
 
 
 
-// theme toggle (the initial theme is applied by an inline script in <head>)
+// theme toggle (the initial theme is applied by an inline script in <head>): the new theme
+// spreads from the button as a circle, like the home page; a cross-fade where unsupported
 const themeBtn = document.querySelector("[data-theme-btn]");
 
 themeBtn.addEventListener("click", function () {
 
-  const theme = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
-  document.documentElement.setAttribute("data-theme", theme);
-  try { localStorage.setItem("theme", theme); } catch (error) { }
+  const root = document.documentElement;
+  const theme = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+  const apply = function () {
+    root.setAttribute("data-theme", theme);
+    try { localStorage.setItem("theme", theme); } catch (error) { }
+  };
+
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return apply();
+  if (!document.startViewTransition) {
+    root.classList.add("theme-fading");
+    apply();
+    setTimeout(function () { root.classList.remove("theme-fading"); }, 650);
+    return;
+  }
+  const box = themeBtn.getBoundingClientRect();
+  const x = box.left + box.width / 2, y = box.top + box.height / 2;
+  const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  document.startViewTransition(apply).ready.then(function () {
+    root.animate({ clipPath: ["circle(0px at " + x + "px " + y + "px)", "circle(" + radius + "px at " + x + "px " + y + "px)"] },
+      { duration: 750, easing: "cubic-bezier(0.4, 0, 0.2, 1)", pseudoElement: "::view-transition-new(root)" });
+  });
 
 });
 

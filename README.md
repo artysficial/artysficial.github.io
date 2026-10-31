@@ -1,69 +1,43 @@
-# Rahmadani Tyas Ningrum: Portfolio
+# Rahmadani Tyas Ningrum · Portfolio
 
-Personal portfolio for Rahmadani Tyas Ningrum, Test Lead and Senior Automation SDET. It is a static site (HTML, CSS and
-JavaScript, no build step), based on the open-source [vCard template](https://github.com/codewithsadee/vcard-personal-portfolio) (MIT).
+**Live: https://artysficial.github.io/**
+
+Personal site of a Test Lead and Senior Automation SDET. Static HTML, CSS and JavaScript, no build step,
+Apple-inspired design with light and dark mode (the theme change spreads from the toggle as a circle, using the
+View Transitions API, with a cross-fade fallback).
+
+## What is on it
+
+- **Career paths**: one fictional case study (Arunika Bank's payment-security programme) worked through six
+  roles: IT Consultant, IT Business Analyst, Project Manager, SDET, SAP Consultant and IT Auditor.
+- **Projects**: eight repositories, each with tests, CI and a live dashboard. The site reads every project's
+  `summary.json` at load time, so the status shown is always that of the latest CI run.
+
+  | Role | Project |
+  | --- | --- |
+  | SDET | [hsm-api-security-lab](https://github.com/artysficial/hsm-api-security-lab), [youtube-test-automation](https://github.com/artysficial/youtube-test-automation), [google-test-automation](https://github.com/artysficial/google-test-automation) |
+  | IT Business Analyst | [requirements-traceability](https://github.com/artysficial/requirements-traceability) |
+  | Project Manager | [project-health-dashboard](https://github.com/artysficial/project-health-dashboard) |
+  | IT Auditor | [itgc-audit-analytics](https://github.com/artysficial/itgc-audit-analytics) |
+  | SAP Consultant | [sap-p2p-analytics](https://github.com/artysficial/sap-p2p-analytics) |
+  | Senior IT Consultant | [it-maturity-assessment](https://github.com/artysficial/it-maturity-assessment) |
+
+- **Writing**: six articles on HSM, CBDC, eUICC, BDD, Jenkins/Jira traceability and release readiness.
+- **Play** (`play.html`): a macOS-style Tic-Tac-Toe with a minimax opponent, and Snake modernised from the
+  Nokia classic (smooth 60 fps rendering, swipe and D-pad controls, Classic LCD mode).
 
 ## Structure
 
 ```
-index.html                  About, Resume, Portfolio, Publications, Insights, Contact
-articles/*.html             Insight articles (eUICC, HSM, CBDC, BDD, Jenkins/Jira, release readiness)
-assets/css/style.css        Main site styles (colour tokens at the top)
-assets/css/article.css      Article page styles
-assets/js/script.js         Navigation, portfolio filter and modal, citation copy, contact form
-assets/js/article.js        Share and copy-link on article pages
-assets/images/avatar-memoji.png   Memoji avatar (favicon.png is the small version)
-assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf   Downloadable CV
-sitemap.xml, robots.txt, .nojekyll
+index.html, play.html        pages
+articles/*.html              articles
+assets/css/site.css          design tokens (light + dark), layout, components
+assets/css/games.css         macOS window, Tic-Tac-Toe and Snake styles
+assets/css/article.css       article pages
+assets/js/site.js            theme transition, reveals, role switcher, live project status, contact
+assets/js/tictactoe.js       game logic and minimax AI
+assets/js/snake.js           game loop and canvas renderer
+assets/docs/                 CV (PDF)
 ```
 
-Sections can be linked directly, e.g. `index.html#insights` or `index.html#contact`.
-
-## Common edits
-
-- **Change the avatar:** replace `assets/images/avatar-memoji.png` (square, transparent background works best) and
-  `assets/images/favicon.png` (64 x 64).
-- **Colours and light/dark mode:** all colours are tokens at the top of `assets/css/style.css` (dark theme in `:root`,
-  light theme in the `[data-theme="light"]` block). `assets/css/article.css` mirrors them for the article pages.
-- **Update the CV:** overwrite `assets/docs/Rahmadani-Tyas-Ningrum-CV.pdf` (keep the file name).
-- **Add a portfolio item:** copy one `<li class="project-item">` block in `index.html`. The `data-category` value must
-  match a filter button's text in lower case.
-- **Contact form:** it opens the visitor's email app with the message pre-filled, so it needs no server. To receive
-  messages without an email app, sign up at a free form service such as Formspree and change the form's `action`.
-
-## Live site
-
-Published with GitHub Pages at **https://artysficial.github.io/** from the `artysficial/artysficial.github.io`
-repository. Every push to `main` redeploys the site within a minute or two.
-
-## Free hosting on GitHub Pages
-
-1. Create a GitHub account if you do not have one, then create a **public** repository, for example `portfolio`.
-2. In this folder, point git at your repository and push:
-   ```bash
-   git config user.name "Rahmadani Tyas Ningrum"
-   git config user.email "artysficial@gmail.com"
-   git remote set-url origin https://github.com/<your-username>/portfolio.git
-   git add -A
-   git commit -m "Personal portfolio"
-   git push -u origin master
-   ```
-3. On GitHub, open **Settings → Pages**, set **Source** to *Deploy from a branch*, choose `master` and `/ (root)`, then save.
-4. After a minute the site is live at `https://<your-username>.github.io/portfolio/`.
-
-Netlify and Cloudflare Pages are free alternatives: drag and drop this folder, or connect the repository.
-
-## Custom domain (www.artysficial.co.id)
-
-Hosting is free, but the domain itself must be registered with a PANDI-accredited registrar, which is a paid yearly
-fee. Note that **`.co.id` is reserved for registered businesses** and requires company documents. For an individual,
-`artysficial.my.id` (personal, needs a KTP) or `artysficial.id` are the usual choices.
-
-Once you own the domain:
-
-1. At your registrar's DNS settings, add a `CNAME` record: `www` → `<your-username>.github.io`.
-   For the bare domain, add `A` records pointing to `185.199.108.153`, `185.199.109.153`, `185.199.110.153` and `185.199.111.153`.
-2. In **Settings → Pages → Custom domain**, enter `www.artysficial.co.id` (or your chosen domain), save, and tick
-   **Enforce HTTPS** once it becomes available.
-3. Find and replace `https://artysficial.github.io` with your new address in `index.html`, `articles/*.html`,
-   `sitemap.xml` and `robots.txt`.
+Everything respects `prefers-reduced-motion`, and every interactive element works with the keyboard.
