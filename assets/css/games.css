@@ -87,6 +87,25 @@
 .dpad [data-dir="down"] { grid-column: 2; grid-row: 3; }
 @media (hover: none) and (pointer: coarse) { .dpad { display: grid; } }
 
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- sum drop */
+.sumdrop-window { width: min(500px, 100%); }
+.sumdrop-body { padding: 18px 22px 24px; }
+.sumdrop-body .hud { flex-wrap: wrap; }
+@media (max-width: 520px) { .sumdrop-body { padding: 14px 12px 18px; } .sumdrop-body .hud { gap: 6px; } .sumdrop-body .hud div { padding: 6px 11px; gap: 6px; } }
+.sd-next { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; font-size: 14px !important; color: #fff; align-self: center; }
+.sumdrop-stage { position: relative; width: min(330px, 100%); margin: 0 auto; aspect-ratio: 6 / 11; border-radius: 16px; overflow: hidden; background: var(--card-2); touch-action: none; }
+.sumdrop-stage canvas { width: 100%; height: 100%; display: block; }
+.sd-controls { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; width: min(330px, 100%); margin: 14px auto 0; }
+.sd-controls button {
+  border: 0; border-radius: 12px; background: var(--card-2); color: var(--text); padding: 11px 0; font: inherit; font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: transform 0.2s var(--spring), background 0.2s; touch-action: manipulation;
+}
+.sd-controls button:hover { background: color-mix(in srgb, var(--accent) 12%, var(--card-2)); }
+.sd-controls button:active { transform: scale(0.92); background: color-mix(in srgb, var(--accent) 25%, var(--card-2)); }
+.sd-controls [data-sd-action="drop"] { background: var(--accent); color: #fff; }
+
 /* ---- sudoku */
 .sudoku-window { width: min(540px, 100%); }
 .sudoku-body { padding: 18px 22px 24px; }

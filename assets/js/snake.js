@@ -241,7 +241,9 @@
     if (!visible) return;
     if (KEYS[event.key] && state === "playing") { event.preventDefault(); turn(KEYS[event.key]); }
     else if (event.key === " " && (state === "playing" || state === "paused")) { event.preventDefault(); pause(); }
-    else if (event.key === "Enter" && state !== "playing" && document.activeElement === document.body) { event.preventDefault(); start(); }
+    // Enter only starts the game in the middle of the screen, so it never starts two games at once
+    else if (event.key === "Enter" && state !== "playing" && document.activeElement === document.body
+      && (() => { const r = app.getBoundingClientRect(); return r.top < innerHeight / 2 && r.bottom > innerHeight / 2; })()) { event.preventDefault(); start(); }
   });
 
   let touchStart = null;

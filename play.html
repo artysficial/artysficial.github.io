@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Play · Rahmadani Tyas Ningrum</title>
-  <meta name="description" content="Classic games rebuilt with Apple-style polish: a macOS-inspired Tic-Tac-Toe with an unbeatable opponent, Nokia's Snake modernised, and Sudoku in three difficulties.">
+  <meta name="description" content="Classic games rebuilt with Apple-style polish: a macOS-inspired Tic-Tac-Toe with an unbeatable opponent, Nokia's Snake modernised, Sudoku in three difficulties, and Sum Drop, an original falling-tile puzzle.">
   <link rel="canonical" href="https://artysficial.github.io/play.html">
   <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
@@ -33,6 +33,7 @@
       <li><a href="#tic-tac-toe">Tic-Tac-Toe</a></li>
       <li><a href="#snake">Snake</a></li>
       <li><a href="#sudoku">Sudoku</a></li>
+      <li><a href="#sum-drop">Sum Drop</a></li>
       <li><a href="index.html#projects">Projects</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
@@ -184,6 +185,49 @@
       </div>
     </div>
   </section>
+
+  <!-- ============ SUM DROP ============ -->
+  <section class="section alt game-section" id="sum-drop" aria-labelledby="sumdrop-title">
+    <div class="mac-window scale-in sumdrop-window" data-sumdrop>
+      <div class="mac-titlebar">
+        <div class="lights" aria-hidden="true"><i></i><i></i><i></i></div>
+        <h2 id="sumdrop-title">Sum Drop</h2>
+      </div>
+      <div class="mac-toolbar">
+        <div class="mac-seg" role="radiogroup" aria-label="Speed" data-sd-speed>
+          <button role="radio" aria-checked="false" data-value="relaxed">Relaxed</button>
+          <button role="radio" aria-checked="true" data-value="normal">Normal</button>
+          <button role="radio" aria-checked="false" data-value="fast">Fast</button>
+        </div>
+      </div>
+      <div class="sumdrop-body">
+        <div class="hud">
+          <div><span>Score</span><b data-sd-score>0</b></div>
+          <div><span>Best</span><b data-sd-best>0</b></div>
+          <div><span>Level</span><b data-sd-level>1</b></div>
+          <div><span>Next</span><b class="sd-next" data-sd-next>5</b></div>
+        </div>
+        <div class="sumdrop-stage">
+          <canvas data-sd-canvas role="img" aria-label="Sum Drop board"></canvas>
+          <div class="sheet" data-sd-sheet>
+            <h3 data-sd-title>Sum Drop</h3>
+            <p data-sd-text>Line up tiles that add up to <b>10</b>, across or down: 3&nbsp;+&nbsp;7, 1&nbsp;+&nbsp;2&nbsp;+&nbsp;3&nbsp;+&nbsp;4. They clear, and new sums from falling tiles chain for bonus points.</p>
+            <button class="mac-button primary" type="button" data-sd-start>Play</button>
+          </div>
+        </div>
+        <p class="sr-only" data-sd-live aria-live="polite"></p>
+        <div class="sd-controls" aria-label="Controls">
+          <button type="button" data-sd-action="left" aria-label="Move left">◀</button>
+          <button type="button" data-sd-action="down" aria-label="Move down">▼</button>
+          <button type="button" data-sd-action="right" aria-label="Move right">▶</button>
+          <button type="button" data-sd-action="swap">Swap</button>
+          <button type="button" data-sd-action="drop">Drop</button>
+          <button type="button" data-sd-action="pause" aria-label="Pause">❚❚</button>
+        </div>
+        <p class="hint">← → move · ↓ faster · Space drops · ↑ or S swaps with Next (once per tile) · P pauses. On touch: swipe, tap to swap.</p>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -197,5 +241,8 @@
 <script src="assets/js/tictactoe.js"></script>
 <script src="assets/js/snake.js"></script>
 <script src="assets/js/sudoku.js"></script>
+<script src="assets/js/sumdrop.js"></script>
+<!-- privacy-friendly visit counter (no cookies): artysficial.goatcounter.com -->
+<script data-goatcounter="https://artysficial.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
