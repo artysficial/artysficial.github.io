@@ -509,14 +509,20 @@
       <a class="btn btn-ghost" href="https://www.linkedin.com/in/rahmadani-t-747a77186">LinkedIn</a>
       <a class="btn btn-ghost" href="https://github.com/artysficial">GitHub</a>
     </div>
-    <form class="contact-form reveal" data-contact-form>
+    <!-- static site: FormSubmit relays the message to my inbox; without JavaScript the form posts there directly -->
+    <form class="contact-form reveal" data-contact-form action="https://formsubmit.co/artysficial@gmail.com" method="POST">
       <div class="row">
         <input class="field" name="name" placeholder="Name" autocomplete="name" required maxlength="100" aria-label="Name">
         <input class="field" name="email" type="email" placeholder="Email" autocomplete="email" required maxlength="254" aria-label="Email">
       </div>
       <textarea class="field" name="message" placeholder="How can I help?" required minlength="10" maxlength="4000" aria-label="Message"></textarea>
-      <button class="btn btn-primary" type="submit" style="justify-self:start">Write the email</button>
-      <p class="form-note">Opens your email app with the message ready to send.</p>
+      <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="_subject" value="Portfolio enquiry">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://artysficial.github.io/#contact">
+      <button class="btn btn-primary" type="submit" style="justify-self:start" data-send>Send message</button>
+      <p class="form-note" data-form-status aria-live="polite">Sent straight to my inbox; I usually reply within two working days.</p>
     </form>
   </div>
 </section>

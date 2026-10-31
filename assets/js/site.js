@@ -206,17 +206,39 @@ const showsStatus = board || document.querySelector("[data-live]");
     });
   });
 
-// ---- contact: compose the email in the visitor's mail app (static site, no server)
+// ---- contact: send in place through FormSubmit (static site, no server of its own);
+// if the relay is unreachable, offer the visitor's mail app as a fallback
 
 const form = document.querySelector("[data-contact-form]");
 if (form) {
-  form.addEventListener("submit", (event) => {
+  const status = form.querySelector("[data-form-status]");
+  const send = form.querySelector("[data-send]");
+  const say = (text, tone) => { status.textContent = text; status.dataset.tone = tone || ""; };
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
-    const data = new FormData(form);
-    const subject = encodeURIComponent(`Portfolio enquiry from ${data.get("name")}`);
-    const body = encodeURIComponent(`${data.get("message")}\n\n${data.get("name")}\n${data.get("email")}`);
-    location.href = `mailto:artysficial@gmail.com?subject=${subject}&body=${body}`;
+    const data = Object.fromEntries(new FormData(form));
+    if (data._honey) return say("Thanks, your message is on its way.", "ok");  // a bot filled the hidden field
+    data._subject = `Portfolio enquiry from ${data.name}`;
+    send.disabled = true;
+    say("Sending…");
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/artysficial@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || String(result.success) !== "true") throw new Error(result.message || response.status);
+      form.reset();
+      say(`Thanks ${data.name.split(" ")[0]}, your message is on its way. I'll reply to ${data.email}.`, "ok");
+    } catch (error) {
+      const mailto = `mailto:artysficial@gmail.com?subject=${encodeURIComponent(data._subject)}&body=${encodeURIComponent(data.message)}`;
+      status.innerHTML = 'Sorry, the message could not be sent. Please <a href="' + mailto + '">email me directly</a>.';
+      status.dataset.tone = "bad";
+    } finally {
+      send.disabled = false;
+    }
   });
 }
 
