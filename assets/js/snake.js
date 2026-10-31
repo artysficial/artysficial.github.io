@@ -236,7 +236,7 @@
 
   const KEYS = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right", w: "up", s: "down", a: "left", d: "right", W: "up", S: "down", A: "left", D: "right" };
   document.addEventListener("keydown", (event) => {
-    if (event.target.closest("input, textarea, button.mac-seg")) return;
+    if (event.target.closest("input, textarea, button.mac-seg, [data-sudoku]")) return;
     const visible = (() => { const r = app.getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; })();
     if (!visible) return;
     if (KEYS[event.key] && state === "playing") { event.preventDefault(); turn(KEYS[event.key]); }

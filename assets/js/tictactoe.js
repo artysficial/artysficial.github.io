@@ -181,7 +181,7 @@
 
   // keys 1-9 map to the squares like a phone keypad read left to right, top to bottom
   document.addEventListener("keydown", (event) => {
-    if (event.target.closest("input, textarea") || event.metaKey || event.ctrlKey) return;
+    if (event.target.closest("input, textarea, [data-sudoku]") || event.metaKey || event.ctrlKey) return;
     const rect = app.getBoundingClientRect();
     if (rect.bottom < 0 || rect.top > innerHeight) return;
     if (/^[1-9]$/.test(event.key)) play(Number(event.key) - 1);

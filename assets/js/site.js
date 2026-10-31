@@ -242,4 +242,17 @@ if (form) {
   });
 }
 
+// ---- back button: when the visitor came from the home page, return to their place on it
+
+const back = document.querySelector("[data-back]");
+if (back) {
+  back.addEventListener("click", (event) => {
+    const from = document.referrer && new URL(document.referrer);
+    if (from && from.origin === location.origin && /^\/(index\.html)?$/.test(from.pathname) && history.length > 1) {
+      event.preventDefault();
+      history.back();
+    }
+  });
+}
+
 document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));

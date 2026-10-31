@@ -86,4 +86,58 @@
 .dpad [data-dir="pause"] { grid-column: 2; grid-row: 2; font-size: 13px; } .dpad [data-dir="right"] { grid-column: 3; grid-row: 2; }
 .dpad [data-dir="down"] { grid-column: 2; grid-row: 3; }
 @media (hover: none) and (pointer: coarse) { .dpad { display: grid; } }
+
+/* ---- sudoku */
+.sudoku-window { width: min(540px, 100%); }
+.sudoku-body { padding: 18px 22px 24px; }
+.sudoku-window.busy .sudoku-board { opacity: 0.4; }
+.sudoku-stage { position: relative; width: min(460px, 100%); margin: 0 auto; }
+.sudoku-board {
+  --thick: color-mix(in srgb, var(--text) 75%, transparent); --thin: color-mix(in srgb, var(--line) 85%, transparent);
+  display: grid; grid-template-columns: repeat(9, 1fr); aspect-ratio: 1; border: 2px solid var(--thick); border-radius: 12px; overflow: hidden;
+  background: var(--card); transition: opacity 0.2s;
+}
+.sdk-cell {
+  position: relative; min-width: 0; min-height: 0; padding: 0; border: 0; border-right: 1px solid var(--thin); border-bottom: 1px solid var(--thin);
+  background: transparent; color: var(--text); font: inherit; font-size: clamp(17px, 5.2vw, 26px); font-weight: 500; font-variant-numeric: tabular-nums;
+  display: grid; place-items: center; cursor: pointer; transition: background 0.15s;
+}
+.sdk-cell.box-r { border-right: 2px solid var(--thick); } .sdk-cell.box-b { border-bottom: 2px solid var(--thick); }
+.sdk-cell.last-c { border-right: 0; } .sdk-cell.last-r { border-bottom: 0; }
+.sdk-cell.given { font-weight: 650; }
+.sdk-cell.user { color: var(--accent); }
+.sdk-cell.hinted { color: var(--ba); }
+.sdk-cell.wrong { color: var(--bad); }
+.sdk-cell.peer { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.sdk-cell.same { background: color-mix(in srgb, var(--accent) 17%, transparent); }
+.sdk-cell.selected { background: color-mix(in srgb, var(--accent) 30%, transparent); }
+.sdk-cell.wrong.selected { background: color-mix(in srgb, var(--bad) 18%, transparent); }
+.sdk-cell:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.sdk-cell.pop { animation: sdk-pop 0.35s var(--spring); }
+@keyframes sdk-pop { 45% { transform: scale(1.22); } }
+.sdk-notes { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; height: 100%; padding: 2px; }
+.sdk-notes span { display: grid; place-items: center; font-size: clamp(8px, 1.8vw, 11px); font-weight: 500; color: var(--muted); line-height: 1; }
+.sudoku-board.solved .sdk-cell { animation: sdk-wave 0.7s var(--ease) both; animation-delay: calc(var(--d) * 22ms); }
+@keyframes sdk-wave { 40% { background: color-mix(in srgb, #30d158 35%, transparent); transform: scale(0.9); } }
+.sdk-status { text-align: center; font-size: 14px; font-weight: 500; color: var(--muted); min-height: 20px; margin: 12px 0 4px; }
+.sdk-tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: min(460px, 100%); margin: 0 auto 10px; }
+.sdk-tool {
+  display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 4px; border: 0; border-radius: 12px;
+  background: transparent; color: var(--muted); font: inherit; font-size: 12px; cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.sdk-tool:hover { background: var(--card-2); color: var(--text); }
+.sdk-tool svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sdk-tool i { font-style: normal; font-weight: 600; }
+.sdk-tool[aria-pressed="true"] { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.sdk-pad { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; width: min(460px, 100%); margin: 0 auto; }
+.sdk-pad button {
+  display: flex; flex-direction: column; align-items: center; padding: 8px 0 5px; border: 0; border-radius: 12px; background: var(--card-2);
+  color: var(--accent); font: inherit; font-size: clamp(19px, 5vw, 26px); font-weight: 500; line-height: 1.1; cursor: pointer;
+  transition: transform 0.2s var(--spring), background 0.2s, opacity 0.2s;
+}
+.sdk-pad button small { font-size: 10px; color: var(--faint); min-height: 12px; }
+.sdk-pad button:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 12%, var(--card-2)); }
+.sdk-pad button:active:not(:disabled) { transform: scale(0.92); }
+.sdk-pad button:disabled { opacity: 0.25; cursor: default; }
+@media (max-width: 520px) { .sudoku-body { padding: 14px 12px 18px; } .sdk-pad { gap: 4px; } .sdk-pad button { border-radius: 9px; } }
 @media (max-width: 520px) { .ttt-body { padding: 18px; } .mac-toolbar { gap: 8px; } .mac-seg button { padding: 4px 9px; } }
