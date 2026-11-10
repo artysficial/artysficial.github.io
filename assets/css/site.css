@@ -131,6 +131,8 @@ button { font: inherit; color: inherit; }
 /* ---- hero */
 .hero { position: relative; padding: 110px 22px 90px; text-align: center; overflow: hidden; }
 .hero .avatar { width: 96px; height: 96px; margin: 0 auto 22px; border-radius: 50%; background: var(--card-2); box-shadow: var(--shadow); }
+.hero-name { font-size: 19px; line-height: 1.35; }
+.hero-name span { font-weight: 500; }
 .hero-title { font-size: clamp(52px, 9vw, 112px); line-height: 1; letter-spacing: -0.045em; font-weight: 700; margin: 0 0 22px; }
 .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35; pointer-events: none; z-index: -1; }
 .orb.one { width: 520px; height: 520px; background: #0071e3; top: -180px; left: -120px; }
